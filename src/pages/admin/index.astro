@@ -1,7 +1,7 @@
 ---
 export const prerender = false;
 
-import { listSites, listSitePages } from '../../lib/github';
+import { listSites, listSitePages, listRootPages, isClientRepo } from '../../lib/github';
 import { checkAuth } from '../../lib/auth';
 
 // Auth check
@@ -16,10 +16,16 @@ if (!auth.authenticated) {
 }
 
 // Get list of sites from GitHub API
+const clientRepo = isClientRepo();
 let sites: string[] = [];
 if (ghToken) {
   try {
-    sites = await listSites(ghToken);
+    if (clientRepo) {
+      const repoName = (import.meta.env.GITHUB_REPO as string).split('/').pop() || '';
+      sites = [repoName.replace(/^site-/, '')];
+    } else {
+      sites = await listSites(ghToken);
+    }
   } catch (e) {
     console.error('Failed to list sites:', e);
   }
@@ -60,7 +66,9 @@ const selectedColor = AVATAR_COLORS[selectedColorIdx >= 0 ? selectedColorIdx % A
 let pages: string[] = [];
 if (ghToken && selectedSite) {
   try {
-    pages = await listSitePages(selectedSite, ghToken);
+    pages = clientRepo
+      ? await listRootPages(ghToken)
+      : await listSitePages(selectedSite, ghToken);
   } catch (e) {
     console.error('Failed to list pages:', e);
   }
