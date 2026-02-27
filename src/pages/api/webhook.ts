@@ -75,19 +75,18 @@ async function provisionClient(
   // Auto-provision: create GitHub repo + Vercel project
   const demoSlug = session.metadata?.demo_slug || slug;
   const vercelToken = import.meta.env.VERCEL_API_TOKEN;
-  const anthropicKey = import.meta.env.ANTHROPIC_API_KEY;
   let provisionResult: { repoUrl: string; siteUrl: string; adminUrl: string } | null = null;
 
-  if (vercelToken && anthropicKey) {
+  if (vercelToken) {
     try {
       provisionResult = await provisionSite({
         slug,
         demoSlug,
         businessName,
         password,
+        clientEmail: session.customer_email || '',
         ghToken,
         vercelToken,
-        anthropicKey,
       });
       console.log(`Auto-provisioned site: ${provisionResult.siteUrl}`);
     } catch (err) {

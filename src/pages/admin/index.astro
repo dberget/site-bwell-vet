@@ -5,7 +5,10 @@ import { listSites, listSitePages } from '../../lib/github';
 import { checkAuth } from '../../lib/auth';
 
 // Auth check
-const adminSecret = import.meta.env.ADMIN_SECRET || 'siteengine2026';
+const adminSecret = import.meta.env.ADMIN_SECRET;
+if (!adminSecret) {
+  return Astro.redirect('/admin/login');
+}
 const ghToken = import.meta.env.GITHUB_TOKEN || '';
 const auth = await checkAuth(Astro.cookies.get('se_auth')?.value, adminSecret, ghToken);
 if (!auth.authenticated) {
@@ -782,15 +785,15 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
     }
     .msg-user {
       max-width: 78%;
-      background-color: #2563eb !important;
-      color: #ffffff !important;
+      background-color: #2563eb;
+      color: #ffffff;
       border-radius: 18px 18px 4px 18px;
       box-shadow: 0 2px 4px rgba(37,99,235,0.2);
     }
     .msg-row .msg { max-width: none; }
     .msg-assistant {
-      background-color: #ffffff !important;
-      color: #334155 !important;
+      background-color: #ffffff;
+      color: #334155;
       border-radius: 4px 18px 18px 18px;
       border: 1px solid #e2e8f0;
       box-shadow: 0 1px 3px rgba(0,0,0,0.08);
@@ -1410,9 +1413,65 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
     @media (max-width: 1200px) and (min-width: 769px) {
       .panel { width: 360px; }
     }
+
+    /* ===== Toast Notifications ===== */
+    .toast-container {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      pointer-events: none;
+    }
+    .toast {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      animation: toast-in 0.3s ease-out;
+      max-width: 360px;
+    }
+    .toast-error {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+    }
+    .toast-info {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
+    }
+    .toast-dismiss {
+      background: none;
+      border: none;
+      color: inherit;
+      opacity: 0.5;
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1;
+      padding: 0 0 0 0.25rem;
+      flex-shrink: 0;
+    }
+    .toast-dismiss:hover { opacity: 1; }
+    @keyframes toast-in {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes toast-out {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(-10px); }
+    }
   </style>
 </head>
 <body>
+  <div class="toast-container" id="toastContainer"></div>
   <div class="layout">
     <!-- Mobile overlay -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
@@ -1452,20 +1511,20 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
         </div>
       )}
 
-      <nav class="rail-nav">
-        <button class="rail-nav-item active" id="tabChat" onclick="switchTab('chat')" title="Chat">
+      <nav class="rail-nav" role="tablist" aria-label="Admin panels">
+        <button class="rail-nav-item active" id="tabChat" role="tab" aria-selected="true" aria-controls="messages" title="Chat">
           <svg class="rail-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
           <span class="rail-nav-label">Chat</span>
         </button>
-        <button class="rail-nav-item" id="tabHistory" onclick="switchTab('history')" title="History">
+        <button class="rail-nav-item" id="tabHistory" role="tab" aria-selected="false" aria-controls="historyPanel" title="History">
           <svg class="rail-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
           <span class="rail-nav-label">History</span>
         </button>
-        <button class="rail-nav-item" id="tabLeads" onclick="switchTab('leads')" title="Leads">
+        <button class="rail-nav-item" id="tabLeads" role="tab" aria-selected="false" aria-controls="leadsPanel" title="Leads">
           <svg class="rail-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
           <span class="rail-nav-label">Leads</span>
         </button>
-        <button class="rail-nav-item" id="tabAssets" onclick="switchTab('assets')" title="Assets">
+        <button class="rail-nav-item" id="tabAssets" role="tab" aria-selected="false" aria-controls="assetsPanel" title="Assets">
           <svg class="rail-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
           <span class="rail-nav-label">Assets</span>
         </button>
@@ -1474,7 +1533,7 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
       <div style="flex:1"></div>
 
       <div class="rail-bottom">
-        <button class="rail-nav-item rail-logout" onclick="document.cookie='se_auth=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT';window.location.href='/admin/login'" title="Logout">
+        <button class="rail-nav-item rail-logout" id="logoutBtn" title="Logout">
           <svg class="rail-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
           <span class="rail-nav-label">Logout</span>
         </button>
@@ -1506,7 +1565,6 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
               <button
                 class={`page-tab ${page === selectedPage ? 'active' : ''}`}
                 data-page={page}
-                onclick={`switchPage('${page}')`}
               >
                 {page === 'index' ? 'Home' : page.charAt(0).toUpperCase() + page.slice(1)}
               </button>
@@ -1524,21 +1582,21 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
         <div class="publish-bar" id="publishBar">
           <span class="publish-bar-dot"></span>
           <span class="publish-bar-text">Unpublished changes</span>
-          <button class="publish-btn" id="publishBtn" onclick="handlePublish()">Publish</button>
-          <button class="discard-btn" id="discardBtn" onclick="handleDiscard()">Discard</button>
+          <button class="publish-btn" id="publishBtn">Publish</button>
+          <button class="discard-btn" id="discardBtn">Discard</button>
         </div>
 
-        <div class="messages" id="messages"></div>
+        <div class="messages" id="messages" role="tabpanel" aria-labelledby="tabChat"></div>
 
-        <div class="history-panel" id="historyPanel">
+        <div class="history-panel" id="historyPanel" role="tabpanel" aria-labelledby="tabHistory">
           <div class="history-empty" id="historyLoading">Loading history...</div>
         </div>
 
-        <div class="leads-panel" id="leadsPanel">
+        <div class="leads-panel" id="leadsPanel" role="tabpanel" aria-labelledby="tabLeads">
           <div class="history-empty">Loading leads...</div>
         </div>
 
-        <div class="assets-panel" id="assetsPanel">
+        <div class="assets-panel" id="assetsPanel" role="tabpanel" aria-labelledby="tabAssets">
           <div class="assets-header">
             <h3>Page Images</h3>
             <p class="assets-subtitle">Click an image slot, then select an image to assign</p>
@@ -1566,7 +1624,7 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg>
               </button>
               <input type="file" id="fileInput" accept="image/*" multiple style="display:none" />
-              <button class="send-btn" id="sendBtn" onclick="handleSend()">
+              <button class="send-btn" id="sendBtn">
                 <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8h9M8.5 4L12.5 8l-4 4"/></svg>
               </button>
             </div>
@@ -1609,11 +1667,11 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
   </div>
 
   <!-- Escalation Modal -->
-  <div class="modal-overlay" id="escalateModal">
+  <div class="modal-overlay" id="escalateModal" role="dialog" aria-modal="true" aria-labelledby="escalateModalTitle">
     <div class="modal">
       <div class="modal-header">
         <div>
-          <h3>Get Developer Help</h3>
+          <h3 id="escalateModalTitle">Get Developer Help</h3>
           <p class="modal-subtitle">Describe the changes you need a developer to make</p>
         </div>
         <button class="modal-close" id="escalateClose">&times;</button>
@@ -1646,14 +1704,35 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
     let previewBranch = '';
     let previewDeployUrl = null;
 
-    const PAGE_NAMES = {
-      index: 'Home',
-      services: 'Services',
-      about: 'About',
-      contact: 'Contact',
-      cabins: 'Cabins',
-      activities: 'Activities',
-    };
+    function resetPreviewState() {
+      previewMode = false;
+      previewBranch = '';
+      previewDeployUrl = null;
+    }
+
+    function showToast(message, type = 'error', duration = 5000) {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `toast toast-${type}`;
+      const text = document.createElement('span');
+      text.textContent = message;
+      toast.appendChild(text);
+      const dismiss = document.createElement('button');
+      dismiss.className = 'toast-dismiss';
+      dismiss.textContent = '\u00d7';
+      dismiss.onclick = () => removeToast(toast);
+      toast.appendChild(dismiss);
+      container.appendChild(toast);
+      setTimeout(() => removeToast(toast), duration);
+    }
+    function removeToast(toast) {
+      if (!toast.parentNode) return;
+      toast.style.animation = 'toast-out 0.2s ease-in forwards';
+      toast.addEventListener('animationend', () => toast.remove());
+    }
+
+    const AI_AVATAR_SVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+
     const messagesEl = document.getElementById('messages');
     const inputEl = document.getElementById('chatInput');
     const sendBtn = document.getElementById('sendBtn');
@@ -1697,6 +1776,22 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
       document.getElementById('mobileOverlay').classList.remove('visible');
     });
 
+    // ===== Button event listeners =====
+    document.getElementById('tabChat').addEventListener('click', () => switchTab('chat'));
+    document.getElementById('tabHistory').addEventListener('click', () => switchTab('history'));
+    document.getElementById('tabLeads').addEventListener('click', () => switchTab('leads'));
+    document.getElementById('tabAssets').addEventListener('click', () => switchTab('assets'));
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      document.cookie = 'se_auth=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      window.location.href = '/admin/login';
+    });
+    sendBtn.addEventListener('click', () => window.handleSend());
+    document.getElementById('publishBtn')?.addEventListener('click', () => handlePublish());
+    document.getElementById('discardBtn')?.addEventListener('click', () => handleDiscard());
+    document.querySelectorAll('.page-tab[data-page]').forEach(btn => {
+      btn.addEventListener('click', () => switchPage(btn.dataset.page));
+    });
+
     // ===== Auto-grow textarea =====
     inputEl.addEventListener('input', () => {
       inputEl.style.height = 'auto';
@@ -1726,7 +1821,6 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
       if (previewLink) previewLink.href = url;
     }
     document.getElementById('refreshBtn').addEventListener('click', refreshPreview);
-    window.refreshPreview = refreshPreview;
 
     // ===== Page switching =====
     function switchPage(page) {
@@ -1746,7 +1840,6 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
       messagesEl.innerHTML = '';
       addWelcome();
     }
-    window.switchPage = switchPage;
 
     // ===== Welcome message =====
     addWelcome();
@@ -1767,7 +1860,6 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
     // ===== Tab switching =====
     const leadsPanel = document.getElementById('leadsPanel');
     const assetsPanel = document.getElementById('assetsPanel');
-    let assetsLoaded = false;
     let selectedSlot = null;
 
     function switchTab(tab) {
@@ -1779,10 +1871,10 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
       const panelSubtitle = document.getElementById('panelSubtitle');
       const escalateBtn = document.getElementById('escalateBtn');
 
-      tabChat.classList.remove('active');
-      tabHistory.classList.remove('active');
-      tabLeads.classList.remove('active');
-      tabAssets.classList.remove('active');
+      [tabChat, tabHistory, tabLeads, tabAssets].forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
 
       messagesEl.style.display = 'none';
       historyPanel.classList.remove('visible');
@@ -1791,27 +1883,30 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
       chatInputArea.style.display = 'none';
       if (escalateBtn) escalateBtn.style.display = 'none';
 
+      const tabMap = { chat: tabChat, history: tabHistory, leads: tabLeads, assets: tabAssets };
+      const activeTab = tabMap[tab];
+      if (activeTab) {
+        activeTab.classList.add('active');
+        activeTab.setAttribute('aria-selected', 'true');
+      }
+
       if (tab === 'chat') {
-        tabChat.classList.add('active');
         messagesEl.style.display = 'flex';
         chatInputArea.style.display = 'block';
         if (panelTitle) panelTitle.textContent = 'Edit Content';
         if (panelSubtitle) panelSubtitle.textContent = 'Chat with AI to update your website';
         if (escalateBtn) escalateBtn.style.display = 'flex';
       } else if (tab === 'history') {
-        tabHistory.classList.add('active');
         historyPanel.classList.add('visible');
         if (panelTitle) panelTitle.textContent = 'Edit History';
         if (panelSubtitle) panelSubtitle.textContent = 'Recent changes to your site';
         if (!historyLoaded) loadHistory();
       } else if (tab === 'leads') {
-        tabLeads.classList.add('active');
         leadsPanel.classList.add('visible');
         if (panelTitle) panelTitle.textContent = 'Contact Leads';
         if (panelSubtitle) panelSubtitle.textContent = 'Form submissions from your site';
         if (!leadsLoaded) loadLeads();
       } else if (tab === 'assets') {
-        tabAssets.classList.add('active');
         assetsPanel.classList.add('visible');
         if (panelTitle) panelTitle.textContent = 'Page Images';
         if (panelSubtitle) panelSubtitle.textContent = 'Manage your site images';
@@ -1837,47 +1932,73 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
         const data = await res.json();
 
         if (data.error) {
-          slotsGrid.innerHTML = `<div class="assets-empty">Error: ${data.error}</div>`;
+          slotsGrid.innerHTML = `<div class="assets-empty">Error: ${escapeHtml(data.error)}</div>`;
           return;
         }
 
-        slotsGrid.innerHTML = data.slots.map(slot => `
-          <div class="slot-card ${slot.currentImage ? 'has-image' : ''}" data-slot="${slot.id}" onclick="selectSlot('${slot.id}')">
-            ${slot.currentImage
-              ? `<img src="${slot.currentImage}" alt="${slot.label}" />
-                 <button class="slot-remove" onclick="event.stopPropagation(); unassignSlot('${slot.id}')">&times;</button>
-                 <div class="slot-label">${slot.label}</div>`
-              : `<div class="slot-empty">
-                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-                   <span class="slot-empty-label">${slot.label}</span>
-                 </div>`
-            }
-          </div>
-        `).join('');
+        slotsGrid.innerHTML = '';
+        data.slots.forEach(slot => {
+          const card = document.createElement('div');
+          card.className = 'slot-card' + (slot.currentImage ? ' has-image' : '');
+          card.dataset.slot = slot.id;
+          card.addEventListener('click', () => selectSlot(slot.id));
+
+          if (slot.currentImage) {
+            const img = document.createElement('img');
+            img.src = slot.currentImage;
+            img.alt = slot.label;
+            card.appendChild(img);
+
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'slot-remove';
+            removeBtn.textContent = '\u00d7';
+            removeBtn.addEventListener('click', (e) => { e.stopPropagation(); unassignSlot(slot.id); });
+            card.appendChild(removeBtn);
+
+            const label = document.createElement('div');
+            label.className = 'slot-label';
+            label.textContent = slot.label;
+            card.appendChild(label);
+          } else {
+            card.innerHTML = `<div class="slot-empty">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              <span class="slot-empty-label"></span>
+            </div>`;
+            card.querySelector('.slot-empty-label').textContent = slot.label;
+          }
+
+          slotsGrid.appendChild(card);
+        });
 
         if (data.unassigned.length > 0) {
-          unassignedGrid.innerHTML = data.unassigned.map(img => `
-            <img src="${img}" class="unassigned-img" onclick="selectImage('${img}')" alt="Unassigned" />
-          `).join('');
+          unassignedGrid.innerHTML = '';
+          data.unassigned.forEach(imgUrl => {
+            const img = document.createElement('img');
+            img.src = imgUrl;
+            img.className = 'unassigned-img';
+            img.alt = 'Unassigned';
+            img.addEventListener('click', () => selectImage(imgUrl));
+            unassignedGrid.appendChild(img);
+          });
         } else {
           unassignedGrid.innerHTML = '<div class="assets-empty">No unassigned images</div>';
         }
 
-        assetsLoaded = true;
+
       } catch (err) {
         slotsGrid.innerHTML = `<div class="assets-empty">Failed to load assets</div>`;
       }
     }
 
-    window.selectSlot = function(slotId) {
+    function selectSlot(slotId) {
       selectedSlot = slotId;
       document.querySelectorAll('.slot-card').forEach(el => el.classList.remove('selected'));
       document.querySelector(`[data-slot="${slotId}"]`)?.classList.add('selected');
-    };
+    }
 
-    window.selectImage = async function(imageUrl) {
+    async function selectImage(imageUrl) {
       if (!selectedSlot) {
-        alert('First click on a slot to select where you want to place this image');
+        showToast('First click on a slot to select where you want to place this image', 'info');
         return;
       }
 
@@ -1900,14 +2021,14 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
             startDeployFallback();
           }
         } else {
-          alert('Error: ' + data.error);
+          showToast('Error: ' + data.error);
         }
       } catch (err) {
-        alert('Failed to assign image');
+        showToast('Failed to assign image');
       }
-    };
+    }
 
-    window.unassignSlot = async function(slotId) {
+    async function unassignSlot(slotId) {
       try {
         const unassignBody = { action: 'unassign', slug: siteSlug, slotId };
         if (previewMode && previewBranch) unassignBody.branch = previewBranch;
@@ -1926,12 +2047,12 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
             startDeployFallback();
           }
         } else {
-          alert('Error: ' + data.error);
+          showToast('Error: ' + data.error);
         }
       } catch (err) {
-        alert('Failed to unassign image');
+        showToast('Failed to unassign image');
       }
-    };
+    }
 
     // ===== Time formatting =====
     function timeAgo(date) {
@@ -2035,7 +2156,6 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
 
     // ===== Image upload =====
     const pendingFiles = [];
-    const chatInputArea = document.getElementById('chatInputArea');
     const dropPreview = document.getElementById('dropPreview');
 
     document.getElementById('uploadBtn').addEventListener('click', () => {
@@ -2126,7 +2246,7 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
 
       const avatar = document.createElement('div');
       avatar.className = 'msg-avatar';
-      avatar.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+      avatar.innerHTML = AI_AVATAR_SVG;
 
       const bubble = document.createElement('div');
       bubble.className = 'msg msg-assistant';
@@ -2166,7 +2286,7 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
 
         const avatar = document.createElement('div');
         avatar.className = 'msg-avatar';
-        avatar.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+        avatar.innerHTML = AI_AVATAR_SVG;
 
         const bubble = document.createElement('div');
         bubble.className = 'msg msg-assistant';
@@ -2201,7 +2321,7 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
 
       const avatar = document.createElement('div');
       avatar.className = 'msg-avatar';
-      avatar.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+      avatar.innerHTML = AI_AVATAR_SVG;
 
       const bubble = document.createElement('div');
       bubble.className = 'msg msg-assistant';
@@ -2275,7 +2395,7 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
 
       const avatar = document.createElement('div');
       avatar.className = 'msg-avatar';
-      avatar.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+      avatar.innerHTML = AI_AVATAR_SVG;
 
       const dots = document.createElement('div');
       dots.className = 'msg-typing-dots';
@@ -2333,9 +2453,7 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
             clearDeployTimers();
             if (isPublish) {
               setDeployState('success', 'Live!');
-              previewMode = false;
-              previewBranch = '';
-              previewDeployUrl = null;
+              resetPreviewState();
               updatePublishBar();
             } else if (previewMode) {
               setDeployState('success', 'Preview ready!');
@@ -2385,6 +2503,65 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
       }, 90000);
     }
 
+    // ===== Shared SSE streaming =====
+    async function streamChatResponse() {
+      const chatBody = { messages, siteSlug, pageName: currentPage };
+      if (previewMode && previewBranch) chatBody.branch = previewBranch;
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(chatBody),
+      });
+
+      // Non-SSE error responses (auth failures, etc.)
+      if (res.headers.get('Content-Type')?.includes('application/json')) {
+        const data = await res.json();
+        hideTyping();
+        addMessage('assistant', `Error: ${data.error}`);
+        return;
+      }
+
+      hideTyping();
+      const bubble = createStreamingBubble();
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n\n');
+        buffer = lines.pop() || '';
+
+        for (const line of lines) {
+          if (!line.startsWith('data: ')) continue;
+          let data;
+          try { data = JSON.parse(line.slice(6)); } catch { continue; }
+
+          if (data.text) bubble.append(data.text);
+          if (data.error) bubble.append(`\nError: ${data.error}`);
+
+          if (data.done) {
+            messages.push({ role: 'assistant', content: bubble.getText() });
+            bubble.finalize();
+
+            if (data.previewed && data.branch) {
+              previewMode = true;
+              previewBranch = data.branch;
+              updatePublishBar();
+            }
+
+            if (data.dataUpdated || data.previewed) {
+              if (data.commitSha) startDeployPolling(data.commitSha);
+              else startDeployFallback();
+            }
+          }
+        }
+      }
+    }
+
     // ===== Send handler =====
     async function handleSend() {
       const text = inputEl.value.trim();
@@ -2400,74 +2577,7 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
       showTyping();
 
       try {
-        const chatBody = { messages, siteSlug, pageName: currentPage };
-        if (previewMode && previewBranch) chatBody.branch = previewBranch;
-        const res = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(chatBody),
-        });
-
-        // Non-SSE error responses (auth failures, etc.)
-        if (res.headers.get('Content-Type')?.includes('application/json')) {
-          const data = await res.json();
-          hideTyping();
-          addMessage('assistant', `Error: ${data.error}`);
-          loading = false;
-          sendBtn.disabled = false;
-          inputEl.focus();
-          return;
-        }
-
-        hideTyping();
-        const bubble = createStreamingBubble();
-
-        const reader = res.body.getReader();
-        const decoder = new TextDecoder();
-        let buffer = '';
-
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-
-          buffer += decoder.decode(value, { stream: true });
-          const lines = buffer.split('\n\n');
-          buffer = lines.pop() || '';
-
-          for (const line of lines) {
-            if (!line.startsWith('data: ')) continue;
-            const data = JSON.parse(line.slice(6));
-
-            if (data.text) {
-              bubble.append(data.text);
-            }
-
-            if (data.error) {
-              bubble.append(`\nError: ${data.error}`);
-            }
-
-            if (data.done) {
-              const fullText = bubble.getText();
-              messages.push({ role: 'assistant', content: fullText });
-              bubble.finalize();
-
-              // Enter preview mode on first edit
-              if (data.previewed && data.branch) {
-                previewMode = true;
-                previewBranch = data.branch;
-                updatePublishBar();
-              }
-
-              if (data.dataUpdated || data.previewed) {
-                if (data.commitSha) {
-                  startDeployPolling(data.commitSha);
-                } else {
-                  startDeployFallback();
-                }
-              }
-            }
-          }
-        }
+        await streamChatResponse();
       } catch (err) {
         hideTyping();
         addMessage('assistant', 'Sorry, something went wrong. Please try again.');
@@ -2523,12 +2633,13 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
           btn.disabled = false;
           btn.textContent = 'Submit Request';
         } else {
+          const safeUrl = (data.issueUrl && /^https:\/\/github\.com\//.test(data.issueUrl)) ? escapeHtml(data.issueUrl) : '#';
           document.getElementById('escalateResult').innerHTML =
             `<div class="modal-success">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
               <div>
                 <strong>Request submitted!</strong><br>
-                <a href="${data.issueUrl}" target="_blank" rel="noopener">View on GitHub &rarr;</a>
+                <a href="${safeUrl}" target="_blank" rel="noopener">View on GitHub &rarr;</a>
               </div>
             </div>`;
           document.getElementById('escalateNote').style.display = 'none';
@@ -2547,6 +2658,23 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
     document.getElementById('escalateModal')?.addEventListener('click', (e) => {
       if (e.target === document.getElementById('escalateModal')) {
         document.getElementById('escalateModal').classList.remove('visible');
+      }
+    });
+
+    // ===== Keyboard shortcuts =====
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        // Close modal
+        const modal = document.getElementById('escalateModal');
+        if (modal?.classList.contains('visible')) {
+          modal.classList.remove('visible');
+          return;
+        }
+        // Close site dropdown
+        document.getElementById('siteDropdown')?.classList.remove('visible');
+        // Close mobile menu
+        document.getElementById('rail')?.classList.remove('mobile-open');
+        document.getElementById('mobileOverlay')?.classList.remove('visible');
       }
     });
 
@@ -2576,7 +2704,7 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
         const data = await res.json();
 
         if (data.error) {
-          alert('Publish failed: ' + data.error);
+          showToast('Publish failed: ' + data.error);
           publishBtn.disabled = false;
           discardBtn.disabled = false;
           publishBtn.textContent = 'Publish';
@@ -2588,14 +2716,12 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
           startDeployPolling(data.commitSha, true);
         } else {
           // Fallback: just exit preview mode
-          previewMode = false;
-          previewBranch = '';
-          previewDeployUrl = null;
+          resetPreviewState();
           updatePublishBar();
           refreshPreview();
         }
       } catch {
-        alert('Publish failed. Please try again.');
+        showToast('Publish failed. Please try again.');
       }
 
       publishBtn.disabled = false;
@@ -2621,16 +2747,14 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
         const data = await res.json();
 
         if (data.error) {
-          alert('Discard failed: ' + data.error);
+          showToast('Discard failed: ' + data.error);
         } else {
-          previewMode = false;
-          previewBranch = '';
-          previewDeployUrl = null;
+          resetPreviewState();
           updatePublishBar();
           refreshPreview();
         }
       } catch {
-        alert('Discard failed. Please try again.');
+        showToast('Discard failed. Please try again.');
       }
 
       publishBtn.disabled = false;
@@ -2671,10 +2795,9 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
       });
     }
 
-    const origHandleSend = handleSend;
     async function handleSendWithImages() {
       if (pendingFiles.length === 0) {
-        return origHandleSend();
+        return handleSend();
       }
 
       const files = [...pendingFiles];
@@ -2733,58 +2856,8 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
       // Push multimodal message into conversation
       messages.push({ role: 'user', content: contentBlocks });
 
-      // Send to chat API (same flow as origHandleSend but messages already pushed)
       try {
-        const chatBody = { messages, siteSlug, pageName: currentPage };
-        if (previewMode && previewBranch) chatBody.branch = previewBranch;
-        const res = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(chatBody),
-        });
-
-        if (res.headers.get('Content-Type')?.includes('application/json')) {
-          const data = await res.json();
-          hideTyping();
-          addMessage('assistant', `Error: ${data.error}`);
-          loading = false;
-          sendBtn.disabled = false;
-          return;
-        }
-
-        hideTyping();
-        const bubble = createStreamingBubble();
-        const reader = res.body.getReader();
-        const decoder = new TextDecoder();
-        let buffer = '';
-
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          buffer += decoder.decode(value, { stream: true });
-          const lines = buffer.split('\n\n');
-          buffer = lines.pop() || '';
-          for (const line of lines) {
-            if (!line.startsWith('data: ')) continue;
-            const data = JSON.parse(line.slice(6));
-            if (data.text) bubble.append(data.text);
-            if (data.error) bubble.append(`\nError: ${data.error}`);
-            if (data.done) {
-              const fullText = bubble.getText();
-              messages.push({ role: 'assistant', content: fullText });
-              bubble.finalize();
-              if (data.previewed && data.branch) {
-                previewMode = true;
-                previewBranch = data.branch;
-                updatePublishBar();
-              }
-              if (data.dataUpdated || data.previewed) {
-                if (data.commitSha) startDeployPolling(data.commitSha);
-                else startDeployFallback();
-              }
-            }
-          }
-        }
+        await streamChatResponse();
       } catch {
         hideTyping();
         addMessage('assistant', 'Sorry, something went wrong. Please try again.');
@@ -2795,10 +2868,6 @@ const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || ''
       inputEl.focus();
     }
     window.handleSend = handleSendWithImages;
-    window.prefill = prefill;
-    window.switchTab = switchTab;
-    window.handlePublish = handlePublish;
-    window.handleDiscard = handleDiscard;
   </script>
 </body>
 </html>

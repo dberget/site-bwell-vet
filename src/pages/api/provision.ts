@@ -7,9 +7,8 @@ export const POST: APIRoute = async ({ request }) => {
   const adminSecret = import.meta.env.ADMIN_SECRET || 'siteengine2026';
   const ghToken = import.meta.env.GITHUB_TOKEN;
   const vercelToken = import.meta.env.VERCEL_API_TOKEN;
-  const anthropicKey = import.meta.env.ANTHROPIC_API_KEY;
 
-  if (!ghToken || !vercelToken || !anthropicKey) {
+  if (!ghToken || !vercelToken) {
     return new Response(JSON.stringify({ error: 'Missing env vars' }), { status: 500 });
   }
 
@@ -18,7 +17,7 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
   }
 
-  const { slug, demoSlug, businessName, password } = await request.json();
+  const { slug, demoSlug, businessName, password, email } = await request.json();
   if (!slug || !demoSlug) {
     return new Response(JSON.stringify({ error: 'slug and demoSlug required' }), { status: 400 });
   }
@@ -29,9 +28,9 @@ export const POST: APIRoute = async ({ request }) => {
       demoSlug,
       businessName: businessName || slug,
       password: password || 'changeme',
+      clientEmail: email || '',
       ghToken,
       vercelToken,
-      anthropicKey,
     });
 
     return new Response(JSON.stringify(result), {
