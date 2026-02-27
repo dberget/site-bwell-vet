@@ -1,13 +1,13 @@
 ---
-import Analytics from '../../components/Analytics.astro';
+import Analytics from '../components/Analytics.astro';
 ---
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About Us — B Well Veterinary Service | Alexandria, MN</title>
-  <meta name="description" content="Learn about B Well Veterinary Service, formerly Douglas County Animal Hospital. Compassionate, affordable veterinary care in Alexandria, MN." />
+  <title>Services — B Well Veterinary Service | Alexandria, MN</title>
+  <meta name="description" content="Complete veterinary services in Alexandria, MN. Wellness exams, surgery, dental care, emergency care, diagnostics, and in-house pharmacy." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -18,15 +18,15 @@ import Analytics from '../../components/Analytics.astro';
   <!-- NAV -->
   <header class="nav">
     <div class="nav__inner">
-      <a href="/bwell-vet" class="nav__brand">
+      <a href="/" class="nav__brand">
         <svg class="nav__paw" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><ellipse cx="7.5" cy="7" rx="2.5" ry="3"/><ellipse cx="16.5" cy="7" rx="2.5" ry="3"/><ellipse cx="4" cy="13" rx="2" ry="2.5"/><ellipse cx="20" cy="13" rx="2" ry="2.5"/><path d="M12 22c-3 0-5.5-2.5-6.5-5.5-.6-1.8.2-3.5 1.5-4.5 1.5-1.2 3.2-2 5-2s3.5.8 5 2c1.3 1 2.1 2.7 1.5 4.5C17.5 19.5 15 22 12 22z"/></svg>
         <span class="nav__name">B Well Vet</span>
       </a>
       <nav class="nav__links">
-        <a href="/bwell-vet" class="nav__link">Home</a>
-        <a href="/bwell-vet/services" class="nav__link">Services</a>
-        <a href="/bwell-vet/about" class="nav__link nav__link--active">About</a>
-        <a href="/bwell-vet/contact" class="nav__link">Contact</a>
+        <a href="/" class="nav__link">Home</a>
+        <a href="/services" class="nav__link nav__link--active">Services</a>
+        <a href="/about" class="nav__link">About</a>
+        <a href="/contact" class="nav__link">Contact</a>
       </nav>
       <a href="tel:3207621575" class="nav__cta">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 013.12 4.18 2 2 0 015.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
@@ -40,78 +40,124 @@ import Analytics from '../../components/Analytics.astro';
   <section class="page-header">
     <div class="page-header__bg"></div>
     <div class="container page-header__content">
-      <div class="page-header__breadcrumb"><a href="/bwell-vet">Home</a> <span>/</span> <span>About</span></div>
-      <h1>About Us</h1>
-      <p>The story behind compassionate, affordable veterinary care.</p>
+      <div class="page-header__breadcrumb"><a href="/">Home</a> <span>/</span> <span>Services</span></div>
+      <h1>Our Services</h1>
+      <p>Complete veterinary care for your furry family members.</p>
     </div>
   </section>
 
-  <!-- ABOUT SPLIT -->
+  <!-- ALL SERVICES -->
   <section class="section">
     <div class="container">
-      <div class="about-split">
-        <div class="about-split__text">
-          <span class="eyebrow">Our Story</span>
-          <h2>Caring for Alexandria's Pets Since Day One</h2>
-          <p>Formerly known as Douglas County Animal Hospital, B Well Veterinary Service continues a proud tradition of caring for pets in the Alexandria, MN area. Under new ownership and a new name, our mission remains the same: to provide compassionate, affordable veterinary care for every pet that walks through our doors.</p>
-          <p>Our dedicated team prioritizes the health and well-being of your pets above all else. We believe every animal deserves quality medical care, regardless of the situation. From routine wellness exams to emergency treatment, we're here for your furry family members.</p>
-          <p>We are committed to building lasting relationships with pet owners in our community. When you bring your pet to B Well Vet, you become part of our family. We take the time to listen, educate, and partner with you to ensure the best possible care for your companion.</p>
-        </div>
-        <div class="about-split__image">
-          <img src="https://scontent-msp1-1.xx.fbcdn.net/v/t39.30808-6/481259355_1141826871065006_2609812597859198886_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=102&ccb=1-7&_nc_sid=7b2446&_nc_ohc=bn8lTpes5NcQ7kNvwE8S6Gx&_nc_oc=AdnBwk6yMDwucKZLCJp1e4nm7-U7ZtaQtHw8RKRLfR64TCS13fpllyWINWtxZvurSZk&_nc_zt=23&_nc_ht=scontent-msp1-1.xx&_nc_gid=gpLlJnanmOxaz-aGelM9yw&oh=00_Afu4RD1cDmiMUfylnXWMB6UbNqvFBkZqvj7TspKejHWoxQ&oe=69A68DC7" alt="B Well Veterinary Service team" loading="lazy" />
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- VALUES -->
-  <section class="section section--cream">
-    <div class="container">
-      <div class="section-header section-header--center">
-        <span class="eyebrow">Why Us</span>
-        <h2 class="section__title">Why Choose B Well Vet</h2>
-      </div>
-      <div class="values-grid">
-        <div class="value-card">
-          <div class="value-card__icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M19.5 12.572l-7.5 7.428-7.5-7.428A5 5 0 1112 6.006a5 5 0 017.5 6.572"/></svg>
-          </div>
-          <h3>Compassionate Care</h3>
-          <p>We treat every pet with kindness and gentleness, ensuring a comfortable experience for both pets and owners.</p>
+      <div class="service-detail" id="wellness">
+        <div class="service-detail__icon">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>
         </div>
-        <div class="value-card">
-          <div class="value-card__icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-          </div>
-          <h3>Affordable Pricing</h3>
-          <p>Quality veterinary care at fair, transparent prices. We believe every pet deserves access to great care.</p>
-        </div>
-        <div class="value-card">
-          <div class="value-card__icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-          </div>
-          <h3>Experienced Team</h3>
-          <p>Skilled and dedicated veterinary professionals committed to providing the highest standard of care.</p>
-        </div>
-        <div class="value-card">
-          <div class="value-card__icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          </div>
-          <h3>Modern Facilities</h3>
-          <p>Up-to-date equipment and techniques to deliver accurate diagnostics and effective treatments.</p>
+        <div class="service-detail__body">
+          <h2>Wellness Exams</h2>
+          <p>Regular wellness exams are the foundation of good health for your pet. Our thorough checkups help catch potential issues early and keep your companion in top shape year after year.</p>
+          <ul>
+            <li>Annual checkups</li>
+            <li>Preventive care</li>
+            <li>Vaccinations</li>
+            <li>Health screening</li>
+            <li>Nutrition counseling</li>
+          </ul>
         </div>
       </div>
+
+      <div class="service-detail" id="surgery">
+        <div class="service-detail__icon">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M19.5 12.572l-7.5 7.428-7.5-7.428A5 5 0 1112 6.006a5 5 0 017.5 6.572"/></svg>
+        </div>
+        <div class="service-detail__body">
+          <h2>Surgery</h2>
+          <p>Our experienced surgical team performs a wide range of procedures with the utmost care and attention to your pet's safety and comfort. We use modern techniques and monitoring equipment to ensure the best outcomes.</p>
+          <ul>
+            <li>Spay/neuter</li>
+            <li>Soft tissue surgery</li>
+            <li>Orthopedic procedures</li>
+            <li>Pre-surgical bloodwork</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-detail" id="dental">
+        <div class="service-detail__icon">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        </div>
+        <div class="service-detail__body">
+          <h2>Dental Care</h2>
+          <p>Dental health is a critical part of your pet's overall well-being. Our dental services help prevent disease, eliminate pain, and keep your pet's mouth healthy and clean.</p>
+          <ul>
+            <li>Professional cleanings</li>
+            <li>Extractions</li>
+            <li>Oral health assessments</li>
+            <li>Dental x-rays</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-detail" id="emergency">
+        <div class="service-detail__icon">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div class="service-detail__body">
+          <h2>Emergency Care</h2>
+          <p>When your pet needs urgent attention, our team is ready to help. We provide prompt, compassionate emergency care to stabilize and treat sick or injured pets.</p>
+          <ul>
+            <li>Urgent care for sick or injured pets</li>
+            <li>After-hours triage</li>
+            <li>Stabilization and treatment</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-detail" id="diagnostics">
+        <div class="service-detail__icon">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="service-detail__body">
+          <h2>Diagnostics</h2>
+          <p>Accurate diagnosis is the first step to effective treatment. Our in-house diagnostic tools allow us to quickly identify health issues and develop targeted treatment plans for your pet.</p>
+          <ul>
+            <li>Bloodwork</li>
+            <li>X-rays</li>
+            <li>Ultrasound</li>
+            <li>Urinalysis</li>
+            <li>Pathology</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-detail" id="pharmacy">
+        <div class="service-detail__icon">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="service-detail__body">
+          <h2>Pharmacy</h2>
+          <p>Our in-house pharmacy makes it convenient to get your pet's medications right when they need them. We carry a full range of preventive and therapeutic medications.</p>
+          <ul>
+            <li>In-house prescriptions</li>
+            <li>Flea/tick prevention</li>
+            <li>Heartworm medication</li>
+            <li>Supplements</li>
+          </ul>
+        </div>
+      </div>
+
     </div>
   </section>
 
   <!-- CTA -->
   <section class="section section--cta">
     <div class="container cta-content">
-      <h2>Ready to Experience the Difference?</h2>
-      <p>Bring your pet in for a visit. Walk-ins welcome or call ahead to schedule.</p>
+      <h2>Ready to Schedule a Visit?</h2>
+      <p>Call us today or reach out online. Walk-ins are also welcome.</p>
       <div class="cta-actions">
         <a href="tel:3207621575" class="btn btn--accent btn--lg">Call (320) 762-1575</a>
-        <a href="/bwell-vet/contact" class="btn btn--outline btn--lg">Contact Us</a>
+        <a href="/contact" class="btn btn--outline btn--lg">Contact Us</a>
       </div>
     </div>
   </section>
@@ -132,10 +178,10 @@ import Analytics from '../../components/Analytics.astro';
       <div class="footer__col">
         <h4>Quick Links</h4>
         <ul>
-          <li><a href="/bwell-vet">Home</a></li>
-          <li><a href="/bwell-vet/services">Services</a></li>
-          <li><a href="/bwell-vet/about">About Us</a></li>
-          <li><a href="/bwell-vet/contact">Contact</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/services">Services</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/contact">Contact</a></li>
         </ul>
       </div>
       <div class="footer__col">
@@ -169,7 +215,6 @@ import Analytics from '../../components/Analytics.astro';
     --accent: #d4883a; --accent-light: #fdf4eb;
     --cream: #faf8f4; --text: #2d3436; --text-mid: #636e72; --text-light: #b2bec3;
     --border: #e8e6e1;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06); --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
     --radius: 10px;
     --font-heading: 'DM Serif Display', Georgia, serif;
     --font-body: 'Nunito Sans', -apple-system, sans-serif;
@@ -200,14 +245,8 @@ import Analytics from '../../components/Analytics.astro';
   }
 
   /* PAGE HEADER */
-  .page-header {
-    position: relative; padding: 8rem 0 3rem;
-    background: var(--primary); overflow: hidden;
-  }
-  .page-header__bg {
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 70% 40%, rgba(255,255,255,0.06) 0%, transparent 60%);
-  }
+  .page-header { position: relative; padding: 8rem 0 3rem; background: var(--primary); overflow: hidden; }
+  .page-header__bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 40%, rgba(255,255,255,0.06) 0%, transparent 60%); }
   .page-header__content { position: relative; }
   .page-header__breadcrumb { font-size: 0.82rem; color: rgba(255,255,255,0.4); margin-bottom: 0.75rem; }
   .page-header__breadcrumb a { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
@@ -216,39 +255,46 @@ import Analytics from '../../components/Analytics.astro';
   .page-header h1 { font-family: var(--font-heading); color: #fff; font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 400; margin-bottom: 0.5rem; }
   .page-header p { color: rgba(255,255,255,0.65); font-size: 1.05rem; }
 
-  .section { padding: 5.5rem 0; }
-  .section--cream { background: var(--cream); }
-  .section-header { margin-bottom: 2.5rem; }
-  .section-header--center { text-align: center; }
-  .eyebrow { display: block; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
-  .section__title { font-family: var(--font-heading); font-size: clamp(1.6rem, 3.2vw, 2.4rem); font-weight: 400; line-height: 1.2; color: var(--text); }
+  .section { padding: 5rem 0; }
 
-  /* ABOUT SPLIT */
-  .about-split { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-  .about-split__text h2 { font-family: var(--font-heading); font-size: 1.85rem; font-weight: 400; margin-bottom: 1.5rem; line-height: 1.2; }
-  .about-split__text .eyebrow { margin-bottom: 0.75rem; }
-  .about-split__text p { font-size: 0.98rem; color: var(--text-mid); line-height: 1.8; margin-bottom: 1.1rem; }
-  .about-split__image img { width: 100%; border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12); }
-  @media (max-width: 768px) { .about-split { grid-template-columns: 1fr; gap: 2.5rem; } }
-
-  /* VALUES */
-  .values-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
-  .value-card {
-    text-align: center; padding: 2rem 1.25rem;
-    background: #fff; border-radius: var(--radius);
-    border: 1px solid var(--border);
-    transition: box-shadow 0.3s, transform 0.3s;
+  /* SERVICE DETAIL BLOCKS */
+  .service-detail {
+    display: flex; gap: 2rem; padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: padding-left 0.3s;
   }
-  .value-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.08); transform: translateY(-3px); }
-  .value-card__icon {
-    width: 56px; height: 56px; border-radius: 14px;
+  .service-detail:hover { padding-left: 0.5rem; }
+  .service-detail:first-of-type { padding-top: 0; }
+  .service-detail:last-of-type { border-bottom: none; }
+  .service-detail__icon {
+    flex-shrink: 0; width: 60px; height: 60px; border-radius: 14px;
     background: var(--primary-light); color: var(--primary);
-    display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.3s, color 0.3s;
   }
-  .value-card h3 { font-family: var(--font-heading); font-size: 1.05rem; font-weight: 400; margin-bottom: 0.5rem; }
-  .value-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; }
-  @media (max-width: 768px) { .values-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 480px) { .values-grid { grid-template-columns: 1fr; } }
+  .service-detail:hover .service-detail__icon {
+    background: var(--primary); color: #fff;
+  }
+  .service-detail__body h2 {
+    font-family: var(--font-heading); font-size: 1.35rem; font-weight: 400;
+    margin-bottom: 0.6rem; color: var(--text);
+  }
+  .service-detail__body p {
+    font-size: 0.95rem; color: var(--text-mid); line-height: 1.75; margin-bottom: 1rem;
+  }
+  .service-detail__body ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem 1.75rem; }
+  .service-detail__body li {
+    font-size: 0.85rem; color: var(--text-mid); padding-left: 1.1rem;
+    position: relative; font-weight: 500;
+  }
+  .service-detail__body li::before {
+    content: ''; position: absolute; left: 0; top: 0.5rem;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+  }
+  @media (max-width: 640px) {
+    .service-detail { flex-direction: column; gap: 1rem; }
+    .service-detail:hover { padding-left: 0; }
+  }
 
   /* BUTTONS */
   .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-body); font-size: 0.9rem; font-weight: 700; text-decoration: none; padding: 0.72rem 1.5rem; border-radius: 8px; transition: all 0.2s ease; border: 2px solid transparent; cursor: pointer; }

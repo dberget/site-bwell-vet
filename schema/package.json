@@ -1,7 +1,0 @@
-{
-  "name": "@site-engine/schema",
-  "version": "0.1.0",
-  "private": true,
-  "main": "content.ts",
-  "types": "content.ts"
-}
