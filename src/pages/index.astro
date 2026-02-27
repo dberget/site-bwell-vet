@@ -369,7 +369,7 @@ import Analytics from '../components/Analytics.astro';
     padding: 8rem 1.5rem 5rem;
   }
   .hero__bg { position: absolute; inset: 0; }
-  .hero__bg-img { width: 100%; height: 100%; object-fit: cover; }
+  .hero__bg-img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
   .hero__overlay {
     position: absolute; inset: 0;
     background:
@@ -414,10 +414,31 @@ import Analytics from '../components/Analytics.astro';
   }
   .hero__trust-item svg { color: var(--accent); }
 
+  @media (max-width: 768px) {
+    .hero { min-height: auto; padding: 6.5rem 1.25rem 3rem; }
+    .hero__bg-img { object-position: 75% 20%; }
+    .hero__overlay {
+      background:
+        linear-gradient(180deg, rgba(15,74,63,0.88) 0%, rgba(15,74,63,0.72) 40%, rgba(15,74,63,0.92) 100%);
+    }
+    .hero__content { padding-left: 0.75rem; }
+    .hero__title { font-size: 2.2rem; margin-bottom: 0.75rem; }
+    .hero__desc { font-size: 1rem; margin-bottom: 1.5rem; }
+    .hero__actions { margin-bottom: 1.75rem; }
+  }
   @media (max-width: 480px) {
-    .hero { min-height: 80vh; padding: 7rem 1.25rem 3rem; }
-    .hero__actions { flex-direction: column; }
-    .hero__trust { flex-direction: column; gap: 0.75rem; }
+    .hero { min-height: auto; padding: 6rem 1rem 2.5rem; }
+    .hero__bg-img { object-position: 80% 15%; }
+    .hero__overlay {
+      background:
+        linear-gradient(180deg, rgba(15,74,63,0.9) 0%, rgba(15,74,63,0.78) 40%, rgba(15,74,63,0.94) 100%);
+    }
+    .hero__content { padding-left: 0.5rem; padding-right: 0.5rem; }
+    .hero__badge { font-size: 0.65rem; padding: 0.35rem 0.8rem; margin-bottom: 1rem; }
+    .hero__title { font-size: 2rem; margin-bottom: 0.75rem; }
+    .hero__desc { font-size: 0.95rem; margin-bottom: 1.5rem; }
+    .hero__actions { flex-direction: column; margin-bottom: 1.5rem; }
+    .hero__trust { gap: 0.6rem; padding-top: 1.25rem; }
   }
 
   /* ——— BUTTONS ——— */
