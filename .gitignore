@@ -1,0 +1,24 @@
+# build output
+dist/
+.vercel/
+.astro/
+
+# dependencies
+node_modules/
+
+# Next.js admin (separate project, not deployed via Astro)
+/admin/
+
+# environment
+.env
+.env.local
+.env.production
+
+# logs
+npm-debug.log*
+
+# OS
+.DS_Store
+.idea/
+
+.vercel

@@ -1,0 +1,273 @@
+---
+export const prerender = false;
+
+import { checkAuth } from '../../lib/auth';
+
+// If already authenticated, redirect to admin
+const auth = await checkAuth(
+  Astro.cookies.get('se_auth')?.value,
+  import.meta.env.ADMIN_SECRET || 'siteengine2026',
+  import.meta.env.GITHUB_TOKEN || ''
+);
+if (auth.authenticated) {
+  const target = auth.site ? `/admin?site=${auth.site}` : '/admin';
+  return Astro.redirect(target);
+}
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Site Engine — Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 50%, #f0f9ff 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      border: 1px solid #e2e8f0;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 400px;
+      animation: cardIn 0.5s ease-out;
+    }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card.shake {
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-8px); }
+      40% { transform: translateX(8px); }
+      60% { transform: translateX(-5px); }
+      80% { transform: translateX(3px); }
+    }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .brand-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+    }
+
+    .brand h1 {
+      font-size: 1.375rem;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.025em;
+    }
+
+    .brand p {
+      color: #94a3b8;
+      font-size: 0.8125rem;
+      margin-top: 0.375rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #64748b;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.01em;
+    }
+
+    .password-field {
+      position: relative;
+    }
+
+    .password-field input {
+      width: 100%;
+      padding: 0.75rem 2.75rem 0.75rem 1rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 0.9375rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      color: #0f172a;
+      letter-spacing: -0.01em;
+    }
+
+    .password-field input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+    }
+
+    .password-field input::placeholder {
+      color: #c0c9d6;
+      font-style: italic;
+    }
+
+    .toggle-pw {
+      position: absolute;
+      right: 0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+      transition: all 0.15s ease;
+      margin: 0;
+      padding: 0;
+    }
+
+    .toggle-pw:hover {
+      background: #f1f5f9;
+      color: #475569;
+    }
+
+    .toggle-pw svg { width: 18px; height: 18px; }
+
+    .error {
+      color: #ef4444;
+      font-size: 0.8125rem;
+      text-align: center;
+      margin-top: 1rem;
+      display: none;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .submit-btn {
+      width: 100%;
+      margin-top: 1.5rem;
+      padding: 0.75rem;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+      letter-spacing: -0.01em;
+    }
+
+    .submit-btn:hover {
+      background: #1d4ed8;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .submit-btn:active { transform: translateY(0); }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    .footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.6875rem;
+      color: #cbd5e1;
+    }
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="brand">
+      <div class="brand-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+      <h1>Site Engine</h1>
+      <p>Sign in to manage your site</p>
+    </div>
+    <form id="loginForm">
+      <label for="password">Password</label>
+      <div class="password-field">
+        <input type="password" id="password" placeholder="Enter your password" autofocus />
+        <button type="button" class="toggle-pw" id="togglePw" tabindex="-1" aria-label="Show password">
+          <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+      <p class="error" id="error">Incorrect password</p>
+      <button type="submit" class="submit-btn">Sign In</button>
+    </form>
+    <p class="footer">Protected admin area</p>
+  </div>
+
+  <script>
+    const card = document.getElementById('card')!;
+
+    document.getElementById('togglePw')!.addEventListener('click', () => {
+      const pw = document.getElementById('password') as HTMLInputElement;
+      const icon = document.getElementById('eyeIcon')!;
+      const isPassword = pw.type === 'password';
+      pw.type = isPassword ? 'text' : 'password';
+      icon.innerHTML = isPassword
+        ? '<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>'
+        : '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+    });
+
+    document.getElementById('loginForm')!.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const pw = (document.getElementById('password') as HTMLInputElement).value;
+      const btn = document.querySelector('.submit-btn') as HTMLButtonElement;
+      const err = document.getElementById('error')!;
+
+      btn.disabled = true;
+      btn.textContent = 'Signing in...';
+      err.style.display = 'none';
+
+      const res = await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: pw }),
+      });
+
+      const data = await res.json();
+      if (data.ok) {
+        const target = data.site ? `/admin?site=${data.site}` : '/admin';
+        window.location.href = target;
+      } else {
+        err.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Sign In';
+        card.classList.remove('shake');
+        void card.offsetWidth;
+        card.classList.add('shake');
+      }
+    });
+  </script>
+</body>
+</html>

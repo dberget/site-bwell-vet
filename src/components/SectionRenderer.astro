@@ -1,0 +1,45 @@
+---
+import type { SiteContent, UIStrings, SectionDef } from '../schema/content';
+import Hero from './sections/Hero.astro';
+import Services from './sections/Services.astro';
+import Gallery from './sections/Gallery.astro';
+import Testimonials from './sections/Testimonials.astro';
+import About from './sections/About.astro';
+import Contact from './sections/Contact.astro';
+import PageHeader from './sections/PageHeader.astro';
+import CTA from './sections/CTA.astro';
+import Content from './sections/Content.astro';
+import Features from './sections/Features.astro';
+import FAQ from './sections/FAQ.astro';
+
+interface Props {
+  sections: SectionDef[];
+  site: SiteContent;
+  base: string;
+  ui?: UIStrings;
+  theme?: string;
+}
+
+const { sections, site, base, ui, theme = 'default' } = Astro.props;
+
+const componentMap: Record<string, any> = {
+  hero: Hero,
+  services: Services,
+  gallery: Gallery,
+  testimonials: Testimonials,
+  about: About,
+  contact: Contact,
+  'page-header': PageHeader,
+  cta: CTA,
+  content: Content,
+  features: Features,
+  faq: FAQ,
+};
+---
+
+<div class={`theme-${theme}`}>
+  {sections.map((section) => {
+    const Component = componentMap[section.type];
+    return Component ? <Component site={site} base={base} ui={ui} {...(section.props || {})} /> : null;
+  })}
+</div>

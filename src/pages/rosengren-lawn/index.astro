@@ -1,0 +1,400 @@
+---
+import Analytics from '../../components/Analytics.astro';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rosengren Lawn Care — Expert Lawn Care & Landscaping in Alexandria, MN</title>
+  <meta name="description" content="Professional lawn care and landscaping services in Alexandria, MN. 25+ years of experience. Mowing, landscaping, paver installation, snow removal, and more. Free estimates." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <Analytics />
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="nav__inner">
+      <a href="/rosengren-lawn" class="nav__brand">
+        <img src="/images/rosengren/logo.png" alt="Rosengren Lawn Care" class="nav__logo" />
+        <span class="nav__name">Rosengren Lawn Care</span>
+      </a>
+      <nav class="nav__links">
+        <a href="/rosengren-lawn" class="nav__link nav__link--active">Home</a>
+        <a href="/rosengren-lawn/services" class="nav__link">Services</a>
+        <a href="/rosengren-lawn/contact" class="nav__link">Contact</a>
+      </nav>
+      <a href="tel:3208153217" class="nav__cta">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 013.12 4.18 2 2 0 015.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        (320) 815-3217
+      </a>
+      <button class="nav__hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__bg">
+      <img src="https://picsum.photos/seed/rosengren/1400/700" alt="Beautiful lawn and landscaping" class="hero__bg-img" />
+      <div class="hero__overlay"></div>
+    </div>
+    <div class="hero__content">
+      <span class="hero__badge">Serving Alexandria, MN</span>
+      <h1 class="hero__title">25+ Years of Expert<br/>Lawn Care & Landscaping</h1>
+      <p class="hero__desc">From weekly mowing to full landscape design, we keep your property looking its best year-round. Professional service, fair pricing, and a commitment to quality that shows in every yard we touch.</p>
+      <div class="hero__actions">
+        <a href="tel:3208153217" class="btn btn--primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 013.12 4.18 2 2 0 015.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Call Today
+        </a>
+        <a href="/rosengren-lawn/services" class="btn btn--outline">View Our Services</a>
+      </div>
+      <div class="hero__stats">
+        <div class="hero__stat">
+          <span class="hero__stat-num">25+</span>
+          <span class="hero__stat-label">Years Experience</span>
+        </div>
+        <div class="hero__stat-divider"></div>
+        <div class="hero__stat">
+          <span class="hero__stat-num">Free</span>
+          <span class="hero__stat-label">Estimates</span>
+        </div>
+        <div class="hero__stat-divider"></div>
+        <div class="hero__stat">
+          <span class="hero__stat-num">Fair</span>
+          <span class="hero__stat-label">Pricing</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED SERVICES -->
+  <section class="section" id="services">
+    <div class="container">
+      <span class="eyebrow">What We Do</span>
+      <h2 class="section__title">Our Services</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8l4-2"/><path d="M8.5 2.5C5.1 3.9 3 7 3 11c0 5 4 9 9 9s9-4 9-9c0-4-2.1-7.1-5.5-8.5"/><path d="M12 10c-2.2 0-4 1.8-4 4"/></svg>
+          </div>
+          <h3>Lawn Care</h3>
+          <p>Professional mowing, precision edging, and seasonal maintenance to keep your lawn lush and healthy all year.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 019.8 6.9C15.5 4.9 17 3 17 3s2 5-2.2 7.5"/><path d="M11.2 13.8V20"/><path d="M7 16.5c2.1-1 4.2-1 6.3 0"/></svg>
+          </div>
+          <h3>Fall Clean Up</h3>
+          <p>Thorough leaf removal, garden bed cleanup, and winterizing preparation to protect your landscape through the cold months.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><path d="M8.12 8.12L12 12"/><circle cx="18" cy="18" r="3"/><path d="M15.88 15.88L12 12"/></svg>
+          </div>
+          <h3>Shrub Trimming</h3>
+          <p>Expert shaping, pruning, and hedge maintenance to keep your shrubs looking neat, healthy, and well-defined.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          </div>
+          <h3>Paver Installation</h3>
+          <p>Custom patios, walkways, and retaining walls designed and built to transform your outdoor living space.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 17.58A5 5 0 0018 8h-1.26A8 8 0 104 16.25"/><path d="M8 16h.01"/><path d="M8 20h.01"/><path d="M12 18h.01"/><path d="M12 22h.01"/><path d="M16 16h.01"/><path d="M16 20h.01"/></svg>
+          </div>
+          <h3>Snow Removal</h3>
+          <p>Reliable residential and commercial plowing, shoveling, and salt application to keep your property safe all winter.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V8"/><path d="M5 12H2a10 10 0 0020 0h-3"/><path d="M8 5.2C9 4 10.5 3 12 3s3 1 4 2.2"/><circle cx="12" cy="5" r="2"/></svg>
+          </div>
+          <h3>Landscaping</h3>
+          <p>Full-service landscape design, planting, mulching, and bed creation to bring your outdoor vision to life.</p>
+        </div>
+      </div>
+      <div class="services-more">
+        <a href="/rosengren-lawn/services" class="btn btn--secondary">View All Services
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--cta">
+    <div class="container cta-content">
+      <h2>Ready for a Beautiful Yard?</h2>
+      <p>Call us today for a free estimate. We'll work with you to create the lawn and landscape you've always wanted.</p>
+      <div class="cta-actions">
+        <a href="tel:3208153217" class="btn btn--primary btn--lg">Call (320) 815-3217</a>
+        <a href="/rosengren-lawn/contact" class="btn btn--outline btn--lg">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__col">
+        <h4>Rosengren Lawn Care</h4>
+        <p>Professional lawn care and landscaping in Alexandria, MN. 25+ years of experience keeping properties looking their best.</p>
+        <div class="footer__social">
+          <a href="https://facebook.com/ryguythelawnguy" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/rosengren-lawn">Home</a></li>
+          <li><a href="/rosengren-lawn/services">Services</a></li>
+          <li><a href="/rosengren-lawn/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Contact</h4>
+        <p>Alexandria, MN 56308</p>
+        <p><a href="tel:3208153217">(320) 815-3217</a></p>
+        <p><a href="https://facebook.com/ryguythelawnguy" target="_blank" rel="noopener">Facebook</a></p>
+      </div>
+      <div class="footer__col">
+        <h4>Seasonal Note</h4>
+        <p>We offer snow removal services during the winter months. Contact us for residential and commercial plowing availability.</p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; 2026 Rosengren Lawn Care. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Sticky nav shadow
+    const nav = document.querySelector('.nav');
+    window.addEventListener('scroll', () => {
+      nav?.classList.toggle('nav--scrolled', window.scrollY > 20);
+    });
+    // Mobile menu
+    document.querySelector('.nav__hamburger')?.addEventListener('click', () => {
+      document.querySelector('.nav__links')?.classList.toggle('nav__links--open');
+    });
+  </script>
+
+<style is:global>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #33691e;
+    --accent: #e65100;
+    --text: #1a1a1a;
+    --text-mid: #555;
+    --text-light: #888;
+    --bg: #fff;
+    --bg-warm: #fafafa;
+    --border: #e5e7eb;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* NAV */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--primary);
+    transition: box-shadow 0.2s;
+  }
+  .nav--scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.15); }
+  .nav__inner {
+    max-width: 1140px; margin: 0 auto; padding: 0 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav__brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+  .nav__logo { height: 36px; width: auto; }
+  .nav__name { color: #fff; font-weight: 700; font-size: 1.1rem; }
+  .nav__links { display: flex; gap: 0.25rem; }
+  .nav__link {
+    color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.88rem;
+    font-weight: 500; padding: 0.4rem 0.75rem; border-radius: 6px;
+    transition: color 0.15s, background 0.15s;
+  }
+  .nav__link:hover, .nav__link--active { color: #fff; background: rgba(255,255,255,0.1); }
+  .nav__cta {
+    display: flex; align-items: center; gap: 0.4rem;
+    background: var(--accent); color: #fff; text-decoration: none;
+    font-size: 0.85rem; font-weight: 600; padding: 0.5rem 1rem;
+    border-radius: 6px; transition: opacity 0.15s;
+  }
+  .nav__cta:hover { opacity: 0.9; }
+  .nav__hamburger {
+    display: none; background: none; border: none; cursor: pointer;
+    flex-direction: column; gap: 5px; padding: 4px;
+  }
+  .nav__hamburger span {
+    display: block; width: 22px; height: 2px; background: #fff;
+    border-radius: 1px; transition: 0.2s;
+  }
+
+  @media (max-width: 768px) {
+    .nav__links {
+      display: none; position: absolute; top: 64px; left: 0; right: 0;
+      background: var(--primary); flex-direction: column; padding: 1rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .nav__links--open { display: flex; }
+    .nav__link { padding: 0.75rem 1rem; }
+    .nav__cta { display: none; }
+    .nav__hamburger { display: flex; }
+  }
+
+  /* HERO */
+  .hero {
+    position: relative; min-height: 85vh; display: flex; align-items: center;
+    padding: 8rem 1.5rem 5rem;
+  }
+  .hero__bg { position: absolute; inset: 0; }
+  .hero__bg-img { width: 100%; height: 100%; object-fit: cover; }
+  .hero__overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(51,105,30,0.88) 0%, rgba(51,105,30,0.7) 100%);
+  }
+  .hero__content {
+    position: relative; max-width: 720px; margin: 0 auto 0 0;
+    padding-left: calc((100vw - 1140px) / 2);
+  }
+  @media (max-width: 1172px) { .hero__content { padding-left: 1.5rem; } }
+  .hero__badge {
+    display: inline-block; background: var(--accent); color: #fff;
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 4px;
+    margin-bottom: 1.25rem;
+  }
+  .hero__title {
+    font-size: clamp(2.25rem, 5vw, 3.5rem); font-weight: 900;
+    line-height: 1.1; color: #fff; margin-bottom: 1.25rem;
+  }
+  .hero__desc {
+    font-size: 1.1rem; line-height: 1.7; color: rgba(255,255,255,0.85);
+    margin-bottom: 2rem; max-width: 560px;
+  }
+  .hero__actions { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+  .hero__stats {
+    display: flex; align-items: center; gap: 2rem;
+    padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero__stat { text-align: center; }
+  .hero__stat-num { display: block; font-size: 1.5rem; font-weight: 800; color: #fff; }
+  .hero__stat-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(255,255,255,0.8); }
+  .hero__stat-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+
+  @media (max-width: 480px) {
+    .hero { min-height: 70vh; padding: 6rem 1.25rem 3rem; }
+    .hero__actions { flex-direction: column; }
+    .hero__stats { gap: 1.25rem; }
+    .hero__stat-divider { display: none; }
+  }
+
+  /* BUTTONS */
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.92rem; font-weight: 600; text-decoration: none;
+    padding: 0.7rem 1.5rem; border-radius: 6px; transition: all 0.15s;
+    border: 2px solid transparent; cursor: pointer;
+  }
+  .btn--primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .btn--primary:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn--outline { background: transparent; color: #fff; border-color: rgba(255,255,255,0.4); }
+  .btn--outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+  .btn--secondary { background: var(--primary); color: #fff; }
+  .btn--secondary:hover { opacity: 0.9; }
+  .btn--lg { padding: 0.85rem 2rem; font-size: 1rem; }
+
+  /* SECTIONS */
+  .section { padding: 5rem 0; }
+  .section--cta {
+    background: linear-gradient(135deg, var(--accent) 0%, #bf360c 100%);
+    text-align: center; padding: 4rem 0;
+  }
+  .eyebrow {
+    display: block; font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 0.5rem;
+  }
+  .section__title {
+    font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800;
+    margin-bottom: 2.5rem; line-height: 1.2;
+  }
+
+  /* SERVICES GRID */
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem; margin-bottom: 2rem;
+  }
+  .service-card {
+    background: #fff; border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.75rem; transition: box-shadow 0.2s, transform 0.2s;
+    border-top: 4px solid var(--accent);
+  }
+  .service-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .service-card__icon {
+    width: 48px; height: 48px; border-radius: 10px;
+    background: rgba(230,81,0,0.1); color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .service-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .service-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.6; }
+  .services-more { text-align: center; }
+
+  @media (max-width: 768px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .services-grid { grid-template-columns: 1fr; } }
+
+  /* CTA */
+  .cta-content h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800; color: #fff; margin-bottom: 0.75rem; }
+  .cta-content p { font-size: 1.05rem; color: rgba(255,255,255,0.85); margin-bottom: 2rem; }
+  .cta-actions { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+  .cta-actions .btn--primary { background: #fff; color: var(--accent); border-color: #fff; }
+  .cta-actions .btn--outline { color: #fff; border-color: rgba(255,255,255,0.5); }
+
+  /* FOOTER */
+  .footer { background: #1a2110; color: rgba(255,255,255,0.7); padding: 4rem 0 0; }
+  .footer__inner { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 2.5rem; }
+  .footer__col h4 { color: #fff; font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem; }
+  .footer__col p { font-size: 0.88rem; line-height: 1.65; }
+  .footer__col ul { list-style: none; }
+  .footer__col li { margin-bottom: 0.4rem; }
+  .footer__col a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.88rem; transition: color 0.15s; }
+  .footer__col a:hover { color: var(--accent); }
+  .footer__social { display: flex; gap: 0.75rem; margin-top: 1rem; }
+  .footer__social a { color: rgba(255,255,255,0.5); transition: color 0.15s; }
+  .footer__social a:hover { color: var(--accent); }
+  .footer__bottom {
+    margin-top: 3rem; padding: 1.25rem 0;
+    border-top: 1px solid rgba(255,255,255,0.08); text-align: center;
+  }
+  .footer__bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+
+  @media (max-width: 768px) {
+    .footer__inner { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .footer__inner { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>
+</body>
+</html>

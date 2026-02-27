@@ -1,0 +1,157 @@
+---
+import type { SiteContent, UIStrings } from '../../schema/content';
+
+interface Props {
+  site: SiteContent;
+  base: string;
+  ui?: UIStrings;
+  headline?: string;
+  subtext?: string;
+  primaryLabel?: string;
+  primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+}
+
+const { site, headline, subtext, primaryLabel, primaryHref, secondaryLabel, secondaryHref } = Astro.props;
+const phone = site.contact.phone;
+const phoneDigits = phone.replace(/\D/g, '');
+const email = site.contact.email;
+
+const resolvedHeadline = headline || 'Ready to Get Started?';
+const resolvedSubtext = subtext || `Give us a call or send us a message — we'd love to hear from you.`;
+const resolvedPrimaryLabel = primaryLabel || 'Call Now';
+const resolvedPrimaryHref = primaryHref || `tel:${phoneDigits}`;
+const resolvedSecondaryLabel = secondaryLabel || 'Email Us';
+const resolvedSecondaryHref = secondaryHref || `mailto:${email}`;
+---
+
+<section class="cta-section">
+  <div class="container cta-section__inner">
+    <h2 class="cta-section__headline">{resolvedHeadline}</h2>
+    {resolvedSubtext && <p class="cta-section__subtext">{resolvedSubtext}</p>}
+    <div class="cta-section__actions">
+      <a href={resolvedPrimaryHref} class="btn btn--yellow cta-section__btn">
+        {resolvedPrimaryLabel}
+      </a>
+      {resolvedSecondaryLabel && (
+        <a href={resolvedSecondaryHref} class="btn btn--outline cta-section__btn">
+          {resolvedSecondaryLabel}
+        </a>
+      )}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .cta-section {
+    background: var(--primary, var(--maroon, #6b1d2a));
+    color: #fff;
+    padding: 4rem 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 50%, rgba(0,0,0,0.1) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .cta-section__inner {
+    position: relative;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .cta-section__headline {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+
+  .cta-section__subtext {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-section__actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  /* Theme: Suspended */
+  .theme-suspended .cta-section {
+    border-radius: 12px;
+    max-width: 1080px;
+    margin: 3rem auto;
+  }
+
+  .theme-suspended .cta-section__btn {
+    border-radius: 100px;
+  }
+
+  /* Theme: Editorial */
+  .theme-editorial .cta-section {
+    background: #1a1a1a;
+  }
+
+  .theme-editorial .cta-section::before {
+    background:
+      repeating-linear-gradient(
+        45deg, transparent, transparent 40px,
+        rgba(255,255,255,0.01) 40px, rgba(255,255,255,0.01) 80px
+      );
+  }
+
+  .theme-editorial .cta-section__headline {
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  .theme-editorial .cta-section__btn {
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Theme: Bold */
+  .theme-bold .cta-section {
+    clip-path: polygon(0 1.5rem, 100% 0, 100% calc(100% - 1.5rem), 0 100%);
+    padding: 5rem 0;
+  }
+
+  .theme-bold .cta-section__headline {
+    text-transform: uppercase;
+    font-weight: 800;
+  }
+
+  .theme-bold .cta-section__btn {
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  @media (max-width: 768px) {
+    .cta-section { padding: 3rem 0; }
+    .cta-section__actions { flex-direction: column; align-items: center; }
+    .cta-section__actions .btn { width: 100%; max-width: 320px; justify-content: center; }
+    .theme-bold .cta-section {
+      clip-path: polygon(0 1rem, 100% 0, 100% calc(100% - 1rem), 0 100%);
+      padding: 4rem 0;
+    }
+  }
+</style>

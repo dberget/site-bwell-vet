@@ -1,0 +1,438 @@
+---
+import Analytics from '../../components/Analytics.astro';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mill Lake Resort — Family Resort on Mill Lake near Alexandria, MN</title>
+  <meta name="description" content="Family resort on one of Alexandria MN's cleanest spring-fed lakes. 7 acres, private peninsula, cabins on the lake. Family getaway since the 1960s." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <Analytics />
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="nav__inner">
+      <a href="/mill-lake-resort" class="nav__brand">
+        <img src="/images/mill-lake/logo.png" alt="Mill Lake Resort" class="nav__logo" />
+        <span class="nav__name">Mill Lake Resort</span>
+      </a>
+      <nav class="nav__links">
+        <a href="/mill-lake-resort" class="nav__link nav__link--active">Home</a>
+        <a href="/mill-lake-resort/cabins" class="nav__link">Cabins</a>
+        <a href="/mill-lake-resort/activities" class="nav__link">Activities</a>
+        <a href="/mill-lake-resort/contact" class="nav__link">Contact</a>
+      </nav>
+      <a href="tel:3208865381" class="nav__cta">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 013.12 4.18 2 2 0 015.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        (320) 886-5381
+      </a>
+      <button class="nav__hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__bg">
+      <img src="/images/mill-lake/hero.jpg" alt="Mill Lake Resort on a beautiful summer day" class="hero__bg-img" />
+      <div class="hero__overlay"></div>
+    </div>
+    <div class="hero__content">
+      <span class="hero__badge">Family Resort Since the 1960s</span>
+      <h1 class="hero__title">Memories You'll Want<br/>to Come Back To</h1>
+      <p class="hero__desc">A family getaway on one of Alexandria's cleanest spring-fed lakes. Nestled on a private peninsula with cabins right on the water's edge.</p>
+      <div class="hero__actions">
+        <a href="tel:3208865381" class="btn btn--primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 013.12 4.18 2 2 0 015.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Call to Reserve
+        </a>
+        <a href="/mill-lake-resort/cabins" class="btn btn--outline">View Our Cabins</a>
+      </div>
+      <div class="hero__stats">
+        <div class="hero__stat">
+          <span class="hero__stat-num">7</span>
+          <span class="hero__stat-label">Acres</span>
+        </div>
+        <div class="hero__stat-divider"></div>
+        <div class="hero__stat">
+          <span class="hero__stat-num">1400'</span>
+          <span class="hero__stat-label">Shoreline</span>
+        </div>
+        <div class="hero__stat-divider"></div>
+        <div class="hero__stat">
+          <span class="hero__stat-num">1960s</span>
+          <span class="hero__stat-label">Since</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED SECTION -->
+  <section class="section" id="features">
+    <div class="container">
+      <span class="eyebrow">Your Lake Getaway</span>
+      <h2 class="section__title">What Awaits You</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <h3>Lakeside Cabins</h3>
+          <p>Every cabin sits right on the lake's edge with beautiful views of the water. Fall asleep to the sound of lapping waves.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <h3>Family Fun</h3>
+          <p>Safe sandy beach, large playground, horseshoes, volleyball, and more. Perfect for families, reunions, and retreats.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <h3>Sandy Beach</h3>
+          <p>Spring-fed water means crystal-clear swimming. A safe sandy beach with a swimming raft makes it perfect for all ages.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.24 12.24a6 6 0 00-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></svg>
+          </div>
+          <h3>Great Fishing</h3>
+          <p>Mill Lake is known for excellent fishing. Cast a line right from the shore or head out on the lake for a quiet afternoon.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section section--dark" id="testimonials">
+    <div class="container">
+      <span class="eyebrow eyebrow--light">Guest Reviews</span>
+      <h2 class="section__title section__title--light">What Our Guests Say</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card testimonial-card--featured">
+          <div class="testimonial-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <blockquote>"We've been coming to Mill Lake Resort every summer for over ten years. The kids love the beach and playground, and the cabins feel like a home away from home. It's the highlight of our year."</blockquote>
+          <cite>&mdash; The Anderson Family</cite>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <blockquote>"Such a peaceful, well-kept resort. The lake water is incredibly clear and the fishing was fantastic. We caught walleye right off the dock. Already booked again for next summer."</blockquote>
+          <cite>&mdash; Mark &amp; Julie T.</cite>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <blockquote>"We hosted our family reunion here and it was perfect. Plenty of room for everyone, the kids had a blast at the beach, and the adults enjoyed the quiet evenings by the water."</blockquote>
+          <cite>&mdash; Sarah K.</cite>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <blockquote>"Clean cabins, beautiful lake, and just minutes from Alexandria. The spring-fed water is unbelievably clear. This is what a Minnesota lake vacation should be."</blockquote>
+          <cite>&mdash; Dave &amp; Linda R.</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--cta">
+    <div class="container cta-content">
+      <h2>Ready for Your Lake Getaway?</h2>
+      <p>Call us to check availability and reserve your cabin. We'd love to welcome your family to Mill Lake.</p>
+      <div class="cta-actions">
+        <a href="tel:3208865381" class="btn btn--primary btn--lg">Call (320) 886-5381</a>
+        <a href="tel:3207667954" class="btn btn--outline btn--lg">Cell: (320) 766-7954</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__col">
+        <h4>Mill Lake Resort</h4>
+        <p>A family resort on one of Alexandria MN's cleanest spring-fed lakes. Private peninsula setting with cabins right on the water since the 1960s.</p>
+        <div class="footer__social">
+          <a href="https://facebook.com/MillLakeResort" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/mill-lake-resort">Home</a></li>
+          <li><a href="/mill-lake-resort/cabins">Cabins</a></li>
+          <li><a href="/mill-lake-resort/activities">Activities</a></li>
+          <li><a href="/mill-lake-resort/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Contact</h4>
+        <p>3551 W Mill Lake Rd SW<br/>Farwell, MN 56327</p>
+        <p><a href="tel:3208865381">(320) 886-5381</a></p>
+        <p><a href="tel:3207667954">(320) 766-7954</a></p>
+      </div>
+      <div class="footer__col">
+        <h4>Season</h4>
+        <p>Mill Lake Resort operates seasonally during the summer months.</p>
+        <p style="margin-top:0.5rem;">Call for exact dates and availability for the upcoming season.</p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; 2026 Mill Lake Resort. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Sticky nav shadow
+    const nav = document.querySelector('.nav');
+    window.addEventListener('scroll', () => {
+      nav?.classList.toggle('nav--scrolled', window.scrollY > 20);
+    });
+    // Mobile menu
+    document.querySelector('.nav__hamburger')?.addEventListener('click', () => {
+      document.querySelector('.nav__links')?.classList.toggle('nav__links--open');
+    });
+  </script>
+
+<style is:global>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #1a5c3a;
+    --accent: #c6922a;
+    --text: #1a1a1a;
+    --text-mid: #555;
+    --text-light: #888;
+    --bg: #fff;
+    --bg-warm: #fafafa;
+    --border: #e5e7eb;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* NAV */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--primary);
+    transition: box-shadow 0.2s;
+  }
+  .nav--scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.15); }
+  .nav__inner {
+    max-width: 1140px; margin: 0 auto; padding: 0 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav__brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+  .nav__logo { height: 36px; width: auto; }
+  .nav__name { color: #fff; font-weight: 700; font-size: 1.1rem; }
+  .nav__links { display: flex; gap: 0.25rem; }
+  .nav__link {
+    color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.88rem;
+    font-weight: 500; padding: 0.4rem 0.75rem; border-radius: 6px;
+    transition: color 0.15s, background 0.15s;
+  }
+  .nav__link:hover, .nav__link--active { color: #fff; background: rgba(255,255,255,0.1); }
+  .nav__cta {
+    display: flex; align-items: center; gap: 0.4rem;
+    background: var(--accent); color: #fff; text-decoration: none;
+    font-size: 0.85rem; font-weight: 600; padding: 0.5rem 1rem;
+    border-radius: 6px; transition: opacity 0.15s;
+  }
+  .nav__cta:hover { opacity: 0.9; }
+  .nav__hamburger {
+    display: none; background: none; border: none; cursor: pointer;
+    flex-direction: column; gap: 5px; padding: 4px;
+  }
+  .nav__hamburger span {
+    display: block; width: 22px; height: 2px; background: #fff;
+    border-radius: 1px; transition: 0.2s;
+  }
+
+  @media (max-width: 768px) {
+    .nav__links {
+      display: none; position: absolute; top: 64px; left: 0; right: 0;
+      background: var(--primary); flex-direction: column; padding: 1rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .nav__links--open { display: flex; }
+    .nav__link { padding: 0.75rem 1rem; }
+    .nav__cta { display: none; }
+    .nav__hamburger { display: flex; }
+  }
+
+  /* HERO */
+  .hero {
+    position: relative; min-height: 85vh; display: flex; align-items: center;
+    padding: 8rem 1.5rem 5rem;
+  }
+  .hero__bg { position: absolute; inset: 0; }
+  .hero__bg-img { width: 100%; height: 100%; object-fit: cover; }
+  .hero__overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(26,92,58,0.88) 0%, rgba(26,92,58,0.65) 100%);
+  }
+  .hero__content {
+    position: relative; max-width: 720px; margin: 0 auto 0 0;
+    padding-left: calc((100vw - 1140px) / 2);
+  }
+  @media (max-width: 1172px) { .hero__content { padding-left: 1.5rem; } }
+  .hero__badge {
+    display: inline-block; background: var(--accent); color: #fff;
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 4px;
+    margin-bottom: 1.25rem;
+  }
+  .hero__title {
+    font-size: clamp(2.25rem, 5vw, 3.5rem); font-weight: 900;
+    line-height: 1.1; color: #fff; margin-bottom: 1.25rem;
+  }
+  .hero__desc {
+    font-size: 1.1rem; line-height: 1.7; color: rgba(255,255,255,0.85);
+    margin-bottom: 2rem; max-width: 560px;
+  }
+  .hero__actions { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+  .hero__stats {
+    display: flex; align-items: center; gap: 2rem;
+    padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero__stat { text-align: center; }
+  .hero__stat-num { display: block; font-size: 1.5rem; font-weight: 800; color: var(--accent); }
+  .hero__stat-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(255,255,255,0.6); }
+  .hero__stat-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.15); }
+
+  @media (max-width: 480px) {
+    .hero { min-height: 70vh; padding: 6rem 1.25rem 3rem; }
+    .hero__actions { flex-direction: column; }
+    .hero__stats { gap: 1.25rem; }
+    .hero__stat-divider { display: none; }
+  }
+
+  /* BUTTONS */
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.92rem; font-weight: 600; text-decoration: none;
+    padding: 0.7rem 1.5rem; border-radius: 6px; transition: all 0.15s;
+    border: 2px solid transparent; cursor: pointer;
+  }
+  .btn--primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .btn--primary:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn--outline { background: transparent; color: #fff; border-color: rgba(255,255,255,0.4); }
+  .btn--outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+  .btn--secondary { background: var(--primary); color: #fff; }
+  .btn--secondary:hover { opacity: 0.9; }
+  .btn--lg { padding: 0.85rem 2rem; font-size: 1rem; }
+
+  /* SECTIONS */
+  .section { padding: 5rem 0; }
+  .section--dark { background: var(--primary); }
+  .section--cta {
+    background: linear-gradient(135deg, #1a5c3a 0%, #0f3d25 100%);
+    text-align: center; padding: 4rem 0;
+  }
+  .eyebrow {
+    display: block; font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 0.5rem;
+  }
+  .eyebrow--light { color: var(--accent); }
+  .section__title {
+    font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800;
+    margin-bottom: 2.5rem; line-height: 1.2;
+  }
+  .section__title--light { color: #fff; }
+
+  /* FEATURES GRID */
+  .features-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem; margin-bottom: 2rem;
+  }
+  .feature-card {
+    background: #fff; border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.75rem; transition: box-shadow 0.2s, transform 0.2s;
+    border-top: 4px solid var(--accent);
+  }
+  .feature-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .feature-card__icon {
+    width: 48px; height: 48px; border-radius: 10px;
+    background: rgba(198,146,42,0.1); color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .feature-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .feature-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.6; }
+
+  @media (max-width: 1024px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .features-grid { grid-template-columns: 1fr; } }
+
+  /* TESTIMONIALS */
+  .testimonials-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+  }
+  .testimonial-card {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; padding: 1.75rem;
+  }
+  .testimonial-card--featured {
+    grid-column: 1 / -1;
+    background: rgba(198,146,42,0.1); border-color: rgba(198,146,42,0.2);
+  }
+  .testimonial-card__stars { color: var(--accent); font-size: 1rem; margin-bottom: 0.75rem; letter-spacing: 2px; }
+  .testimonial-card blockquote {
+    font-size: 0.95rem; color: rgba(255,255,255,0.85); line-height: 1.7;
+    margin-bottom: 0.75rem; font-style: italic;
+  }
+  .testimonial-card--featured blockquote { font-size: 1.1rem; }
+  .testimonial-card cite { font-size: 0.85rem; color: rgba(255,255,255,0.5); font-style: normal; font-weight: 600; }
+
+  @media (max-width: 640px) { .testimonials-grid { grid-template-columns: 1fr; } }
+
+  /* CTA */
+  .cta-content h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800; color: #fff; margin-bottom: 0.75rem; }
+  .cta-content p { font-size: 1.05rem; color: rgba(255,255,255,0.85); margin-bottom: 2rem; }
+  .cta-actions { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+  .cta-actions .btn--primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .cta-actions .btn--outline { color: #fff; border-color: rgba(255,255,255,0.5); }
+
+  /* FOOTER */
+  .footer { background: #1a1f23; color: rgba(255,255,255,0.7); padding: 4rem 0 0; }
+  .footer__inner { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 2.5rem; }
+  .footer__col h4 { color: #fff; font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem; }
+  .footer__col p { font-size: 0.88rem; line-height: 1.65; }
+  .footer__col ul { list-style: none; }
+  .footer__col li { margin-bottom: 0.4rem; }
+  .footer__col a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.88rem; transition: color 0.15s; }
+  .footer__col a:hover { color: var(--accent); }
+  .footer__social { display: flex; gap: 0.75rem; margin-top: 1rem; }
+  .footer__social a { color: rgba(255,255,255,0.5); transition: color 0.15s; }
+  .footer__social a:hover { color: var(--accent); }
+  .footer__bottom {
+    margin-top: 3rem; padding: 1.25rem 0;
+    border-top: 1px solid rgba(255,255,255,0.08); text-align: center;
+  }
+  .footer__bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+
+  @media (max-width: 768px) {
+    .footer__inner { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .footer__inner { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>
+</body>
+</html>

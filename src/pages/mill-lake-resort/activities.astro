@@ -1,0 +1,385 @@
+---
+import Analytics from '../../components/Analytics.astro';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Activities — Mill Lake Resort | Alexandria, MN</title>
+  <meta name="description" content="Swimming, fishing, playground, yard games, bike trails, and more at Mill Lake Resort near Alexandria, MN. Perfect for family vacations and reunions." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <Analytics />
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav__inner">
+      <a href="/mill-lake-resort" class="nav__brand">
+        <img src="/images/mill-lake/logo.png" alt="Mill Lake Resort" class="nav__logo" />
+        <span class="nav__name">Mill Lake Resort</span>
+      </a>
+      <nav class="nav__links">
+        <a href="/mill-lake-resort" class="nav__link">Home</a>
+        <a href="/mill-lake-resort/cabins" class="nav__link">Cabins</a>
+        <a href="/mill-lake-resort/activities" class="nav__link nav__link--active">Activities</a>
+        <a href="/mill-lake-resort/contact" class="nav__link">Contact</a>
+      </nav>
+      <a href="tel:3208865381" class="nav__cta">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 013.12 4.18 2 2 0 015.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        (320) 886-5381
+      </a>
+      <button class="nav__hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- PAGE HEADER -->
+  <section class="page-header">
+    <div class="container">
+      <div class="page-header__breadcrumb">
+        <a href="/mill-lake-resort">Home</a> <span>/</span> <span>Activities</span>
+      </div>
+      <h1>Activities</h1>
+      <p>Something fun for every member of the family.</p>
+    </div>
+  </section>
+
+  <!-- ACTIVITIES LIST -->
+  <section class="section">
+    <div class="container">
+
+      <div class="activity-detail" id="beach">
+        <div class="activity-detail__icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+        </div>
+        <div class="activity-detail__body">
+          <h2>Safe Sandy Beach &amp; Swimming</h2>
+          <p>Our sandy beach is perfect for swimmers of all ages. The spring-fed water is crystal clear and clean, making it one of the best swimming lakes in the Alexandria area. A swimming raft anchored offshore gives the kids a place to splash and play all day long.</p>
+          <ul>
+            <li>Safe, shallow wading area for little ones</li>
+            <li>Swimming raft for older kids and adults</li>
+            <li>Crystal-clear spring-fed water</li>
+            <li>Sandy bottom and shoreline</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="activity-detail" id="playground">
+        <div class="activity-detail__icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="activity-detail__body">
+          <h2>Large Playground</h2>
+          <p>Kids love our large playground area, complete with equipment that keeps them busy for hours. Set on our spacious 7-acre property, there's plenty of room to run, climb, and play.</p>
+          <div class="activity-detail__image">
+            <img src="/images/mill-lake/playground.jpg" alt="Playground at Mill Lake Resort" loading="lazy" />
+          </div>
+        </div>
+      </div>
+
+      <div class="activity-detail" id="games">
+        <div class="activity-detail__icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        </div>
+        <div class="activity-detail__body">
+          <h2>Yard Games</h2>
+          <p>Gather the family for some friendly competition. Our resort grounds feature classic outdoor games that bring everyone together.</p>
+          <ul>
+            <li>Horseshoe pits</li>
+            <li>Volleyball court</li>
+            <li>Plenty of open space for lawn games</li>
+            <li>Great for all ages and skill levels</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="activity-detail" id="fishing">
+        <div class="activity-detail__icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.24 12.24a6 6 0 00-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></svg>
+        </div>
+        <div class="activity-detail__body">
+          <h2>Great Fishing</h2>
+          <p>Mill Lake is known for excellent fishing. Whether you prefer casting from the dock, fishing from shore, or heading out on the lake, you'll find plenty of opportunities to land a great catch.</p>
+          <ul>
+            <li>Fish right from the resort shoreline</li>
+            <li>Great lake for panfish and bass</li>
+            <li>Quiet, uncrowded lake</li>
+            <li>Perfect for teaching kids to fish</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="activity-detail" id="trail">
+        <div class="activity-detail__icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="activity-detail__body">
+          <h2>Central Lakes Trail Nearby</h2>
+          <p>Just 10 minutes from the resort, the Central Lakes Trail offers miles of paved biking and walking. This popular trail stretches from Osakis to Fergus Falls with access points in Alexandria and Garfield.</p>
+          <ul>
+            <li>Paved bike and walking trail</li>
+            <li>Runs from Osakis to Fergus Falls</li>
+            <li>Access from Alexandria or Garfield</li>
+            <li>About 10 minutes from the resort</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="activity-detail" id="reunions">
+        <div class="activity-detail__icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="activity-detail__body">
+          <h2>Family Reunions &amp; Retreats</h2>
+          <p>With multiple cabins, spacious grounds, and plenty of activities, Mill Lake Resort is the perfect setting for family reunions, group retreats, and multi-family getaways. Everyone has their own cabin but can gather together on the beach, at the playground, or around the yard games.</p>
+          <ul>
+            <li>Multiple cabins for large groups</li>
+            <li>7 acres of resort grounds</li>
+            <li>Shared beach and activity areas</li>
+            <li>Peaceful, private peninsula setting</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- AERIAL IMAGE -->
+  <section class="section section--warm">
+    <div class="container">
+      <div class="aerial-split">
+        <div class="aerial-split__image">
+          <img src="/images/mill-lake/aerial.jpg" alt="Aerial view of Mill Lake Resort" loading="lazy" />
+        </div>
+        <div class="aerial-split__text">
+          <h2>7 Acres of Fun</h2>
+          <p>Our private peninsula resort spans 7 acres with 1,400 feet of shoreline. From the sandy beach to the open play areas, there's no shortage of space for your family to enjoy the outdoors.</p>
+          <p>Located just 8 miles west of Alexandria, MN and 5 minutes off I-94, getting here is easy. Getting yourself to leave is the hard part.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--cta">
+    <div class="container cta-content">
+      <h2>Plan Your Family Getaway</h2>
+      <p>Call us to check cabin availability and start planning your lake vacation.</p>
+      <div class="cta-actions">
+        <a href="tel:3208865381" class="btn btn--primary btn--lg">Call (320) 886-5381</a>
+        <a href="/mill-lake-resort/contact" class="btn btn--outline btn--lg">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__col">
+        <h4>Mill Lake Resort</h4>
+        <p>A family resort on one of Alexandria MN's cleanest spring-fed lakes. Private peninsula setting with cabins right on the water since the 1960s.</p>
+        <div class="footer__social">
+          <a href="https://facebook.com/MillLakeResort" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/mill-lake-resort">Home</a></li>
+          <li><a href="/mill-lake-resort/cabins">Cabins</a></li>
+          <li><a href="/mill-lake-resort/activities">Activities</a></li>
+          <li><a href="/mill-lake-resort/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Contact</h4>
+        <p>3551 W Mill Lake Rd SW<br/>Farwell, MN 56327</p>
+        <p><a href="tel:3208865381">(320) 886-5381</a></p>
+        <p><a href="tel:3207667954">(320) 766-7954</a></p>
+      </div>
+      <div class="footer__col">
+        <h4>Season</h4>
+        <p>Mill Lake Resort operates seasonally during the summer months.</p>
+        <p style="margin-top:0.5rem;">Call for exact dates and availability for the upcoming season.</p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; 2026 Mill Lake Resort. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.querySelector('.nav');
+    window.addEventListener('scroll', () => nav?.classList.toggle('nav--scrolled', window.scrollY > 20));
+    document.querySelector('.nav__hamburger')?.addEventListener('click', () => document.querySelector('.nav__links')?.classList.toggle('nav__links--open'));
+  </script>
+
+<style is:global>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #1a5c3a;
+    --accent: #c6922a;
+    --text: #1a1a1a;
+    --text-mid: #555;
+    --text-light: #888;
+    --bg: #fff;
+    --bg-warm: #fafafa;
+    --border: #e5e7eb;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* NAV */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--primary); transition: box-shadow 0.2s;
+  }
+  .nav--scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.15); }
+  .nav__inner {
+    max-width: 1140px; margin: 0 auto; padding: 0 1.5rem;
+    display: flex; align-items: center; justify-content: space-between; height: 64px;
+  }
+  .nav__brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+  .nav__logo { height: 36px; width: auto; }
+  .nav__name { color: #fff; font-weight: 700; font-size: 1.1rem; }
+  .nav__links { display: flex; gap: 0.25rem; }
+  .nav__link {
+    color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.88rem;
+    font-weight: 500; padding: 0.4rem 0.75rem; border-radius: 6px;
+    transition: color 0.15s, background 0.15s;
+  }
+  .nav__link:hover, .nav__link--active { color: #fff; background: rgba(255,255,255,0.1); }
+  .nav__cta {
+    display: flex; align-items: center; gap: 0.4rem;
+    background: var(--accent); color: #fff; text-decoration: none;
+    font-size: 0.85rem; font-weight: 600; padding: 0.5rem 1rem;
+    border-radius: 6px; transition: opacity 0.15s;
+  }
+  .nav__cta:hover { opacity: 0.9; }
+  .nav__hamburger {
+    display: none; background: none; border: none; cursor: pointer;
+    flex-direction: column; gap: 5px; padding: 4px;
+  }
+  .nav__hamburger span {
+    display: block; width: 22px; height: 2px; background: #fff;
+    border-radius: 1px; transition: 0.2s;
+  }
+  @media (max-width: 768px) {
+    .nav__links {
+      display: none; position: absolute; top: 64px; left: 0; right: 0;
+      background: var(--primary); flex-direction: column; padding: 1rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .nav__links--open { display: flex; }
+    .nav__link { padding: 0.75rem 1rem; }
+    .nav__cta { display: none; }
+    .nav__hamburger { display: flex; }
+  }
+
+  /* PAGE HEADER */
+  .page-header { background: var(--primary); padding: 7rem 0 2.5rem; }
+  .page-header__breadcrumb { font-size: 0.82rem; color: rgba(255,255,255,0.45); margin-bottom: 0.75rem; }
+  .page-header__breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; }
+  .page-header__breadcrumb a:hover { color: var(--accent); }
+  .page-header__breadcrumb span { margin: 0 0.35rem; }
+  .page-header h1 { color: #fff; font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 800; margin-bottom: 0.5rem; }
+  .page-header p { color: rgba(255,255,255,0.7); font-size: 1.05rem; }
+
+  .section { padding: 4.5rem 0; }
+  .section--warm { background: #fafafa; }
+
+  /* ACTIVITY DETAIL BLOCKS */
+  .activity-detail {
+    display: flex; gap: 1.5rem; padding: 2.25rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .activity-detail:first-of-type { padding-top: 0; }
+  .activity-detail:last-of-type { border-bottom: none; }
+  .activity-detail__icon {
+    flex-shrink: 0; width: 56px; height: 56px; border-radius: 12px;
+    background: rgba(198,146,42,0.08); color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .activity-detail__body h2 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .activity-detail__body p { font-size: 0.95rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 0.75rem; }
+  .activity-detail__body ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; }
+  .activity-detail__body li {
+    font-size: 0.85rem; color: var(--text-mid); padding-left: 1.1rem;
+    position: relative;
+  }
+  .activity-detail__body li::before {
+    content: ''; position: absolute; left: 0; top: 0.45rem;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+  }
+  .activity-detail__image { margin-top: 1rem; }
+  .activity-detail__image img {
+    width: 100%; max-width: 600px; border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+  @media (max-width: 640px) {
+    .activity-detail { flex-direction: column; gap: 1rem; }
+  }
+
+  /* AERIAL SPLIT */
+  .aerial-split { display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items: center; }
+  .aerial-split__image img { width: 100%; border-radius: 10px; box-shadow: 0 8px 30px rgba(0,0,0,0.12); }
+  .aerial-split__text h2 { font-size: 1.75rem; font-weight: 800; margin-bottom: 1.25rem; }
+  .aerial-split__text p { font-size: 0.98rem; color: var(--text-mid); line-height: 1.75; margin-bottom: 1rem; }
+  @media (max-width: 768px) { .aerial-split { grid-template-columns: 1fr; gap: 2rem; } }
+
+  /* BUTTONS */
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.92rem; font-weight: 600; text-decoration: none;
+    padding: 0.7rem 1.5rem; border-radius: 6px; transition: all 0.15s;
+    border: 2px solid transparent; cursor: pointer;
+  }
+  .btn--primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .btn--primary:hover { opacity: 0.9; }
+  .btn--outline { background: transparent; color: #fff; border-color: rgba(255,255,255,0.4); }
+  .btn--outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+  .btn--lg { padding: 0.85rem 2rem; font-size: 1rem; }
+
+  .section--cta {
+    background: linear-gradient(135deg, #1a5c3a 0%, #0f3d25 100%);
+    text-align: center; padding: 4rem 0;
+  }
+  .cta-content h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800; color: #fff; margin-bottom: 0.75rem; }
+  .cta-content p { font-size: 1.05rem; color: rgba(255,255,255,0.85); margin-bottom: 2rem; }
+  .cta-actions { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+  .cta-actions .btn--primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .cta-actions .btn--outline { color: #fff; border-color: rgba(255,255,255,0.5); }
+
+  /* FOOTER */
+  .footer { background: #1a1f23; color: rgba(255,255,255,0.7); padding: 4rem 0 0; }
+  .footer__inner { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 2.5rem; }
+  .footer__col h4 { color: #fff; font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem; }
+  .footer__col p { font-size: 0.88rem; line-height: 1.65; }
+  .footer__col ul { list-style: none; }
+  .footer__col li { margin-bottom: 0.4rem; }
+  .footer__col a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.88rem; transition: color 0.15s; }
+  .footer__col a:hover { color: var(--accent); }
+  .footer__social { display: flex; gap: 0.75rem; margin-top: 1rem; }
+  .footer__social a { color: rgba(255,255,255,0.5); transition: color 0.15s; }
+  .footer__social a:hover { color: var(--accent); }
+  .footer__bottom {
+    margin-top: 3rem; padding: 1.25rem 0;
+    border-top: 1px solid rgba(255,255,255,0.08); text-align: center;
+  }
+  .footer__bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+  @media (max-width: 768px) { .footer__inner { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .footer__inner { grid-template-columns: 1fr; gap: 2rem; } }
+</style>
+</body>
+</html>

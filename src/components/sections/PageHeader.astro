@@ -1,0 +1,143 @@
+---
+import type { SiteContent, UIStrings } from '../../schema/content';
+
+interface Props {
+  site: SiteContent;
+  base: string;
+  ui?: UIStrings;
+  title: string;
+  subtitle?: string;
+  breadcrumbs?: { label: string; href: string }[];
+}
+
+const { site, title, subtitle, breadcrumbs } = Astro.props;
+---
+
+<section class="page-header">
+  <div class="container page-header__inner">
+    {breadcrumbs && breadcrumbs.length > 0 && (
+      <nav class="page-header__breadcrumbs" aria-label="Breadcrumb">
+        {breadcrumbs.map((crumb, i) => (
+          <>
+            {i > 0 && <span class="page-header__sep">/</span>}
+            <a href={crumb.href}>{crumb.label}</a>
+          </>
+        ))}
+      </nav>
+    )}
+    <h1 class="page-header__title">{title}</h1>
+    {subtitle && <p class="page-header__subtitle">{subtitle}</p>}
+  </div>
+</section>
+
+<style is:global>
+  .page-header {
+    background: var(--primary, var(--maroon, #6b1d2a));
+    color: #fff;
+    padding: 5rem 0 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 20% 80%, rgba(0,0,0,0.15) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .page-header__inner {
+    position: relative;
+  }
+
+  .page-header__breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 1rem;
+  }
+
+  .page-header__breadcrumbs a {
+    color: rgba(255,255,255,0.7);
+    transition: color 0.15s;
+  }
+
+  .page-header__breadcrumbs a:hover {
+    color: #fff;
+  }
+
+  .page-header__sep {
+    color: rgba(255,255,255,0.3);
+  }
+
+  .page-header__title {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .page-header__subtitle {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.75);
+    margin-top: 0.5rem;
+    max-width: 600px;
+    line-height: 1.6;
+  }
+
+  /* Theme: Suspended — subtle gradient */
+  .theme-suspended .page-header {
+    background: linear-gradient(135deg,
+      var(--primary, #6b1d2a) 0%,
+      color-mix(in srgb, var(--primary, #6b1d2a), white 15%) 100%
+    );
+  }
+
+  .theme-suspended .page-header::before {
+    background: none;
+  }
+
+  /* Theme: Editorial — bold dark */
+  .theme-editorial .page-header {
+    background: #1a1a1a;
+    padding: 6rem 0 2.5rem;
+  }
+
+  .theme-editorial .page-header::before {
+    background:
+      repeating-linear-gradient(
+        45deg, transparent, transparent 40px,
+        rgba(255,255,255,0.015) 40px, rgba(255,255,255,0.015) 80px
+      );
+  }
+
+  .theme-editorial .page-header__title {
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  /* Theme: Bold — clip-path angle */
+  .theme-bold .page-header {
+    padding: 5.5rem 0 3.5rem;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 2rem), 0 100%);
+  }
+
+  .theme-bold .page-header__title {
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+  }
+
+  @media (max-width: 768px) {
+    .page-header { padding: 4.5rem 0 1.5rem; }
+    .theme-bold .page-header {
+      padding: 4.5rem 0 2.5rem;
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 1.5rem), 0 100%);
+    }
+  }
+</style>

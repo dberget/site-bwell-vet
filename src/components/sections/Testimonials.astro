@@ -1,0 +1,620 @@
+---
+import type { SiteContent, UIStrings } from '../../schema/content';
+
+interface Props {
+  site: SiteContent;
+  base: string;
+  ui?: UIStrings;
+}
+
+const { site, ui } = Astro.props;
+const { testimonials } = site;
+---
+
+{testimonials && testimonials.length > 0 && (
+  <section class="section" id="reviews">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__eyebrow">Testimonials</span>
+        <h2 class="section__title">{ui?.sections?.testimonials || 'What Our Customers Say'}</h2>
+      </div>
+      <div class="reviews">
+        {testimonials.map((t) => (
+          <blockquote class="review">
+            <div class="review__stars" aria-label={`${t.rating} out of 5 stars`}>
+              {Array.from({ length: 5 }).map((_, idx) => (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill={idx < (t.rating ?? 0) ? '#ffd700' : '#ddd'}>
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              ))}
+            </div>
+            <p class="review__text">{t.text}</p>
+            <footer class="review__footer">
+              <cite class="review__author">&mdash; {t.author}</cite>
+              {t.source && <span class="review__source">{t.source}</span>}
+            </footer>
+          </blockquote>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style is:global>
+  /* --- Reviews --- */
+  .reviews {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .review {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.75rem;
+    border-left: 4px solid var(--yellow);
+  }
+
+  .review__stars {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 0.85rem;
+  }
+
+  .review__text {
+    font-size: 0.95rem;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+
+  .review__footer {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .review__author {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+
+  .review__source {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.55rem;
+    border-radius: 3px;
+    background: var(--bg-warm);
+    color: var(--text-light);
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .reviews { grid-template-columns: 1fr; }
+  }
+</style>
+
+<style is:global>
+  /* =============================================
+     THEME: SUSPENDED — Clean & Airy
+     ============================================= */
+
+  /* Section padding */
+  .theme-suspended #reviews {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+
+  /* Card grid: more generous gap */
+  .theme-suspended .reviews {
+    gap: 1.5rem;
+  }
+
+  /* Cards: no border-left, rounded, shadow instead of border */
+  .theme-suspended .review {
+    position: relative;
+    border: none;
+    border-left: none;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    padding: 2.5rem;
+    text-align: center;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .theme-suspended .review:hover {
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  /* Large decorative opening quote mark */
+  .theme-suspended .review::before {
+    content: "\201C";
+    position: absolute;
+    top: 1rem;
+    left: 1.5rem;
+    font-size: 4rem;
+    line-height: 1;
+    font-family: Georgia, 'Times New Roman', serif;
+    color: var(--primary, var(--maroon));
+    opacity: 0.15;
+    pointer-events: none;
+  }
+
+  /* Stars centered */
+  .theme-suspended .review__stars {
+    justify-content: center;
+  }
+
+  /* Quote text: serif, centered, slightly larger */
+  .theme-suspended .review__text {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.05rem;
+    text-align: center;
+    line-height: 1.8;
+  }
+
+  /* Footer centered */
+  .theme-suspended .review__footer {
+    justify-content: center;
+  }
+
+  /* Author bold */
+  .theme-suspended .review__author {
+    font-weight: 700;
+  }
+
+  /* Source badge */
+  .theme-suspended .review__source {
+    border-radius: 100px;
+    padding: 0.2rem 0.65rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    .theme-suspended #reviews {
+      padding-top: 3.5rem;
+      padding-bottom: 3.5rem;
+    }
+
+    .theme-suspended .reviews {
+      grid-template-columns: 1fr;
+    }
+
+    .theme-suspended .review {
+      padding: 2rem 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .theme-suspended #reviews {
+      padding-top: 2.5rem;
+      padding-bottom: 2.5rem;
+    }
+
+    .theme-suspended .review {
+      padding: 1.75rem 1.25rem;
+    }
+
+    .theme-suspended .review::before {
+      font-size: 3rem;
+      top: 0.75rem;
+      left: 1rem;
+    }
+  }
+
+
+  /* =============================================
+     THEME: EDITORIAL — Bold & Editorial
+     ============================================= */
+
+  /* Section padding */
+  .theme-editorial #reviews {
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+  }
+
+  /* Carousel wrapper */
+  .theme-editorial .reviews {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* All review cards: hidden by default, stacked */
+  .theme-editorial .review {
+    display: none;
+    border: none;
+    border-left: none;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    padding: 2rem 1rem;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  /* Active slide */
+  .theme-editorial .review.editorial-active {
+    display: block;
+    opacity: 1;
+  }
+
+  /* Large italic text centered */
+  .theme-editorial .review__text {
+    font-size: 1.25rem;
+    font-style: italic;
+    line-height: 1.85;
+    text-align: center;
+    color: var(--text, #1a1a1a);
+    margin-bottom: 1.5rem;
+  }
+
+  /* Stars centered */
+  .theme-editorial .review__stars {
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  /* Footer centered, column layout */
+  .theme-editorial .review__footer {
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.35rem;
+    align-items: center;
+  }
+
+  .theme-editorial .review__author {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .theme-editorial .review__source {
+    background: transparent;
+    color: var(--text-light, #888);
+    font-size: 0.8rem;
+    padding: 0;
+  }
+
+  /* Carousel navigation arrows */
+  .theme-editorial .editorial-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s ease;
+  }
+
+  .theme-editorial .editorial-nav:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  .theme-editorial .editorial-nav--prev {
+    left: -3rem;
+  }
+
+  .theme-editorial .editorial-nav--next {
+    right: -3rem;
+  }
+
+  /* CSS-only chevron arrows */
+  .theme-editorial .editorial-nav::before {
+    content: '';
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-top: 2.5px solid var(--text, #333);
+    border-right: 2.5px solid var(--text, #333);
+  }
+
+  .theme-editorial .editorial-nav--prev::before {
+    transform: rotate(-135deg);
+    margin-left: 3px;
+  }
+
+  .theme-editorial .editorial-nav--next::before {
+    transform: rotate(45deg);
+    margin-right: 3px;
+  }
+
+  /* Dot indicators */
+  .theme-editorial .editorial-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .theme-editorial .editorial-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background: var(--border, #ddd);
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .theme-editorial .editorial-dot:hover {
+    background: var(--text-light, #999);
+  }
+
+  .theme-editorial .editorial-dot.active {
+    background: var(--primary, var(--maroon, #800000));
+    transform: scale(1.25);
+  }
+
+  @media (max-width: 768px) {
+    .theme-editorial #reviews {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+
+    .theme-editorial .reviews {
+      max-width: 100%;
+    }
+
+    .theme-editorial .review__text {
+      font-size: 1.1rem;
+    }
+
+    .theme-editorial .editorial-nav--prev {
+      left: -0.5rem;
+    }
+
+    .theme-editorial .editorial-nav--next {
+      right: -0.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .theme-editorial #reviews {
+      padding-top: 2.5rem;
+      padding-bottom: 2.5rem;
+    }
+
+    .theme-editorial .review__text {
+      font-size: 1rem;
+    }
+
+    .theme-editorial .editorial-nav {
+      width: 32px;
+      height: 32px;
+    }
+
+    .theme-editorial .editorial-nav::before {
+      width: 10px;
+      height: 10px;
+      border-width: 2px;
+    }
+
+    .theme-editorial .editorial-nav--prev {
+      left: -0.25rem;
+    }
+
+    .theme-editorial .editorial-nav--next {
+      right: -0.25rem;
+    }
+  }
+
+
+  /* =============================================
+     THEME: BOLD — Energetic & Punchy
+     ============================================= */
+
+  /* Section padding */
+  .theme-bold #reviews {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  /* 2-column grid */
+  .theme-bold .reviews {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  /* First/featured testimonial spans full width */
+  .theme-bold .review:first-child {
+    grid-column: 1 / -1;
+    background: color-mix(in srgb, var(--primary, var(--maroon, #800000)) 5%, #fff);
+  }
+
+  .theme-bold .review:first-child .review__text {
+    font-size: 1.1rem;
+  }
+
+  /* Cards: colored left border, stronger shadow */
+  .theme-bold .review {
+    background: #fff;
+    border: 1px solid var(--border, #e5e7eb);
+    border-left: 4px solid var(--primary, var(--maroon, #800000));
+    border-radius: 6px;
+    padding: 2rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+  }
+
+  .theme-bold .review:hover {
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
+
+  /* Stars visible with filled yellow */
+  .theme-bold .review__stars {
+    margin-bottom: 1rem;
+  }
+
+  .theme-bold .review__text {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    margin-bottom: 1.25rem;
+  }
+
+  /* Author footer: column layout */
+  .theme-bold .review__footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .theme-bold .review__author {
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .theme-bold .review__source {
+    font-size: 0.75rem;
+    background: transparent;
+    padding: 0;
+    color: var(--text-light, #888);
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .theme-bold .reviews {
+      grid-template-columns: 1fr;
+    }
+
+    .theme-bold .review:first-child {
+      grid-column: 1;
+    }
+
+    .theme-bold #reviews {
+      padding-top: 3.5rem;
+      padding-bottom: 3.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .theme-bold #reviews {
+      padding-top: 2.5rem;
+      padding-bottom: 2.5rem;
+    }
+
+    .theme-bold .review {
+      padding: 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  // Editorial Carousel — only activates inside .theme-editorial
+  (function () {
+    const wrapper = document.querySelector('.theme-editorial');
+    if (!wrapper) return;
+
+    const reviewsContainer = wrapper.querySelector('#reviews .reviews');
+    if (!reviewsContainer) return;
+
+    const reviews = Array.from(reviewsContainer.querySelectorAll('.review'));
+    if (reviews.length === 0) return;
+
+    let current = 0;
+    let timer = null;
+
+    // --- Build navigation arrows ---
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'editorial-nav editorial-nav--prev';
+    prevBtn.setAttribute('aria-label', 'Previous testimonial');
+    prevBtn.type = 'button';
+
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'editorial-nav editorial-nav--next';
+    nextBtn.setAttribute('aria-label', 'Next testimonial');
+    nextBtn.type = 'button';
+
+    reviewsContainer.appendChild(prevBtn);
+    reviewsContainer.appendChild(nextBtn);
+
+    // --- Build dot indicators ---
+    const dotsContainer = document.createElement('div');
+    dotsContainer.className = 'editorial-dots';
+
+    reviews.forEach(function (_, i) {
+      const dot = document.createElement('button');
+      dot.className = 'editorial-dot';
+      dot.type = 'button';
+      dot.setAttribute('aria-label', 'Go to testimonial ' + (i + 1));
+      dot.addEventListener('click', function () {
+        goTo(i);
+      });
+      dotsContainer.appendChild(dot);
+    });
+
+    reviewsContainer.parentNode.insertBefore(dotsContainer, reviewsContainer.nextSibling);
+
+    // --- Show/hide logic ---
+    function goTo(index) {
+      reviews[current].classList.remove('editorial-active');
+      current = ((index % reviews.length) + reviews.length) % reviews.length;
+      reviews[current].classList.add('editorial-active');
+      updateDots();
+      resetTimer();
+    }
+
+    function updateDots() {
+      var dots = dotsContainer.querySelectorAll('.editorial-dot');
+      dots.forEach(function (d, i) {
+        d.classList.toggle('active', i === current);
+      });
+    }
+
+    function next() {
+      goTo(current + 1);
+    }
+
+    function prev() {
+      goTo(current - 1);
+    }
+
+    // --- Auto-advance ---
+    function startTimer() {
+      timer = setInterval(next, 6000);
+    }
+
+    function stopTimer() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    function resetTimer() {
+      stopTimer();
+      startTimer();
+    }
+
+    // --- Event listeners ---
+    prevBtn.addEventListener('click', prev);
+    nextBtn.addEventListener('click', next);
+
+    // Pause on hover
+    reviewsContainer.addEventListener('mouseenter', stopTimer);
+    reviewsContainer.addEventListener('mouseleave', startTimer);
+
+    // --- Initialize ---
+    goTo(0);
+  })();
+</script>

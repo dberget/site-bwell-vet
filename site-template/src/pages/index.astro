@@ -1,0 +1,297 @@
+---
+import { site } from '../data/site';
+
+const { business, contact, hours, services, team, testimonials, announcements, seo } = site;
+const featuredServices = services.filter((s) => s.featured);
+const activeAnnouncements = announcements.filter((a) => a.active);
+const fullAddress = `${contact.address.street}, ${contact.address.city}, ${contact.address.state} ${contact.address.zip}`;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+
+function formatHours(open: string, close: string): string {
+  const fmt = (t: string) => {
+    const [h, m] = t.split(':').map(Number);
+    const suffix = h >= 12 ? 'PM' : 'AM';
+    const hour12 = h % 12 || 12;
+    return m === 0 ? `${hour12} ${suffix}` : `${hour12}:${m.toString().padStart(2, '0')} ${suffix}`;
+  };
+  return `${fmt(open)} – ${fmt(close)}`;
+}
+
+function capitalize(s: string): string {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <link rel="icon" href={`${base}favicon.ico`} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{seo.title}</title>
+    <meta name="description" content={seo.description} />
+    {seo.keywords && <meta name="keywords" content={seo.keywords.join(', ')} />}
+    <style set:html={`:root { --primary: ${business.primaryColor ?? '#1a5276'}; --accent: ${business.accentColor ?? '#f39c12'}; }`}></style>
+  </head>
+
+  <body>
+    <!-- Announcements Banner -->
+    {activeAnnouncements.length > 0 && (
+      <div class="announcements">
+        {activeAnnouncements.map((a) => (
+          <div class={`announcement announcement--${a.type}`}>
+            <strong>{a.title}:</strong> {a.body}
+          </div>
+        ))}
+      </div>
+    )}
+
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header__brand">
+          <h1 class="header__name">{business.name}</h1>
+          <p class="header__tagline">{business.tagline}</p>
+        </div>
+        <div class="header__contact">
+          <a href={`tel:${contact.phone.replace(/\D/g, '')}`} class="btn btn--phone">{contact.phone}</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <section class="hero">
+        <div class="container">
+          <p class="hero__description">{business.description}</p>
+          <div class="hero__actions">
+            <a href={`tel:${contact.phone.replace(/\D/g, '')}`} class="btn btn--primary">Call Now</a>
+            <a href={`mailto:${contact.email}`} class="btn btn--secondary">Email Us</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services -->
+      <section class="section" id="services">
+        <div class="container">
+          <h2 class="section__title">Our Services</h2>
+          <div class="services-grid">
+            {featuredServices.map((service) => (
+              <div class="service-card">
+                {service.icon && <span class="service-card__icon">{service.icon}</span>}
+                <h3 class="service-card__name">{service.name}</h3>
+                <p class="service-card__desc">{service.description}</p>
+              </div>
+            ))}
+          </div>
+          {services.length > featuredServices.length && (
+            <p class="section__note">
+              We also offer: {services.filter((s) => !s.featured).map((s) => s.name).join(', ')}.
+            </p>
+          )}
+        </div>
+      </section>
+
+      <!-- Testimonials -->
+      <section class="section section--alt" id="testimonials">
+        <div class="container">
+          <h2 class="section__title">What Our Customers Say</h2>
+          <div class="testimonials-grid">
+            {testimonials.map((t) => (
+              <blockquote class="testimonial">
+                <p class="testimonial__text">"{t.text}"</p>
+                <footer class="testimonial__footer">
+                  <cite class="testimonial__author">{t.author}</cite>
+                  {t.rating && (
+                    <span class="testimonial__rating" aria-label={`${t.rating} out of 5 stars`}>
+                      {'★'.repeat(t.rating)}{'☆'.repeat(5 - t.rating)}
+                    </span>
+                  )}
+                  {t.source && <span class="testimonial__source">— {t.source}</span>}
+                </footer>
+              </blockquote>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- Team -->
+      <section class="section" id="team">
+        <div class="container">
+          <h2 class="section__title">Our Team</h2>
+          <div class="team-grid">
+            {team.map((member) => (
+              <div class="team-card">
+                <div class="team-card__avatar">{member.name.split(' ').map((n) => n[0]).join('')}</div>
+                <h3 class="team-card__name">{member.name}</h3>
+                <p class="team-card__role">{member.role}</p>
+                {member.bio && <p class="team-card__bio">{member.bio}</p>}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- Hours & Contact -->
+      <section class="section section--alt" id="contact">
+        <div class="container">
+          <h2 class="section__title">Hours & Contact</h2>
+          <div class="contact-grid">
+            <div class="hours-table">
+              <h3>Business Hours</h3>
+              <table>
+                <tbody>
+                  {hours.regular.map((day) => (
+                    <tr class={day.closed ? 'closed' : ''}>
+                      <td>{capitalize(day.day)}</td>
+                      <td>{day.closed ? 'Closed' : formatHours(day.open, day.close)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {hours.note && <p class="hours-note">{hours.note}</p>}
+            </div>
+            <div class="contact-info">
+              <h3>Get in Touch</h3>
+              <ul class="contact-list">
+                <li>
+                  <strong>Phone:</strong>
+                  <a href={`tel:${contact.phone.replace(/\D/g, '')}`}>{contact.phone}</a>
+                </li>
+                <li>
+                  <strong>Email:</strong>
+                  <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                </li>
+                <li>
+                  <strong>Address:</strong>
+                  <span>{fullAddress}</span>
+                </li>
+              </ul>
+              {contact.socials && (
+                <div class="social-links">
+                  {contact.socials.facebook && <a href={contact.socials.facebook} target="_blank" rel="noopener noreferrer">Facebook</a>}
+                  {contact.socials.nextdoor && <a href={contact.socials.nextdoor} target="_blank" rel="noopener noreferrer">Nextdoor</a>}
+                  {contact.socials.yelp && <a href={contact.socials.yelp} target="_blank" rel="noopener noreferrer">Yelp</a>}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; {new Date().getFullYear()} {business.name}. All rights reserved.</p>
+        <p class="footer__address">{fullAddress}</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  /* Reset & Base */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1a1a1a; scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+  body { background: #fff; }
+
+  a { color: var(--primary); text-decoration: none; transition: color 0.15s; }
+  a:hover { text-decoration: underline; }
+
+  img { max-width: 100%; height: auto; display: block; }
+
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* Announcements */
+  .announcements { background: var(--primary); color: #fff; text-align: center; font-size: 0.9rem; }
+  .announcement { padding: 0.6rem 1.5rem; }
+  .announcement--promo { background: var(--accent); color: #1a1a1a; font-weight: 500; }
+  .announcement--warning { background: #c0392b; }
+
+  /* Header */
+  .header { border-bottom: 3px solid var(--accent); padding: 1.25rem 0; background: #fff; }
+  .header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .header__name { font-size: 1.5rem; color: var(--primary); line-height: 1.2; letter-spacing: -0.01em; }
+  .header__tagline { font-size: 0.95rem; color: #555; }
+
+  /* Buttons */
+  .btn { display: inline-block; padding: 0.65rem 1.5rem; border-radius: 6px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s; cursor: pointer; }
+  .btn:hover { opacity: 0.92; text-decoration: none; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+  .btn:active { transform: translateY(0); }
+  .btn--primary { background: var(--accent); color: #1a1a1a; }
+  .btn--secondary { background: var(--primary); color: #fff; }
+  .btn--phone { background: var(--primary); color: #fff; font-size: 1rem; }
+
+  /* Hero */
+  .hero { padding: 3.5rem 0; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
+  .hero__description { font-size: 1.15rem; max-width: 720px; color: #444; margin-bottom: 1.75rem; line-height: 1.7; }
+  .hero__actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  /* Sections */
+  .section { padding: 4rem 0; }
+  .section--alt { background: #f8f9fa; }
+  .section__title { font-size: 1.6rem; color: var(--primary); margin-bottom: 2rem; letter-spacing: -0.01em; }
+  .section__note { margin-top: 1.5rem; color: #555; font-size: 0.95rem; font-style: italic; }
+
+  /* Services Grid */
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
+  .service-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 1.5rem; transition: box-shadow 0.2s, transform 0.2s; }
+  .service-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .service-card__icon { font-size: 2rem; display: block; margin-bottom: 0.75rem; }
+  .service-card__name { font-size: 1.1rem; color: var(--primary); margin-bottom: 0.5rem; font-weight: 600; }
+  .service-card__desc { font-size: 0.9rem; color: #555; line-height: 1.6; }
+
+  /* Testimonials */
+  .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+  .testimonial { background: #fff; border-left: 4px solid var(--accent); border-radius: 6px; padding: 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  .testimonial__text { font-style: italic; color: #333; margin-bottom: 1rem; line-height: 1.7; }
+  .testimonial__footer { font-size: 0.85rem; color: #666; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+  .testimonial__author { font-style: normal; font-weight: 600; }
+  .testimonial__rating { color: var(--accent); letter-spacing: 1px; }
+  .testimonial__source { color: #999; }
+
+  /* Team */
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; }
+  .team-card { text-align: center; padding: 1.5rem; border-radius: 8px; transition: background 0.15s; }
+  .team-card:hover { background: rgba(0,0,0,0.02); }
+  .team-card__avatar { width: 68px; height: 68px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; margin: 0 auto 0.75rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  .team-card__name { font-size: 1.05rem; color: var(--primary); font-weight: 600; }
+  .team-card__role { font-size: 0.85rem; color: var(--accent); font-weight: 600; margin-bottom: 0.5rem; }
+  .team-card__bio { font-size: 0.85rem; color: #555; line-height: 1.6; }
+
+  /* Hours & Contact */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .contact-grid h3 { font-size: 1.15rem; color: var(--primary); margin-bottom: 1rem; }
+
+  table { width: 100%; border-collapse: collapse; }
+  td { padding: 0.5rem 0; border-bottom: 1px solid #eee; }
+  td:first-child { font-weight: 600; width: 40%; }
+  tr.closed td { color: #999; }
+  .hours-note { margin-top: 0.75rem; font-size: 0.9rem; color: var(--accent); font-weight: 600; }
+
+  .contact-list { list-style: none; }
+  .contact-list li { margin-bottom: 0.75rem; }
+  .contact-list strong { display: inline-block; min-width: 70px; }
+
+  .social-links { margin-top: 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .social-links a { padding: 0.5rem 1rem; background: var(--primary); color: #fff; border-radius: 6px; font-size: 0.85rem; font-weight: 600; transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s; }
+  .social-links a:hover { opacity: 0.92; text-decoration: none; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+
+  /* Footer */
+  .footer { background: var(--primary); color: rgba(255,255,255,0.9); text-align: center; padding: 2rem 0; font-size: 0.9rem; }
+  .footer__address { font-size: 0.8rem; margin-top: 0.35rem; color: rgba(255,255,255,0.6); }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .header .container { flex-direction: column; text-align: center; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .hero { padding: 2.5rem 0; }
+    .hero__description { font-size: 1rem; }
+    .section { padding: 3rem 0; }
+    .section__title { font-size: 1.4rem; }
+  }
+</style>

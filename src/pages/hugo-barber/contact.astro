@@ -1,0 +1,397 @@
+---
+import Analytics from '../../components/Analytics.astro';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Hugo Barber Shop | Hugo, MN</title>
+  <meta name="description" content="Contact Hugo Barber Shop at (651) 429-0975. Located at 14667 Forest Blvd N, Hugo, MN 55038. Walk-ins welcome." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <Analytics />
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="hb-nav">
+    <div class="hb-nav__inner">
+      <a href="/hugo-barber" class="hb-nav__brand">
+        <svg class="hb-nav__icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="5" r="3"/><path d="M12 8v8"/><circle cx="12" cy="19" r="3"/><path d="M8 5h0M16 5h0M8 19h0M16 19h0"/></svg>
+        <span class="hb-nav__name">Hugo Barber Shop</span>
+      </a>
+      <nav class="hb-nav__links">
+        <a href="/hugo-barber" class="hb-nav__link">Home</a>
+        <a href="/hugo-barber/contact" class="hb-nav__link hb-nav__link--active">Contact</a>
+      </nav>
+      <a href="tel:6514290975" class="hb-nav__cta">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 013.12 4.18 2 2 0 015.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        (651) 429-0975
+      </a>
+      <button class="hb-nav__hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- PAGE HEADER -->
+  <section class="hb-page-header">
+    <div class="hb-container">
+      <div class="hb-breadcrumb">
+        <a href="/hugo-barber">Home</a> <span>/</span> <span>Contact</span>
+      </div>
+      <h1>Get in Touch</h1>
+      <p>Walk in anytime or send us a message. We'd love to hear from you.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="hb-section">
+    <div class="hb-container">
+      <div class="hb-contact-grid">
+
+        <!-- LEFT: Info -->
+        <div class="hb-contact-info">
+          <div class="hb-contact-phone">
+            <a href="tel:6514290975">(651) 429-0975</a>
+          </div>
+
+          <div class="hb-info-block">
+            <div class="hb-info-block__icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <strong>Address</strong>
+              <p>14667 Forest Blvd N<br/>Hugo, MN 55038</p>
+              <a href="https://maps.google.com/?q=14667+Forest+Blvd+N+Hugo+MN+55038" target="_blank" rel="noopener" class="hb-info-link">Get Directions &rarr;</a>
+            </div>
+          </div>
+
+          <div class="hb-info-block">
+            <div class="hb-info-block__icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <strong>Hours</strong>
+              <p>Mon &ndash; Fri: 9am &ndash; 6pm<br/>Saturday: 8am &ndash; 3pm<br/>Sunday: Closed</p>
+              <span class="hb-info-sub">Call to confirm hours</span>
+            </div>
+          </div>
+
+          <div class="hb-info-block">
+            <div class="hb-info-block__icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+            </div>
+            <div>
+              <strong>Services</strong>
+              <p>Men's Haircuts &bull; Beard Trims<br/>Straight Razor Shaves &bull; Kids Haircuts</p>
+              <span class="hb-info-sub">Walk-ins welcome</span>
+            </div>
+          </div>
+
+          <!-- Map Placeholder -->
+          <div class="hb-map-placeholder">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <p>14667 Forest Blvd N, Hugo, MN 55038</p>
+            <a href="https://maps.google.com/?q=14667+Forest+Blvd+N+Hugo+MN+55038" target="_blank" rel="noopener">Open in Google Maps &rarr;</a>
+          </div>
+        </div>
+
+        <!-- RIGHT: Form -->
+        <div class="hb-contact-form-wrap">
+          <h2>Send Us a Message</h2>
+          <p class="hb-form-desc">Have a question or want to get in touch? Fill out the form below and we'll get back to you.</p>
+          <form class="hb-form" action="/api/contact" method="POST">
+            <input type="hidden" name="site" value="hugo-barber" />
+            <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off" />
+            <div class="hb-form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required placeholder="Your name" />
+            </div>
+            <div class="hb-form-row">
+              <div class="hb-form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="you@example.com" />
+              </div>
+              <div class="hb-form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" placeholder="(651) 555-0000" />
+              </div>
+            </div>
+            <div class="hb-form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" required placeholder="How can we help you?"></textarea>
+            </div>
+            <button type="submit" class="hb-btn hb-btn--gold hb-btn--lg hb-btn--full">Send Message</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="hb-footer">
+    <div class="hb-container hb-footer__inner">
+      <div class="hb-footer__col">
+        <h4>Hugo Barber Shop</h4>
+        <p>Traditional barbering in Hugo, Minnesota. Quality haircuts, beard trims, and straight razor shaves.</p>
+      </div>
+      <div class="hb-footer__col">
+        <h4>Links</h4>
+        <ul>
+          <li><a href="/hugo-barber">Home</a></li>
+          <li><a href="/hugo-barber/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="hb-footer__col">
+        <h4>Visit Us</h4>
+        <p>14667 Forest Blvd N<br/>Hugo, MN 55038</p>
+        <p style="margin-top:0.5rem;"><a href="tel:6514290975">(651) 429-0975</a></p>
+      </div>
+    </div>
+    <div class="hb-footer__bottom">
+      <p>&copy; 2026 Hugo Barber Shop. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.querySelector('.hb-nav');
+    window.addEventListener('scroll', () => nav?.classList.toggle('hb-nav--scrolled', window.scrollY > 20));
+    document.querySelector('.hb-nav__hamburger')?.addEventListener('click', () => {
+      document.querySelector('.hb-nav__links')?.classList.toggle('hb-nav__links--open');
+    });
+  </script>
+
+<style is:global>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #1c1c1c;
+    --accent: #c9a96e;
+    --text: #f0ece4;
+    --text-mid: #a8a29e;
+    --bg: #111111;
+    --bg-card: #1a1a1a;
+    --border: rgba(201,169,110,0.15);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .hb-container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* NAV */
+  .hb-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(17,17,17,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,169,110,0.08);
+    transition: box-shadow 0.2s, background 0.2s;
+  }
+  .hb-nav--scrolled {
+    background: rgba(17,17,17,0.98);
+    box-shadow: 0 2px 24px rgba(0,0,0,0.4);
+  }
+  .hb-nav__inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .hb-nav__brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+  .hb-nav__name {
+    color: var(--text); font-weight: 800; font-size: 1rem;
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .hb-nav__links { display: flex; gap: 0.25rem; }
+  .hb-nav__link {
+    color: var(--text-mid); text-decoration: none; font-size: 0.85rem;
+    font-weight: 500; padding: 0.45rem 0.85rem; border-radius: 6px;
+    transition: color 0.15s, background 0.15s; letter-spacing: 0.02em;
+  }
+  .hb-nav__link:hover, .hb-nav__link--active { color: var(--accent); background: rgba(201,169,110,0.06); }
+  .hb-nav__cta {
+    display: flex; align-items: center; gap: 0.4rem;
+    background: var(--accent); color: var(--primary); text-decoration: none;
+    font-size: 0.82rem; font-weight: 700; padding: 0.5rem 1rem;
+    border-radius: 6px; transition: opacity 0.15s; letter-spacing: 0.02em;
+  }
+  .hb-nav__cta:hover { opacity: 0.88; }
+  .hb-nav__hamburger {
+    display: none; background: none; border: none; cursor: pointer;
+    flex-direction: column; gap: 5px; padding: 4px;
+  }
+  .hb-nav__hamburger span {
+    display: block; width: 22px; height: 2px; background: var(--accent);
+    border-radius: 1px; transition: 0.2s;
+  }
+
+  @media (max-width: 768px) {
+    .hb-nav__links {
+      display: none; position: absolute; top: 68px; left: 0; right: 0;
+      background: rgba(17,17,17,0.98); flex-direction: column; padding: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .hb-nav__links--open { display: flex; }
+    .hb-nav__link { padding: 0.75rem 1rem; }
+    .hb-nav__cta { display: none; }
+    .hb-nav__hamburger { display: flex; }
+  }
+
+  /* PAGE HEADER */
+  .hb-page-header {
+    padding: 8rem 0 3rem;
+    background: linear-gradient(180deg, var(--primary) 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--border);
+  }
+  .hb-breadcrumb {
+    font-size: 0.82rem; color: var(--text-mid); margin-bottom: 0.75rem;
+  }
+  .hb-breadcrumb a { color: var(--text-mid); text-decoration: none; }
+  .hb-breadcrumb a:hover { color: var(--accent); }
+  .hb-breadcrumb span { margin: 0 0.35rem; }
+  .hb-page-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 900;
+    color: #fff; margin-bottom: 0.5rem; letter-spacing: -0.02em;
+  }
+  .hb-page-header p { color: var(--text-mid); font-size: 1.05rem; }
+
+  .hb-section { padding: 4.5rem 0; }
+
+  /* CONTACT GRID */
+  .hb-contact-grid {
+    display: grid; grid-template-columns: 1fr 1.25fr; gap: 3.5rem;
+  }
+  @media (max-width: 768px) {
+    .hb-contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+  }
+
+  .hb-contact-phone { margin-bottom: 2rem; }
+  .hb-contact-phone a {
+    font-size: 2rem; font-weight: 900; color: var(--accent);
+    text-decoration: none; letter-spacing: -0.02em;
+  }
+  .hb-contact-phone a:hover { opacity: 0.85; }
+
+  .hb-info-block {
+    display: flex; gap: 1rem; padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .hb-info-block:last-of-type { border-bottom: none; }
+  .hb-info-block__icon {
+    flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(201,169,110,0.06);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hb-info-block strong {
+    display: block; font-size: 0.92rem; color: #fff; margin-bottom: 0.25rem;
+  }
+  .hb-info-block p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.7; }
+  .hb-info-link {
+    display: inline-block; margin-top: 0.4rem; font-size: 0.85rem;
+    font-weight: 600; color: var(--accent) !important; text-decoration: none;
+  }
+  .hb-info-link:hover { opacity: 0.85; }
+  .hb-info-sub {
+    display: block; margin-top: 0.35rem; font-size: 0.78rem;
+    color: var(--text-mid); font-style: italic; opacity: 0.7;
+  }
+
+  /* MAP PLACEHOLDER */
+  .hb-map-placeholder {
+    margin-top: 2rem; padding: 2.5rem 1.5rem;
+    background: rgba(201,169,110,0.04); border: 1px solid var(--border);
+    border-radius: 8px; text-align: center;
+  }
+  .hb-map-placeholder p {
+    font-size: 0.9rem; color: var(--text-mid); margin: 0.75rem 0 0.5rem;
+  }
+  .hb-map-placeholder a {
+    font-size: 0.85rem; font-weight: 600; color: var(--accent);
+    text-decoration: none;
+  }
+  .hb-map-placeholder a:hover { opacity: 0.85; }
+
+  /* FORM */
+  .hb-contact-form-wrap h2 {
+    font-size: 1.35rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem;
+  }
+  .hb-form-desc { font-size: 0.92rem; color: var(--text-mid); margin-bottom: 1.5rem; }
+
+  .hb-form-group { margin-bottom: 1.25rem; }
+  .hb-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 480px) { .hb-form-row { grid-template-columns: 1fr; } }
+
+  .hb-form-group label {
+    display: block; font-size: 0.82rem; font-weight: 600;
+    margin-bottom: 0.35rem; color: var(--text-mid);
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .hb-form-group input, .hb-form-group textarea {
+    width: 100%; padding: 0.75rem 1rem; font-size: 0.92rem;
+    border: 1.5px solid rgba(201,169,110,0.15); border-radius: 6px;
+    font-family: inherit; transition: border-color 0.15s;
+    background: rgba(201,169,110,0.03); color: var(--text);
+  }
+  .hb-form-group input::placeholder, .hb-form-group textarea::placeholder {
+    color: rgba(168,162,158,0.5);
+  }
+  .hb-form-group input:focus, .hb-form-group textarea:focus {
+    outline: none; border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(201,169,110,0.1);
+  }
+  .hb-form-group textarea { resize: vertical; min-height: 120px; }
+
+  /* BUTTONS */
+  .hb-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    font-size: 0.9rem; font-weight: 700; text-decoration: none;
+    padding: 0.7rem 1.6rem; border-radius: 4px; transition: all 0.15s;
+    border: 2px solid transparent; cursor: pointer; letter-spacing: 0.02em;
+    font-family: inherit;
+  }
+  .hb-btn--gold { background: var(--accent); color: var(--primary); border-color: var(--accent); }
+  .hb-btn--gold:hover { background: #d4b67a; border-color: #d4b67a; }
+  .hb-btn--outline { background: transparent; color: var(--text); border-color: rgba(201,169,110,0.4); }
+  .hb-btn--outline:hover { border-color: var(--accent); color: var(--accent); }
+  .hb-btn--lg { padding: 0.85rem 2rem; font-size: 0.95rem; }
+  .hb-btn--full { width: 100%; }
+
+  /* FOOTER */
+  .hb-footer {
+    background: #0a0a0a; color: var(--text-mid);
+    padding: 3.5rem 0 0; border-top: 1px solid rgba(201,169,110,0.08);
+  }
+  .hb-footer__inner {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 2.5rem;
+  }
+  .hb-footer__col h4 {
+    color: var(--text); font-size: 0.88rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem;
+  }
+  .hb-footer__col p { font-size: 0.88rem; line-height: 1.65; }
+  .hb-footer__col ul { list-style: none; }
+  .hb-footer__col li { margin-bottom: 0.4rem; }
+  .hb-footer__col a {
+    color: var(--text-mid); text-decoration: none; font-size: 0.88rem;
+    transition: color 0.15s;
+  }
+  .hb-footer__col a:hover { color: var(--accent); }
+  .hb-footer__bottom {
+    margin-top: 2.5rem; padding: 1.25rem 0;
+    border-top: 1px solid rgba(255,255,255,0.05); text-align: center;
+  }
+  .hb-footer__bottom p { font-size: 0.78rem; color: rgba(255,255,255,0.25); }
+
+  @media (max-width: 768px) {
+    .hb-footer__inner { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .hb-footer__inner { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>
+</body>
+</html>

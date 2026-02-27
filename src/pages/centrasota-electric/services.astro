@@ -1,0 +1,326 @@
+---
+import Analytics from '../../components/Analytics.astro';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services — CentraSota Electric | Alexandria, MN</title>
+  <meta name="description" content="Electrical services from CentraSota Electric in Alexandria, MN. Residential, commercial, repairs, new construction, generators, and lighting. Licensed & insured." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <Analytics />
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav__inner">
+      <a href="/centrasota-electric" class="nav__brand">
+        <span class="nav__name">CentraSota Electric</span>
+      </a>
+      <nav class="nav__links">
+        <a href="/centrasota-electric" class="nav__link">Home</a>
+        <a href="/centrasota-electric/services" class="nav__link nav__link--active">Services</a>
+        <a href="/centrasota-electric/contact" class="nav__link">Contact</a>
+      </nav>
+      <a href="tel:3207629473" class="nav__cta">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 013.12 4.18 2 2 0 015.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        (320) 762-9473
+      </a>
+      <button class="nav__hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- PAGE HEADER -->
+  <section class="page-header">
+    <div class="container">
+      <div class="page-header__breadcrumb">
+        <a href="/centrasota-electric">Home</a> <span>/</span> <span>Services</span>
+      </div>
+      <h1>Our Services</h1>
+      <p>Residential and commercial electrical services — licensed, insured, and built on integrity.</p>
+    </div>
+  </section>
+
+  <!-- ALL SERVICES -->
+  <section class="section">
+    <div class="container">
+
+      <div class="service-detail" id="residential">
+        <div class="service-detail__icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="service-detail__body">
+          <h2>Residential Electrical</h2>
+          <p>From panel upgrades to complete home rewiring, CentraSota Electric handles all your residential electrical needs. We keep your home safe, up to code, and running efficiently.</p>
+          <ul>
+            <li>Panel upgrades &amp; replacements</li>
+            <li>Whole-home rewiring</li>
+            <li>Outlet &amp; switch installation</li>
+            <li>Ceiling fan installation</li>
+            <li>Indoor &amp; outdoor lighting</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-detail" id="commercial">
+        <div class="service-detail__icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><polyline points="16 3 12 7 8 3"/></svg>
+        </div>
+        <div class="service-detail__body">
+          <h2>Commercial Electrical</h2>
+          <p>We provide reliable commercial electrical services for offices, retail spaces, restaurants, and industrial facilities. Every project meets code requirements and is built to last.</p>
+          <ul>
+            <li>Office buildout wiring</li>
+            <li>Retail &amp; restaurant electrical</li>
+            <li>Code compliance &amp; inspections</li>
+            <li>Commercial lighting systems</li>
+            <li>Dedicated circuits &amp; power distribution</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-detail" id="repairs">
+        <div class="service-detail__icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <div class="service-detail__body">
+          <h2>Electrical Repairs</h2>
+          <p>Electrical problems don't wait, and neither do we. Our team quickly diagnoses and repairs issues to keep your home or business safe and functional.</p>
+          <ul>
+            <li>Electrical troubleshooting</li>
+            <li>Circuit breaker replacement</li>
+            <li>Outlet &amp; switch repair</li>
+            <li>Wiring fault detection</li>
+            <li>Smoke detector installation &amp; repair</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-detail" id="new-construction">
+        <div class="service-detail__icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <div class="service-detail__body">
+          <h2>New Construction</h2>
+          <p>Building a new home or commercial space? We handle complete electrical systems from the ground up — rough-in to final trim — ensuring everything is done right the first time.</p>
+          <ul>
+            <li>Complete new-build electrical</li>
+            <li>Spec home wiring</li>
+            <li>Additions &amp; remodels</li>
+            <li>Permit coordination &amp; inspections</li>
+            <li>Structured wiring &amp; low voltage</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-detail" id="generators">
+        <div class="service-detail__icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <div class="service-detail__body">
+          <h2>Generator Installation</h2>
+          <p>Don't let a power outage leave you in the dark. We install and service standby generators and transfer switches so your home or business stays powered through any storm.</p>
+          <ul>
+            <li>Standby generator installation</li>
+            <li>Automatic transfer switches</li>
+            <li>Generator sizing &amp; consultation</li>
+            <li>Maintenance &amp; service</li>
+            <li>Portable generator hookups</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-detail" id="lighting">
+        <div class="service-detail__icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </div>
+        <div class="service-detail__body">
+          <h2>Lighting</h2>
+          <p>Transform your space with professional lighting. From energy-efficient LED upgrades to landscape lighting, we design and install lighting solutions that look great and save you money.</p>
+          <ul>
+            <li>Indoor lighting design &amp; installation</li>
+            <li>Outdoor &amp; security lighting</li>
+            <li>LED upgrades &amp; retrofits</li>
+            <li>Landscape lighting</li>
+            <li>Recessed &amp; track lighting</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Free Estimates Callout -->
+      <div class="estimates-callout">
+        <div class="estimates-callout__icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <h3>Free Estimates</h3>
+          <p>Not sure what you need? Give us a call and we'll provide a free estimate. No pressure, no hidden fees — just honest pricing from a family-owned business.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--cta">
+    <div class="container cta-content">
+      <h2>Ready to Get Started?</h2>
+      <p>Call CentraSota Electric today for a free estimate on your next project.</p>
+      <div class="cta-actions">
+        <a href="tel:3207629473" class="btn btn--primary btn--lg">Call (320) 762-9473</a>
+        <a href="/centrasota-electric/contact" class="btn btn--outline btn--lg">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__col">
+        <h4>CentraSota Electric</h4>
+        <p>Family-owned electrical contractor in Alexandria, MN. Dignity, Integrity, and Honesty in every job.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/centrasota-electric">Home</a></li>
+          <li><a href="/centrasota-electric/services">Services</a></li>
+          <li><a href="/centrasota-electric/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Contact</h4>
+        <p>PO Box 381<br/>Alexandria, MN</p>
+        <p><a href="tel:3207629473">(320) 762-9473</a></p>
+        <p>Owner: Jason Schneiderhan</p>
+      </div>
+      <div class="footer__col">
+        <h4>Hours</h4>
+        <table class="footer__hours">
+          <tr><td>Mon–Fri</td><td>7:00 AM – 5:00 PM</td></tr>
+          <tr><td>Sat–Sun</td><td>Emergency Only</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="footer__bottom"><p>&copy; 2026 CentraSota Electric. All rights reserved.</p></div>
+  </footer>
+
+  <script>
+    const nav = document.querySelector('.nav');
+    window.addEventListener('scroll', () => nav?.classList.toggle('nav--scrolled', window.scrollY > 20));
+    document.querySelector('.nav__hamburger')?.addEventListener('click', () => document.querySelector('.nav__links')?.classList.toggle('nav__links--open'));
+  </script>
+
+<style is:global>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --primary: #0d47a1; --accent: #ffc107; --text: #1a1a1a; --text-mid: #555; --bg: #fff; --border: #e5e7eb; }
+  body { font-family: 'Inter', -apple-system, sans-serif; color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
+
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--primary); transition: box-shadow 0.2s; }
+  .nav--scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.15); }
+  .nav__inner { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .nav__brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+  .nav__name { color: #fff; font-weight: 700; font-size: 1.1rem; }
+  .nav__links { display: flex; gap: 0.25rem; }
+  .nav__link { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.88rem; font-weight: 500; padding: 0.4rem 0.75rem; border-radius: 6px; transition: color 0.15s, background 0.15s; }
+  .nav__link:hover, .nav__link--active { color: #fff; background: rgba(255,255,255,0.1); }
+  .nav__cta { display: flex; align-items: center; gap: 0.4rem; background: var(--accent); color: #1a1a1a; text-decoration: none; font-size: 0.85rem; font-weight: 600; padding: 0.5rem 1rem; border-radius: 6px; }
+  .nav__cta:hover { opacity: 0.9; }
+  .nav__hamburger { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 4px; }
+  .nav__hamburger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 1px; }
+  @media (max-width: 768px) {
+    .nav__links { display: none; position: absolute; top: 64px; left: 0; right: 0; background: var(--primary); flex-direction: column; padding: 1rem; box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+    .nav__links--open { display: flex; }
+    .nav__link { padding: 0.75rem 1rem; }
+    .nav__cta { display: none; }
+    .nav__hamburger { display: flex; }
+  }
+
+  /* PAGE HEADER */
+  .page-header { background: var(--primary); padding: 7rem 0 2.5rem; }
+  .page-header__breadcrumb { font-size: 0.82rem; color: rgba(255,255,255,0.45); margin-bottom: 0.75rem; }
+  .page-header__breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; }
+  .page-header__breadcrumb a:hover { color: var(--accent); }
+  .page-header__breadcrumb span { margin: 0 0.35rem; }
+  .page-header h1 { color: #fff; font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 800; margin-bottom: 0.5rem; }
+  .page-header p { color: rgba(255,255,255,0.7); font-size: 1.05rem; }
+
+  .section { padding: 4.5rem 0; }
+
+  /* SERVICE DETAIL BLOCKS */
+  .service-detail {
+    display: flex; gap: 1.5rem; padding: 2.25rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .service-detail:first-of-type { padding-top: 0; }
+  .service-detail__icon {
+    flex-shrink: 0; width: 56px; height: 56px; border-radius: 12px;
+    background: rgba(255,193,7,0.12); color: var(--primary);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .service-detail__body h2 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .service-detail__body p { font-size: 0.95rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 0.75rem; }
+  .service-detail__body ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; }
+  .service-detail__body li {
+    font-size: 0.85rem; color: var(--text-mid); padding-left: 1.1rem;
+    position: relative;
+  }
+  .service-detail__body li::before {
+    content: ''; position: absolute; left: 0; top: 0.45rem;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+  }
+  @media (max-width: 640px) {
+    .service-detail { flex-direction: column; gap: 1rem; }
+  }
+
+  /* ESTIMATES CALLOUT */
+  .estimates-callout {
+    display: flex; gap: 1.25rem; align-items: flex-start;
+    margin-top: 3rem; padding: 2rem; background: rgba(255,193,7,0.08);
+    border-radius: 10px; border: 1px solid rgba(255,193,7,0.2);
+  }
+  .estimates-callout__icon {
+    flex-shrink: 0; width: 52px; height: 52px; border-radius: 12px;
+    background: var(--accent); color: #1a1a1a;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .estimates-callout h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.35rem; }
+  .estimates-callout p { font-size: 0.92rem; color: var(--text-mid); line-height: 1.6; }
+  @media (max-width: 480px) {
+    .estimates-callout { flex-direction: column; gap: 1rem; }
+  }
+
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.92rem; font-weight: 600; text-decoration: none; padding: 0.7rem 1.5rem; border-radius: 6px; transition: all 0.15s; border: 2px solid transparent; cursor: pointer; }
+  .btn--primary { background: var(--accent); color: #1a1a1a; border-color: var(--accent); }
+  .btn--primary:hover { opacity: 0.9; }
+  .btn--outline { background: transparent; color: #fff; border-color: rgba(255,255,255,0.4); }
+  .btn--outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+  .btn--lg { padding: 0.85rem 2rem; font-size: 1rem; }
+
+  .section--cta { background: linear-gradient(135deg, #0d47a1 0%, #0a3570 100%); text-align: center; padding: 4rem 0; }
+  .cta-content h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800; color: #fff; margin-bottom: 0.75rem; }
+  .cta-content p { font-size: 1.05rem; color: rgba(255,255,255,0.85); margin-bottom: 2rem; }
+  .cta-actions { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+  .cta-actions .btn--primary { background: var(--accent); color: #1a1a1a; border-color: var(--accent); }
+
+  .footer { background: #1a1f23; color: rgba(255,255,255,0.7); padding: 4rem 0 0; }
+  .footer__inner { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 2.5rem; }
+  .footer__col h4 { color: #fff; font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem; }
+  .footer__col p { font-size: 0.88rem; line-height: 1.65; }
+  .footer__col ul { list-style: none; }
+  .footer__col li { margin-bottom: 0.4rem; }
+  .footer__col a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.88rem; transition: color 0.15s; }
+  .footer__col a:hover { color: var(--accent); }
+  .footer__hours { font-size: 0.85rem; border-collapse: collapse; }
+  .footer__hours td { padding: 0.2rem 0; }
+  .footer__hours td:first-child { padding-right: 1.25rem; font-weight: 500; color: rgba(255,255,255,0.5); }
+  .footer__bottom { margin-top: 3rem; padding: 1.25rem 0; border-top: 1px solid rgba(255,255,255,0.08); text-align: center; }
+  .footer__bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+  @media (max-width: 768px) { .footer__inner { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .footer__inner { grid-template-columns: 1fr; gap: 2rem; } }
+</style>
+</body>
+</html>

@@ -1,0 +1,1539 @@
+---
+import Analytics from '../components/Analytics.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const year = new Date().getFullYear();
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lake Country Web Services — Professional Websites for Local Businesses, Powered by AI</title>
+    <meta name="description" content="Professional websites with AI-powered editing for local businesses. Custom-designed, SEO-optimized, and just $50/month, free setup. Built in central Minnesota." />
+    <meta name="keywords" content="web design, local business websites, AI website editor, Minnesota web design, affordable websites" />
+    <link rel="canonical" href="https://siteengine.dev/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Lake Country Web Services — Professional Websites for Local Businesses" />
+    <meta property="og:description" content="Professional websites with AI-powered editing. Built by developers, managed by you — just by chatting." />
+    <meta property="og:url" content="https://siteengine.dev/" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <Analytics />
+  </head>
+
+  <body>
+    <!-- ============ NAV ============ -->
+    <nav class="nav" id="nav">
+      <div class="container nav__inner">
+        <a href={`${base}`} class="nav__logo">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <rect width="32" height="32" rx="8" fill="#1a6847"/>
+            <!-- Pine trees -->
+            <path d="M10 22l3-5-2 0 3-5-2 0 2.5-4.5h-1L14 7l1-1.5L16 7l.5.5h-1L18 12l-2 0 3 5-2 0 3 5" fill="#fff" opacity="0.9"/>
+            <!-- Lake waves -->
+            <path d="M7 23.5c1.5-1 3-1 4.5 0s3 1 4.5 0 3-1 4.5 0 3 1 4.5 0" stroke="#fff" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="0.7"/>
+            <path d="M7 26c1.5-1 3-1 4.5 0s3 1 4.5 0 3-1 4.5 0 3 1 4.5 0" stroke="#fff" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="0.5"/>
+          </svg>
+          <span>Lake Country Web Services</span>
+        </a>
+        <div class="nav__links">
+          <a href="#features">Features</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <a href="#pricing" class="nav__cta">Get Started</a>
+        <button class="nav__mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="6" x2="21" y2="6" class="bar bar-1"/>
+            <line x1="3" y1="12" x2="21" y2="12" class="bar bar-2"/>
+            <line x1="3" y1="18" x2="21" y2="18" class="bar bar-3"/>
+          </svg>
+        </button>
+      </div>
+      <div class="nav__mobile-menu">
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#pricing" class="nav__cta nav__cta--mobile">Get Started</a>
+      </div>
+    </nav>
+
+    <!-- ============ HERO ============ -->
+    <header class="hero">
+      <div class="container">
+        <div class="hero__content">
+          <div class="hero__text">
+            <h1 class="hero__title">Your Business Deserves a <span class="hero__highlight">Better Website</span></h1>
+            <p class="hero__subtitle">Professional websites with AI-powered editing. Built by developers, managed by you&nbsp;&mdash; just by chatting.</p>
+            <div class="hero__actions">
+              <a href="#signup" class="btn btn--primary btn--lg">
+                Get Your Free Demo
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+              </a>
+              <a href="#how-it-works" class="btn btn--outline btn--lg">See How It Works</a>
+            </div>
+          </div>
+          <div class="hero__visual">
+            <div class="chat-mockup">
+              <div class="chat-mockup__header">
+                <div class="chat-mockup__dot"></div>
+                <div class="chat-mockup__dot"></div>
+                <div class="chat-mockup__dot"></div>
+                <span class="chat-mockup__title">Lake Country Web Services Admin</span>
+              </div>
+              <div class="chat-mockup__body">
+                <div class="chat-mockup__msg chat-mockup__msg--user">
+                  <div class="chat-mockup__avatar chat-mockup__avatar--user">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="5" r="3" fill="#fff"/><path d="M1.5 13c0-3 2.5-5 5.5-5s5.5 2 5.5 5" stroke="#fff" stroke-width="1.5" fill="none"/></svg>
+                  </div>
+                  <div class="chat-mockup__bubble chat-mockup__bubble--user">Change our hours to 8am-6pm on weekdays</div>
+                </div>
+                <div class="chat-mockup__msg chat-mockup__msg--ai">
+                  <div class="chat-mockup__avatar chat-mockup__avatar--ai">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2" y="2" width="10" height="10" rx="2" fill="#fff"/><circle cx="5.5" cy="6" r="1" fill="#1a6847"/><circle cx="8.5" cy="6" r="1" fill="#1a6847"/><path d="M5 9c.5.7 1.2 1 2 1s1.5-.3 2-1" stroke="#1a6847" stroke-width="1" stroke-linecap="round" fill="none"/></svg>
+                  </div>
+                  <div class="chat-mockup__bubble chat-mockup__bubble--ai">
+                    Done! I've updated your hours on the homepage and contact page. Changes are live now.
+                    <span class="chat-mockup__status">
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="#1a6847"/><path d="M3.5 6l2 2 3-3.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+                      Deployed
+                    </span>
+                  </div>
+                </div>
+                <div class="chat-mockup__msg chat-mockup__msg--user">
+                  <div class="chat-mockup__avatar chat-mockup__avatar--user">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><circle cx="7" cy="5" r="3" fill="#fff"/><path d="M1.5 13c0-3 2.5-5 5.5-5s5.5 2 5.5 5" stroke="#fff" stroke-width="1.5" fill="none"/></svg>
+                  </div>
+                  <div class="chat-mockup__bubble chat-mockup__bubble--user">Add "Snow Plowing" to our services list</div>
+                </div>
+                <div class="chat-mockup__msg chat-mockup__msg--ai">
+                  <div class="chat-mockup__avatar chat-mockup__avatar--ai">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2" y="2" width="10" height="10" rx="2" fill="#fff"/><circle cx="5.5" cy="6" r="1" fill="#1a6847"/><circle cx="8.5" cy="6" r="1" fill="#1a6847"/><path d="M5 9c.5.7 1.2 1 2 1s1.5-.3 2-1" stroke="#1a6847" stroke-width="1" stroke-linecap="round" fill="none"/></svg>
+                  </div>
+                  <div class="chat-mockup__bubble chat-mockup__bubble--ai">
+                    Added! "Snow Plowing" is now on your services page with a description. Want me to adjust anything?
+                    <span class="chat-mockup__status">
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="#1a6847"/><path d="M3.5 6l2 2 3-3.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+                      Deployed
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============ SOCIAL PROOF ============ -->
+    <section class="proof">
+      <div class="container">
+        <div class="proof__inner">
+          <div class="proof__stat">
+            <span class="proof__number">99.9%</span>
+            <span class="proof__label">Uptime</span>
+          </div>
+          <div class="proof__divider"></div>
+          <div class="proof__divider"></div>
+          <div class="proof__stat">
+            <span class="proof__number">0</span>
+            <span class="proof__label">Contracts Required</span>
+          </div>
+        </div>
+        <p class="proof__note">Trusted by local businesses across central Minnesota</p>
+      </div>
+    </section>
+
+    <!-- ============ HOW IT WORKS ============ -->
+    <section class="steps" id="how-it-works">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">How It Works</span>
+          <h2 class="section-title">Three Steps to a Better Website</h2>
+          <p class="section-desc">No complicated process. No months of waiting. Just a great site, fast.</p>
+        </div>
+        <div class="steps__grid">
+          <div class="step">
+            <div class="step__icon">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <rect x="4" y="4" width="24" height="24" rx="4" stroke="#1a6847" stroke-width="2" fill="none"/>
+                <path d="M10 12h12M10 16h8M10 20h10" stroke="#1a6847" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="step__title">We Build It</h3>
+            <p class="step__desc">Custom-designed site for your business. Real photos, real content, real branding. Hand-coded by developers, not dragged and dropped.</p>
+          </div>
+          <div class="step__connector" aria-hidden="true">
+            <svg width="40" height="2" viewBox="0 0 40 2"><line x1="0" y1="1" x2="40" y2="1" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="4 4"/></svg>
+          </div>
+          <div class="step">
+            <div class="step__icon">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <path d="M6 22l4-4h12a2 2 0 002-2V8a2 2 0 00-2-2H8a2 2 0 00-2 2v14z" stroke="#1a6847" stroke-width="2" fill="none" stroke-linejoin="round"/>
+                <circle cx="11" cy="12" r="1" fill="#1a6847"/>
+                <circle cx="16" cy="12" r="1" fill="#1a6847"/>
+                <circle cx="21" cy="12" r="1" fill="#1a6847"/>
+              </svg>
+            </div>
+            <h3 class="step__title">You Chat to Edit</h3>
+            <p class="step__desc">Need to update hours? Add a service? Change a photo? Just tell the AI what you want in plain English. No logins, no dashboards.</p>
+          </div>
+          <div class="step__connector" aria-hidden="true">
+            <svg width="40" height="2" viewBox="0 0 40 2"><line x1="0" y1="1" x2="40" y2="1" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="4 4"/></svg>
+          </div>
+          <div class="step">
+            <div class="step__icon">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <circle cx="16" cy="16" r="12" stroke="#1a6847" stroke-width="2" fill="none"/>
+                <path d="M10 16l4 4 8-8" stroke="#1a6847" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              </svg>
+            </div>
+            <h3 class="step__title">It Goes Live</h3>
+            <p class="step__desc">Changes deploy automatically in seconds. No waiting, no tickets, no developers needed. Your site is always up to date.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURES ============ -->
+    <section class="features" id="features">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Features</span>
+          <h2 class="section-title">Everything Your Business Needs Online</h2>
+          <p class="section-desc">No add-ons, no upsells. Every feature is included from day one.</p>
+        </div>
+        <div class="features__grid">
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 18l4-4h8a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+                <path d="M9 8h6M9 11h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>AI Chat Editor</h3>
+            <p>Update your website by chatting in plain English. No technical skills, no CMS, no learning curve.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="3" y="3" width="7" height="13" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                <rect x="13" y="3" width="8" height="18" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="17" cy="18" r="1" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3>Mobile Responsive</h3>
+            <p>Looks perfect on every screen size. Phone, tablet, desktop &mdash; automatically adapts.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>SEO Optimized</h3>
+            <p>Proper meta tags, semantic HTML, structured data, fast loading. Found by customers, not buried on page 5.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
+              </svg>
+            </div>
+            <h3>Lightning Fast</h3>
+            <p>Static-generated pages load in milliseconds. No bloated WordPress, no slow page builders.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <path d="M8 12l1-4 3 6 3-6 1 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              </svg>
+            </div>
+            <h3>Custom Design</h3>
+            <p>Not a template. Every site is designed specifically for your business, your brand, your audience.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 20V10M18 20V4M6 20v-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <rect x="2" y="2" width="20" height="20" rx="3" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </div>
+            <h3>Analytics Built In</h3>
+            <p>Know who's visiting your site and what they're looking at. Privacy-friendly, no cookie banners needed.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M9 3H4a1 1 0 00-1 1v5M15 3h5a1 1 0 011 1v5M9 21H4a1 1 0 01-1-1v-5M15 21h5a1 1 0 001-1v-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Contact Forms &amp; Lead Capture</h3>
+            <p>Built-in forms that send leads straight to your inbox. Never miss a potential customer.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12c0 2 .6 3.9 1.6 5.4L2 22l4.6-1.6c1.5 1 3.4 1.6 5.4 1.6z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+                <path d="M12 16v-1a3 3 0 10-3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <circle cx="12" cy="19" r="0.5" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+              </svg>
+            </div>
+            <h3>Developer Escalation</h3>
+            <p>AI can't handle it? One click escalates to a real developer who opens a pull request. Real support, not a dead end.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M8 12h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Version History</h3>
+            <p>Every change tracked on GitHub. Full history, full transparency. Roll back anytime if needed.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <path d="M7 15l4-4 3 3 3-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              </svg>
+            </div>
+            <h3>No Lock-In</h3>
+            <p>Your content lives on GitHub. Cancel anytime and take everything with you. Zero vendor lock-in.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PRICING ============ -->
+    <section class="pricing" id="pricing">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Simple, Honest Pricing</h2>
+          <p class="section-desc">One plan. Everything included. No surprises.</p>
+        </div>
+
+        <!-- COMPARISON TABLE -->
+        <div class="compare-table-wrap">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th class="compare-table__feature"></th>
+                <th class="compare-table__us">
+                  <span class="compare-table__badge">Best Value</span>
+                  <span class="compare-table__label">Lake Country Web Services</span>
+                  <span class="compare-table__sublabel">That's us</span>
+                </th>
+                <th class="compare-table__them">
+                  <span class="compare-table__label">DIY Builder</span>
+                  <span class="compare-table__sublabel">Wix, Squarespace</span>
+                </th>
+                <th class="compare-table__them">
+                  <span class="compare-table__label">Freelancer</span>
+                  <span class="compare-table__sublabel">Independent dev</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="compare-table__row-label">Setup Cost</td>
+                <td class="compare-table__highlight"><s style="color:#94a3b8;font-weight:400">$500</s> $0</td>
+                <td>$0 <span class="compare-note">(you do the work)</span></td>
+                <td>$3,000–5,000</td>
+              </tr>
+              <tr>
+                <td class="compare-table__row-label">Ongoing Cost</td>
+                <td class="compare-table__highlight">$50/mo <span class="compare-note">or $500/yr</span></td>
+                <td>$33+/mo</td>
+                <td>$0 <span class="compare-note">(until you need changes)</span></td>
+              </tr>
+              <tr>
+                <td class="compare-table__row-label">Making Changes</td>
+                <td class="compare-table__pro">Chat with AI, live in minutes</td>
+                <td class="compare-table__con">You figure it out</td>
+                <td class="compare-table__con">$50–100/hr, wait days</td>
+              </tr>
+              <tr>
+                <td class="compare-table__row-label">Design Quality</td>
+                <td class="compare-table__pro">Custom, hand-crafted</td>
+                <td class="compare-table__con">Generic templates</td>
+                <td class="compare-table__pro">Custom</td>
+              </tr>
+              <tr>
+                <td class="compare-table__row-label">SEO</td>
+                <td class="compare-table__pro">Built in from day one</td>
+                <td class="compare-table__con">Your problem</td>
+                <td class="compare-table__neutral">Depends on the dev</td>
+              </tr>
+              <tr>
+                <td class="compare-table__row-label">Hosting &amp; SSL</td>
+                <td class="compare-table__pro">Included</td>
+                <td class="compare-table__pro">Included</td>
+                <td class="compare-table__con">You manage it</td>
+              </tr>
+              <tr>
+                <td class="compare-table__row-label">Developer Access</td>
+                <td class="compare-table__pro">One-click escalation</td>
+                <td class="compare-table__con">None</td>
+                <td class="compare-table__neutral">If they're available</td>
+              </tr>
+              <tr>
+                <td class="compare-table__row-label">Lock-in</td>
+                <td class="compare-table__pro">No contracts, you own it all</td>
+                <td class="compare-table__con">Platform dependent</td>
+                <td class="compare-table__pro">You own it</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- OUR PLAN CARD -->
+        <div class="pricing__card">
+          <div class="pricing__card-inner">
+            <div class="pricing__card-left">
+              <span class="pricing__plan-name">Complete Website Package</span>
+              <div class="pricing__promo-badge">Launch Promotion</div>
+              <div class="pricing__price-row">
+                <div class="pricing__price">
+                  <span class="pricing__amount pricing__amount--struck"><s>$500</s></span>
+                  <span class="pricing__amount pricing__amount--free">$0</span>
+                  <span class="pricing__term">setup — free for a limited time</span>
+                </div>
+              </div>
+              <div class="pricing__price-row pricing__price-row--main">
+                <div class="pricing__price">
+                  <span class="pricing__amount">$50</span>
+                  <span class="pricing__term">/month</span>
+                </div>
+                <span class="pricing__or">or</span>
+                <div class="pricing__price">
+                  <span class="pricing__amount">$500</span>
+                  <span class="pricing__term">/year <span style="opacity:0.7;font-size:0.75rem">(save $100)</span></span>
+                </div>
+              </div>
+              <p class="pricing__no-contract">No contracts. Cancel anytime.</p>
+              <a href="#signup" class="btn btn--primary btn--lg">Get Started Today</a>
+            </div>
+            <div class="pricing__card-right">
+              <p class="pricing__includes-label">Everything included:</p>
+              <div class="pricing__includes-grid">
+                <span class="pricing__check-item"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#1a6847"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Custom design</span>
+                <span class="pricing__check-item"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#1a6847"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>AI-powered editing</span>
+                <span class="pricing__check-item"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#1a6847"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Hosting &amp; SSL</span>
+                <span class="pricing__check-item"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#1a6847"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>SEO optimization</span>
+                <span class="pricing__check-item"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#1a6847"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Analytics dashboard</span>
+                <span class="pricing__check-item"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#1a6847"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Lead capture forms</span>
+                <span class="pricing__check-item"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#1a6847"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Unlimited edits</span>
+                <span class="pricing__check-item"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#1a6847"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Developer escalation</span>
+                <span class="pricing__check-item"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#1a6847"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Version history</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="faq" id="faq">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">FAQ</span>
+          <h2 class="section-title">Common Questions</h2>
+        </div>
+        <div class="faq__list">
+          <details class="faq__item">
+            <summary class="faq__question">
+              <span>How does the AI editing work?</span>
+              <svg class="faq__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="faq__answer">
+              <p>You get access to an admin panel where you chat with an AI that understands your website's structure and content. Just type what you want changed in plain English &mdash; "update our phone number to 555-1234" or "add a new menu item called Fish Tacos for $12" &mdash; and the AI makes the change and deploys it to your live site. No technical knowledge needed.</p>
+            </div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question">
+              <span>What if the AI can't make the change I want?</span>
+              <svg class="faq__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="faq__answer">
+              <p>If the AI can't handle your request, you can escalate with one click. A real developer reviews your request, makes the change by hand, and deploys it. You're never stuck talking to a chatbot that can't help you.</p>
+            </div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question">
+              <span>Do I need any technical skills?</span>
+              <svg class="faq__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="faq__answer">
+              <p>None at all. If you can send a text message, you can manage your website. The whole point is that you shouldn't need to learn a CMS or call a developer just to update your hours.</p>
+            </div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question">
+              <span>Can I cancel anytime?</span>
+              <svg class="faq__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="faq__answer">
+              <p>Yes. There are no long-term contracts. Your annual renewal is $500/year, billed after your first year. If you decide not to renew, your site content is yours to take &mdash; it's all on GitHub.</p>
+            </div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question">
+              <span>How long does setup take?</span>
+              <svg class="faq__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="faq__answer">
+              <p>Most sites are designed and launched within 1&ndash;2 weeks. We'll work with you to get your branding, content, and photos right. Once you approve the design, it goes live immediately.</p>
+            </div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question">
+              <span>Do I own my website?</span>
+              <svg class="faq__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="faq__answer">
+              <p>Yes. Your website's code and content are stored in a GitHub repository. You have full access and full history of every change ever made. If you leave, you take everything with you. Zero lock-in.</p>
+            </div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__question">
+              <span>What's included in the $50/month?</span>
+              <svg class="faq__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="faq__answer">
+              <p>Everything: hosting, SSL certificate, AI-powered editing, analytics, SEO maintenance, contact forms, lead capture, developer escalation, and unlimited content updates. There are no add-ons or tiers &mdash; you get the full package.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SIGNUP FORM ============ -->
+    <section class="signup" id="signup">
+      <div class="container">
+        <div class="signup__inner">
+          <div class="signup__text">
+            <h2 class="signup__title">Get Your Free Demo</h2>
+            <p class="signup__desc">Tell us about your business and we'll build a custom demo site — completely free, no obligation. If you love it, it's yours for $50/month.</p>
+          </div>
+          <div class="signup__form-wrap">
+            <form class="signup__form" id="signupForm">
+              <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off" />
+              <input type="text" name="businessName" placeholder="Business name" required class="signup__input" />
+              <input type="text" name="contactName" placeholder="Your name" required class="signup__input" />
+              <div class="signup__row">
+                <input type="tel" name="phone" placeholder="Phone number" required class="signup__input" />
+                <input type="email" name="email" placeholder="Email" class="signup__input" />
+              </div>
+              <input type="url" name="existingSite" placeholder="Current website or Facebook page (optional)" class="signup__input" />
+              <button type="submit" class="btn btn--primary btn--lg signup__submit" id="signupBtn">
+                Get My Free Demo
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+              </button>
+              <p class="signup__note">No credit card. No commitment. We'll be in touch within 24 hours.</p>
+            </form>
+            <div class="signup__success" id="signupSuccess" style="display:none">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" fill="#1a6847"/><path d="M14 24l7 7 13-13" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <h3>We're on it.</h3>
+              <p>We'll review your business and start building your free demo. Expect to hear from us within 24 hours.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA ============ -->
+    <section class="final-cta">
+      <div class="container">
+        <h2 class="final-cta__title">Ready to Upgrade Your Web Presence?</h2>
+        <p class="final-cta__desc">Get a professional website that works as hard as you do. Free setup for a limited time — just $50/month.</p>
+        <div class="final-cta__actions">
+          <a href="#signup" class="btn btn--primary btn--lg">
+            Get Started
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+          <a href="mailto:davidberget@gmail.com" class="btn btn--outline btn--lg">Email Us</a>
+        </div>
+        <p class="final-cta__note">Or call: <a href="tel:+13205551234">(320) 555-1234</a></p>
+      </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div class="footer__brand">
+          <div class="footer__logo">
+            <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <rect width="32" height="32" rx="8" fill="#1a6847"/>
+              <path d="M10 22l3-5-2 0 3-5-2 0 2.5-4.5h-1L14 7l1-1.5L16 7l.5.5h-1L18 12l-2 0 3 5-2 0 3 5" fill="#fff" opacity="0.9"/>
+              <path d="M7 23.5c1.5-1 3-1 4.5 0s3 1 4.5 0 3-1 4.5 0 3 1 4.5 0" stroke="#fff" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="0.7"/>
+              <path d="M7 26c1.5-1 3-1 4.5 0s3 1 4.5 0 3-1 4.5 0 3 1 4.5 0" stroke="#fff" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="0.5"/>
+            </svg>
+            <span>Lake Country Web Services</span>
+          </div>
+          <p class="footer__tagline">Professional websites for local businesses, powered by AI.</p>
+        </div>
+        <div class="footer__links">
+          <div class="footer__col">
+            <h4>Product</h4>
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#faq">FAQ</a>
+          </div>
+          <div class="footer__col">
+            <h4>Company</h4>
+            <a href="mailto:davidberget@gmail.com">Contact</a>
+            <a href="/admin">Admin Login</a>
+          </div>
+        </div>
+      </div>
+      <div class="container footer__bottom">
+        <p>&copy; {year} Lake Country Web Services. Built with care in Minnesota.</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  /* ===========================
+     RESET & BASE
+     =========================== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    background: #fff;
+    color: #0f172a;
+    min-height: 100vh;
+    line-height: 1.6;
+    font-size: 16px;
+  }
+
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+
+  .container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* ===========================
+     BUTTONS
+     =========================== */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .btn--primary {
+    background: #c2590a;
+    color: #fff;
+    border-color: #c2590a;
+  }
+  .btn--primary:hover {
+    background: #a34908;
+    border-color: #a34908;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(194, 89, 10, 0.3);
+  }
+
+  .btn--outline {
+    background: transparent;
+    color: #0f172a;
+    border-color: #cbd5e1;
+  }
+  .btn--outline:hover {
+    border-color: #94a3b8;
+    background: #faf9f7;
+  }
+
+  .btn--lg { padding: 0.85rem 1.75rem; font-size: 1rem; }
+  .btn--full { width: 100%; justify-content: center; }
+
+  /* ===========================
+     SECTION HEADERS
+     =========================== */
+  .section-label {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #1a6847;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 3.5rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.2;
+    color: #0f172a;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  .section-desc {
+    font-size: 1.1rem;
+    color: #64748b;
+    line-height: 1.6;
+  }
+
+  /* ===========================
+     NAV
+     =========================== */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4rem;
+  }
+
+  .nav__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #0f172a;
+  }
+  .nav__logo svg { flex-shrink: 0; }
+
+  .nav__links {
+    display: flex;
+    gap: 2rem;
+  }
+  .nav__links a {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #475569;
+    transition: color 0.15s;
+  }
+  .nav__links a:hover { color: #0f172a; }
+
+  .nav__cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1.25rem;
+    background: #c2590a;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: background 0.15s;
+  }
+  .nav__cta:hover { background: #a34908; }
+
+  .nav__mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #0f172a;
+    padding: 0.25rem;
+  }
+
+  .nav__mobile-menu {
+    display: none;
+    flex-direction: column;
+    padding: 1rem 1.5rem 1.5rem;
+    border-top: 1px solid #e2e8f0;
+    background: #fff;
+  }
+  .nav__mobile-menu a {
+    padding: 0.75rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #475569;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .nav__mobile-menu a:last-child { border-bottom: none; }
+  .nav__cta--mobile {
+    margin-top: 0.75rem;
+    text-align: center;
+    justify-content: center;
+    padding: 0.75rem;
+    border-radius: 8px;
+    border-bottom: none !important;
+  }
+
+  .nav.nav--open .nav__mobile-menu { display: flex; }
+
+  @media (max-width: 768px) {
+    .nav__links, .nav__cta:not(.nav__cta--mobile) { display: none; }
+    .nav__mobile-toggle { display: block; }
+  }
+
+  /* ===========================
+     HERO
+     =========================== */
+  .hero {
+    padding: 5rem 0 4rem;
+    background: linear-gradient(135deg, #0f2419 0%, #1a3a2a 50%, #0f172a 100%);
+  }
+
+  .hero__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #86efac;
+    background: rgba(26,104,71,0.25);
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero__title {
+    font-size: clamp(2.25rem, 4.5vw, 3.25rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.025em;
+  }
+
+  .hero__highlight {
+    background: linear-gradient(135deg, #34d399, #6ee7b7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero__subtitle {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 2rem;
+    max-width: 480px;
+  }
+
+  /* Signup Section */
+  .signup { padding: 5rem 0; background: #faf9f7; border-top: 1px solid #e2e8f0; }
+  .signup__inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+    align-items: center; max-width: 960px; margin: 0 auto;
+  }
+  .signup__title {
+    font-size: 2rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1rem;
+  }
+  .signup__desc { color: #475569; font-size: 1.05rem; line-height: 1.7; }
+  .signup__form {
+    background: #fff; border: 1px solid #e2e8f0; border-radius: 16px;
+    padding: 2rem; display: flex; flex-direction: column; gap: 0.75rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+  .signup__row { display: flex; gap: 0.75rem; }
+  .signup__input {
+    width: 100%; padding: 0.75rem 1rem; border-radius: 8px;
+    border: 1px solid #e2e8f0; background: #faf9f7;
+    color: #0f172a; font-size: 0.9rem; font-family: inherit;
+    transition: border-color 0.2s;
+  }
+  .signup__input::placeholder { color: #94a3b8; }
+  .signup__input:focus { outline: none; border-color: #1a6847; }
+  .signup__submit { width: 100%; justify-content: center; }
+  .signup__note {
+    text-align: center; font-size: 0.78rem; color: #94a3b8; margin-top: 0.25rem;
+  }
+  .signup__success { text-align: center; padding: 2rem; }
+  .signup__success h3 { font-size: 1.35rem; margin: 1rem 0 0.5rem; color: #0f172a; }
+  .signup__success p { color: #475569; font-size: 0.92rem; line-height: 1.6; }
+
+  @media (max-width: 768px) {
+    .signup__inner { grid-template-columns: 1fr; gap: 2rem; }
+  }
+  @media (max-width: 480px) {
+    .signup__row { flex-direction: column; }
+    .signup__form { padding: 1.25rem; }
+  }
+
+  .hero__actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  .hero .btn--outline {
+    color: #fff;
+    border-color: rgba(255,255,255,0.3);
+  }
+  .hero .btn--outline:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.5);
+  }
+
+  /* Chat Mockup */
+  .chat-mockup {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+  }
+
+  .chat-mockup__header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.75rem 1rem;
+    background: #faf9f7;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .chat-mockup__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #e2e8f0;
+  }
+  .chat-mockup__dot:nth-child(1) { background: #fca5a5; }
+  .chat-mockup__dot:nth-child(2) { background: #fcd34d; }
+  .chat-mockup__dot:nth-child(3) { background: #86efac; }
+  .chat-mockup__title {
+    margin-left: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #64748b;
+  }
+
+  .chat-mockup__body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-height: 380px;
+    overflow: hidden;
+  }
+
+  .chat-mockup__msg {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+  .chat-mockup__msg--ai { flex-direction: row; }
+  .chat-mockup__msg--user { flex-direction: row; justify-content: flex-end; }
+
+  .chat-mockup__avatar {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .chat-mockup__avatar--user { background: #1a6847; order: 1; }
+  .chat-mockup__avatar--ai { background: #0f172a; }
+
+  .chat-mockup__bubble {
+    padding: 0.65rem 0.9rem;
+    border-radius: 12px;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    max-width: 260px;
+  }
+  .chat-mockup__bubble--user {
+    background: #1a6847;
+    color: #fff;
+    border-bottom-right-radius: 4px;
+  }
+  .chat-mockup__bubble--ai {
+    background: #f1f5f9;
+    color: #334155;
+    border-bottom-left-radius: 4px;
+  }
+
+  .chat-mockup__status {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #1a6847;
+  }
+
+  @media (max-width: 1024px) {
+    .hero__content { grid-template-columns: 1fr; gap: 3rem; }
+    .hero__visual { max-width: 480px; }
+  }
+
+  @media (max-width: 480px) {
+    .hero { padding: 3rem 0 2.5rem; }
+    .hero__actions { flex-direction: column; }
+    .hero__actions .btn { width: 100%; justify-content: center; }
+    .chat-mockup__body { max-height: 300px; }
+    .chat-mockup__bubble { max-width: 200px; }
+  }
+
+  /* ===========================
+     SOCIAL PROOF
+     =========================== */
+  .proof {
+    padding: 2.5rem 0;
+    border-top: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+    background: #fff;
+  }
+
+  .proof__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .proof__stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+  }
+  .proof__number {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+  }
+  .proof__label {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: #64748b;
+  }
+
+  .proof__divider {
+    width: 1px;
+    height: 40px;
+    background: #e2e8f0;
+  }
+
+  .proof__note {
+    text-align: center;
+    margin-top: 1.25rem;
+    font-size: 0.85rem;
+    color: #94a3b8;
+    font-weight: 500;
+  }
+
+  @media (max-width: 480px) {
+    .proof__inner { gap: 1.5rem; }
+    .proof__divider { display: none; }
+    .proof__stat { flex: 0 0 40%; }
+  }
+
+  /* ===========================
+     STEPS (How It Works)
+     =========================== */
+  .steps {
+    padding: 6rem 0;
+    background: #fff;
+  }
+
+  .steps__grid {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .step {
+    flex: 1;
+    max-width: 320px;
+    text-align: center;
+    padding: 2rem 1.5rem;
+  }
+
+  .step__number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: rgba(26,104,71,0.06);
+    color: #1a6847;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: 50%;
+    margin-bottom: 1.25rem;
+  }
+
+  .step__icon {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .step__title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.75rem;
+  }
+
+  .step__desc {
+    font-size: 0.92rem;
+    color: #64748b;
+    line-height: 1.6;
+  }
+
+  .step__connector {
+    display: flex;
+    align-items: center;
+    padding-top: 4.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .steps__grid { flex-direction: column; align-items: center; }
+    .step__connector { display: none; }
+    .step { max-width: 100%; }
+  }
+
+  /* ===========================
+     FEATURES
+     =========================== */
+  .features {
+    padding: 6rem 0;
+    background: #faf9f7;
+  }
+
+  .features__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .feature-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 1.75rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .feature-card:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  }
+
+  .feature-card__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(26,104,71,0.06);
+    color: #1a6847;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+  }
+
+  .feature-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-card p {
+    font-size: 0.88rem;
+    color: #64748b;
+    line-height: 1.55;
+  }
+
+  @media (max-width: 480px) {
+    .features__grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===========================
+     PRICING
+     =========================== */
+  .pricing { padding: 6rem 0; background: #fff; }
+
+  /* Comparison Table */
+  .compare-table-wrap {
+    overflow-x: auto; margin-bottom: 3rem;
+    border-radius: 12px; border: 1px solid #e2e8f0;
+  }
+  .compare-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 640px; }
+  .compare-table thead { background: #faf9f7; }
+  .compare-table th, .compare-table td {
+    padding: 0.85rem 1.25rem; text-align: center; border-bottom: 1px solid #e2e8f0;
+  }
+  .compare-table__feature { text-align: left; width: 180px; }
+  .compare-table__row-label { text-align: left; font-weight: 600; color: #0f172a; }
+  .compare-table__us {
+    background: linear-gradient(180deg, rgba(26,104,71,0.03) 0%, rgba(26,104,71,0.07) 100%);
+    border-right: 2px solid #1a6847;
+  }
+  thead .compare-table__us { border-top: 2px solid #1a6847; border-right: 2px solid #1a6847; }
+  tbody tr:last-child .compare-table__us { border-bottom: 2px solid #1a6847; }
+  /* Divider line between our column and competitors */
+  .compare-table__us + .compare-table__them,
+  tbody td:nth-child(3) { border-left: 2px solid #e2e8f0; }
+  .compare-table__badge {
+    display: inline-block; background: #1a6847; color: #fff;
+    font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; padding: 0.2rem 0.6rem; border-radius: 100px; margin-bottom: 0.35rem;
+  }
+  .compare-table__label { display: block; font-weight: 700; font-size: 0.95rem; }
+  .compare-table__sublabel { display: block; font-size: 0.75rem; color: #94a3b8; font-weight: 400; }
+  .compare-table__highlight { font-weight: 700; color: #1a6847; }
+  .compare-table__pro { color: #1a6847; }
+  .compare-table__con { color: #94a3b8; }
+  .compare-table__neutral { color: #64748b; }
+  .compare-note { font-size: 0.75rem; color: #94a3b8; display: block; }
+
+  /* Plan Card */
+  .pricing__card {
+    border: 2px solid #1a6847; border-radius: 16px; overflow: hidden;
+    box-shadow: 0 8px 30px rgba(26,104,71,0.1);
+  }
+  .pricing__card-inner { display: grid; grid-template-columns: 1fr 1.2fr; }
+  .pricing__card-left {
+    background: linear-gradient(135deg, #0f2419, #1a3a2a);
+    color: #fff; padding: 2.5rem; display: flex; flex-direction: column; justify-content: center;
+  }
+  .pricing__card-right { padding: 2.5rem; }
+  .pricing__plan-name {
+    display: block; font-size: 0.82rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6); margin-bottom: 1rem;
+  }
+  .pricing__price-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+  .pricing__price { display: flex; flex-direction: column; }
+  .pricing__amount { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+  .pricing__term { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 0.2rem; }
+  .pricing__plus { font-size: 1.25rem; color: rgba(255,255,255,0.3); font-weight: 600; }
+  .pricing__promo-badge {
+    display: inline-block; background: #c2590a; color: #fff;
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; padding: 0.25rem 0.75rem; border-radius: 100px;
+    margin-bottom: 1rem;
+  }
+  .pricing__amount--struck { font-size: 1.5rem; opacity: 0.5; margin-right: 0.5rem; }
+  .pricing__amount--struck s { text-decoration: line-through; }
+  .pricing__amount--free { color: #10b981; }
+  .pricing__price-row--main { margin-top: 0.5rem; }
+  .pricing__or {
+    font-size: 0.85rem; color: rgba(255,255,255,0.4); font-weight: 500;
+    padding: 0 0.25rem;
+  }
+  .pricing__no-contract { font-size: 0.85rem; color: #1a6847; font-weight: 500; margin-bottom: 1.5rem; }
+  .pricing__card-left .btn { align-self: flex-start; }
+  .pricing__includes-label {
+    font-size: 0.82rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.06em; color: #64748b; margin-bottom: 1rem;
+  }
+  .pricing__includes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem 1rem; }
+  .pricing__check-item {
+    display: flex; align-items: center; gap: 0.45rem; font-size: 0.88rem; color: #334155;
+  }
+  .pricing__check-item svg { flex-shrink: 0; }
+
+  @media (max-width: 768px) {
+    .pricing__card-inner { grid-template-columns: 1fr; }
+    .pricing__card-left { text-align: center; align-items: center; }
+    .pricing__includes-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .pricing__price-row { flex-direction: column; gap: 0.5rem; }
+    .pricing__plus { display: none; }
+    .pricing__amount { font-size: 1.75rem; }
+  }
+
+  /* ===========================
+     FAQ
+     =========================== */
+  .faq {
+    padding: 6rem 0;
+    background: #faf9f7;
+  }
+
+  .faq__list {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .faq__item {
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .faq__item:first-child {
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .faq__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1.25rem 0;
+    cursor: pointer;
+    list-style: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #0f172a;
+    transition: color 0.15s;
+  }
+  .faq__question::-webkit-details-marker { display: none; }
+  .faq__question::marker { display: none; content: ""; }
+  .faq__question:hover { color: #1a6847; }
+
+  .faq__chevron {
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+    color: #94a3b8;
+  }
+  .faq__item[open] .faq__chevron {
+    transform: rotate(180deg);
+  }
+
+  .faq__answer {
+    padding: 0 0 1.25rem;
+  }
+  .faq__answer p {
+    font-size: 0.92rem;
+    color: #475569;
+    line-height: 1.7;
+  }
+
+  /* ===========================
+     FINAL CTA
+     =========================== */
+  .final-cta {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, #0f2419 0%, #1a3a2a 50%, #0f172a 100%);
+    color: #fff;
+    text-align: center;
+  }
+
+  .final-cta__title {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  .final-cta__desc {
+    font-size: 1.1rem;
+    color: #94a3b8;
+    margin-bottom: 2rem;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .final-cta__actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .final-cta .btn--outline {
+    color: #fff;
+    border-color: #475569;
+  }
+  .final-cta .btn--outline:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #64748b;
+  }
+
+  .final-cta__note {
+    font-size: 0.88rem;
+    color: #64748b;
+  }
+  .final-cta__note a {
+    color: #94a3b8;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .final-cta__note a:hover { color: #fff; }
+
+  @media (max-width: 480px) {
+    .final-cta__actions { flex-direction: column; align-items: center; }
+    .final-cta__actions .btn { width: 100%; justify-content: center; max-width: 320px; }
+  }
+
+  /* ===========================
+     FOOTER
+     =========================== */
+  .footer {
+    padding: 3rem 0 0;
+    background: #faf9f7;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .footer__inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .footer__brand { max-width: 320px; }
+
+  .footer__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.75rem;
+  }
+
+  .footer__tagline {
+    font-size: 0.88rem;
+    color: #64748b;
+    line-height: 1.6;
+  }
+
+  .footer__links {
+    display: flex;
+    gap: 4rem;
+  }
+
+  .footer__col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .footer__col h4 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #94a3b8;
+    margin-bottom: 0.25rem;
+  }
+  .footer__col a {
+    font-size: 0.88rem;
+    color: #475569;
+    transition: color 0.15s;
+  }
+  .footer__col a:hover { color: #1a6847; }
+
+  .footer__bottom {
+    margin-top: 2.5rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid #e2e8f0;
+  }
+  .footer__bottom p {
+    font-size: 0.82rem;
+    color: #94a3b8;
+  }
+
+  @media (max-width: 640px) {
+    .footer__inner { flex-direction: column; gap: 2rem; }
+    .footer__links { gap: 3rem; }
+  }
+</style>
+
+<script>
+  // Signup form
+  const signupForm = document.getElementById('signupForm');
+  const signupBtn = document.getElementById('signupBtn');
+  const signupSuccess = document.getElementById('signupSuccess');
+  if (signupForm) {
+    signupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      signupBtn.disabled = true;
+      signupBtn.textContent = 'Submitting...';
+      const data = Object.fromEntries(new FormData(signupForm));
+      try {
+        const res = await fetch('/api/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        if (res.ok) {
+          signupForm.style.display = 'none';
+          signupSuccess.style.display = 'block';
+        } else {
+          const err = await res.json();
+          alert(err.error || 'Something went wrong. Please try again.');
+          signupBtn.disabled = false;
+          signupBtn.textContent = 'Get My Free Website Demo';
+        }
+      } catch {
+        alert('Something went wrong. Please try again.');
+        signupBtn.disabled = false;
+        signupBtn.textContent = 'Get My Free Website Demo';
+      }
+    });
+  }
+
+  // Mobile nav toggle
+  const nav = document.getElementById('nav');
+  const toggle = nav?.querySelector('.nav__mobile-toggle');
+  if (toggle && nav) {
+    toggle.addEventListener('click', () => {
+      const open = nav.classList.toggle('nav--open');
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+    // Close menu on link click
+    nav.querySelectorAll('.nav__mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('nav--open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+</script>

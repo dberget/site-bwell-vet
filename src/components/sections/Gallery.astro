@@ -1,0 +1,377 @@
+---
+import type { SiteContent, UIStrings } from '../../schema/content';
+
+interface Props {
+  site: SiteContent;
+  base: string;
+  ui?: UIStrings;
+}
+
+const { site, base, ui } = Astro.props;
+const { gallery } = site;
+---
+
+{gallery && gallery.length > 0 && (
+  <section class="section section--dark" id="gallery">
+    <div class="container">
+      <div class="section__header section__header--light">
+        <span class="section__eyebrow section__eyebrow--light">Our Projects</span>
+        <h2 class="section__title section__title--light">{ui?.sections?.gallery || 'Our Work'}</h2>
+      </div>
+      <div class="gallery">
+        {gallery.map((item, i) => (
+          <div class={`gallery__item ${i === 0 ? 'gallery__item--1' : ''}`}>
+            <img src={item.src} alt={item.alt} loading="lazy" />
+            {item.caption && <div class="gallery__caption">{item.caption}</div>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style is:global>
+  /* --- Gallery --- */
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 220px;
+    gap: 0.75rem;
+  }
+
+  .gallery__item {
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .gallery__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .gallery__item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    z-index: 1;
+  }
+
+  .gallery__item:hover img { transform: scale(1.05); }
+
+  .gallery__item--1 { grid-column: span 2; grid-row: span 2; }
+
+  .gallery__caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.5rem 0.75rem;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  @media (max-width: 900px) {
+    .gallery {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 180px;
+    }
+    .gallery__item--1 { grid-column: span 2; grid-row: span 1; }
+  }
+
+  @media (max-width: 480px) {
+    .gallery {
+      grid-template-columns: 1fr;
+      grid-auto-rows: 200px;
+    }
+
+    .gallery__item--1 {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+  }
+</style>
+
+<style is:global>
+  /* =============================================
+     THEME: Suspended — Clean & Airy
+     ============================================= */
+
+  /* Override dark section background to white */
+  .theme-suspended .section--dark#gallery {
+    background: #fff;
+    color: #1a1a1a;
+  }
+
+  /* Override light header variants to dark text */
+  .theme-suspended .section__header--light .section__eyebrow--light {
+    color: #555;
+  }
+
+  .theme-suspended .section__header--light .section__title--light {
+    color: #1a1a1a;
+  }
+
+  /* Gallery grid: generous spacing, taller rows */
+  .theme-suspended .gallery {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 260px;
+    gap: 1.5rem;
+  }
+
+  /* Rounded corners, no first-item span */
+  .theme-suspended .gallery__item {
+    border-radius: 12px;
+  }
+
+  .theme-suspended .gallery__item--1 {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  /* Hover: slight scale, soft shadow */
+  .theme-suspended .gallery__item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  .theme-suspended .gallery__item:hover img {
+    transform: scale(1.03);
+  }
+
+  /* Caption styling for light theme */
+  .theme-suspended .gallery__caption {
+    background: rgba(255, 255, 255, 0.85);
+    color: #1a1a1a;
+  }
+
+  @media (max-width: 900px) {
+    .theme-suspended .gallery {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 220px;
+      gap: 1.25rem;
+    }
+
+    .theme-suspended .gallery__item--1 {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .theme-suspended .gallery {
+      grid-template-columns: 1fr;
+      grid-auto-rows: 220px;
+      gap: 1rem;
+    }
+
+    .theme-suspended .gallery__item--1 {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+  }
+
+  /* =============================================
+     THEME: Editorial — Bold & Editorial
+     ============================================= */
+
+  /* Override grid to CSS columns masonry layout */
+  .theme-editorial .gallery {
+    display: block;
+    columns: 3;
+    column-gap: 0.5rem;
+  }
+
+  /* Sharp edges, masonry items */
+  .theme-editorial .gallery__item {
+    border-radius: 0;
+    break-inside: avoid;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    width: 100%;
+  }
+
+  /* Reset span on first item (not applicable in columns layout) */
+  .theme-editorial .gallery__item--1 {
+    grid-column: unset;
+    grid-row: unset;
+  }
+
+  /* Images fill naturally in columns layout */
+  .theme-editorial .gallery__item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Dark overlay that slides up from bottom on hover via ::after */
+  .theme-editorial .gallery__item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    transition: height 0.35s ease;
+    pointer-events: none;
+  }
+
+  .theme-editorial .gallery__item:hover::after {
+    height: 100%;
+  }
+
+  /* Hover: no scale, keep editorial sharpness */
+  .theme-editorial .gallery__item:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .theme-editorial .gallery__item:hover img {
+    transform: none;
+  }
+
+  /* Caption sits above the overlay */
+  .theme-editorial .gallery__caption {
+    z-index: 2;
+    background: transparent;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 0.75rem 1rem;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .theme-editorial .gallery__item:hover .gallery__caption {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 900px) {
+    .theme-editorial .gallery {
+      columns: 2;
+      column-gap: 0.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .theme-editorial .gallery {
+      columns: 1;
+      column-gap: 0;
+    }
+  }
+
+  /* =============================================
+     THEME: Bold — Energetic & Punchy
+     ============================================= */
+
+  /* Grid: 3 columns, 240px rows */
+  .theme-bold .gallery {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 240px;
+    gap: 0.75rem;
+  }
+
+  /* Tighter border-radius */
+  .theme-bold .gallery__item {
+    border-radius: 4px;
+  }
+
+  /* First item spans with stronger shadow */
+  .theme-bold .gallery__item--1 {
+    grid-column: span 2;
+    grid-row: span 2;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Offset/overlap transforms for visual interest */
+  .theme-bold .gallery__item:nth-child(3) {
+    transform: translateY(8px);
+  }
+
+  .theme-bold .gallery__item:nth-child(4) {
+    transform: translateY(-6px);
+  }
+
+  .theme-bold .gallery__item:nth-child(5) {
+    transform: translateX(-4px);
+  }
+
+  .theme-bold .gallery__item:nth-child(6) {
+    transform: translateY(10px);
+  }
+
+  /* Hover: zoom to 1.05 with strong shadow */
+  .theme-bold .gallery__item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+  }
+
+  .theme-bold .gallery__item:hover img {
+    transform: scale(1.08);
+  }
+
+  /* Caption hidden by default, appears on hover with opacity transition */
+  .theme-bold .gallery__caption {
+    opacity: 0;
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.6rem 0.85rem;
+    transition: opacity 0.3s ease;
+  }
+
+  .theme-bold .gallery__item:hover .gallery__caption {
+    opacity: 1;
+  }
+
+  @media (max-width: 900px) {
+    .theme-bold .gallery {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 200px;
+    }
+
+    .theme-bold .gallery__item--1 {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+
+    /* Reset offsets on tablet */
+    .theme-bold .gallery__item:nth-child(3),
+    .theme-bold .gallery__item:nth-child(4),
+    .theme-bold .gallery__item:nth-child(5),
+    .theme-bold .gallery__item:nth-child(6) {
+      transform: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .theme-bold .gallery {
+      grid-template-columns: 1fr;
+      grid-auto-rows: 200px;
+    }
+
+    .theme-bold .gallery__item--1 {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+
+    .theme-bold .gallery__item:nth-child(3),
+    .theme-bold .gallery__item:nth-child(4),
+    .theme-bold .gallery__item:nth-child(5),
+    .theme-bold .gallery__item:nth-child(6) {
+      transform: none;
+    }
+  }
+</style>

@@ -1,0 +1,19 @@
+{
+  "name": "site-engine",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.78.0",
+    "@astrojs/vercel": "^9.0.4",
+    "@vercel/analytics": "^1.6.1",
+    "astro": "^5.17.1",
+    "node-html-parser": "^7.0.1",
+    "stripe": "^20.3.1"
+  }
+}

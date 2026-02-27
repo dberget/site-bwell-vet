@@ -1,0 +1,354 @@
+---
+import Analytics from '../../components/Analytics.astro';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services — Lennes Bros. Electric Inc. | Alexandria & Long Prairie, MN</title>
+  <meta name="description" content="Affordable electrical services: residential, commercial, industrial, agricultural, underground trenching, bucket truck service, generator backup, thermal imaging, and more. Call (320) 762-1500." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <Analytics />
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav__inner">
+      <a href="/lennes-bros-electric" class="nav__brand">
+        <img src="/images/lennes-bros-electric/logo.png" alt="Lennes Bros. Electric Inc." class="nav__logo" />
+        <span class="nav__name">Lennes Bros. Electric</span>
+      </a>
+      <nav class="nav__links">
+        <a href="/lennes-bros-electric" class="nav__link">Home</a>
+        <a href="/lennes-bros-electric/services" class="nav__link nav__link--active">Services</a>
+        <a href="/lennes-bros-electric/residential" class="nav__link">Residential</a>
+        <a href="/lennes-bros-electric/commercial" class="nav__link">Commercial</a>
+        <a href="/lennes-bros-electric/industrial" class="nav__link">Industrial</a>
+        <a href="/lennes-bros-electric/agricultural" class="nav__link">Agricultural</a>
+        <a href="/lennes-bros-electric/employment" class="nav__link">Employment</a>
+      </nav>
+      <a href="tel:3207621500" class="nav__cta">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 013.12 4.18 2 2 0 015.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        (320) 762-1500
+      </a>
+      <button class="nav__hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero hero--short">
+    <div class="hero__bg">
+      <img src="/images/lennes-bros-electric/service-electrician.png" alt="Lennes Bros. electrician at work" class="hero__bg-img" />
+      <div class="hero__overlay"></div>
+    </div>
+    <div class="hero__content">
+      <h1 class="hero__title">Dependable Electricians</h1>
+      <p class="hero__desc">No matter the size of your next electrical project, you can depend on the experts at Lennes Bros. Electric Inc. With our company, your repairs and new electrical installations will be handled by knowledgeable, professional, and experienced electricians.</p>
+    </div>
+  </section>
+
+  <!-- ALL SERVICES -->
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">What We Offer</span>
+      <h2 class="section__title">Affordable Electrical Services</h2>
+      <div class="services-grid">
+
+        <div class="service-card">
+          <div class="service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <h3>Residential</h3>
+          <p>Complete residential electrical wiring and repairs.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+          </div>
+          <h3>Commercial</h3>
+          <p>Professional commercial electrical services.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+          </div>
+          <h3>Industrial</h3>
+          <p>Heavy-duty industrial electrical solutions.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3>Agricultural</h3>
+          <p>Specialized agricultural electrical services.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <h3>Service</h3>
+          <p>Electrical service calls and troubleshooting.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 19V5"/><path d="M5 12l7 7 7-7"/><line x1="3" y1="22" x2="21" y2="22"/></svg>
+          </div>
+          <h3>Underground Trenching</h3>
+          <p>Underground electrical line installation.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <h3>Underground Repair</h3>
+          <p>Underground electrical line repairs.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <h3>55' Bucket Truck Service</h3>
+          <p>Elevated electrical work with our 55-foot bucket truck.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0018 8 6 6 0 006 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 018.91 14"/></svg>
+          </div>
+          <h3>Parking Lot Lighting</h3>
+          <p>Installation and repair of parking lot lights.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3>Sign Repair</h3>
+          <p>Electrical sign repair and maintenance.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          </div>
+          <h3>Landscape Lighting</h3>
+          <p>Outdoor and landscape lighting design and installation.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          </div>
+          <h3>Central Vac Systems</h3>
+          <p>Central vacuum system installation.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h3>Generator Backup Systems</h3>
+          <p>Backup generator installation and service.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          </div>
+          <h3>Thermal Imaging</h3>
+          <p>Thermal imaging for electrical inspections.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Surveillance Systems</h3>
+          <p>Security camera and surveillance system installation.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>
+          </div>
+          <h3>Audio/Video Systems</h3>
+          <p>Audio and video system wiring and installation.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+          </div>
+          <h3>Computer Networking</h3>
+          <p>Computer network wiring and installation.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--cta">
+    <div class="container cta-content">
+      <h2>Same Day Emergency Service</h2>
+      <p>If an electrical emergency presents itself at your home or business, you can call on us for immediate, same day emergency service. You can always depend on Lennes Bros. Electric Inc. to have the solutions to all of your electrical problems. We guarantee our performance and your satisfaction.</p>
+      <div class="cta-actions">
+        <a href="tel:3207621500" class="btn btn--primary btn--lg">Call (320) 762-1500</a>
+        <a href="/lennes-bros-electric/contact" class="btn btn--outline btn--lg">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__col">
+        <h4>Lennes Bros. Electric Inc.</h4>
+        <p>Full-service electrical contractor serving the Alexandria and Long Prairie, MN area.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/lennes-bros-electric">Home</a></li>
+          <li><a href="/lennes-bros-electric/services">Services</a></li>
+          <li><a href="/lennes-bros-electric/residential">Residential</a></li>
+          <li><a href="/lennes-bros-electric/commercial">Commercial</a></li>
+          <li><a href="/lennes-bros-electric/industrial">Industrial</a></li>
+          <li><a href="/lennes-bros-electric/agricultural">Agricultural</a></li>
+          <li><a href="/lennes-bros-electric/contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Alexandria Office</h4>
+        <p>2605 Aga Dr., Ste 7<br/>Alexandria, MN 56308</p>
+        <p><a href="tel:3207621500">(320) 762-1500</a></p>
+        <p style="margin-top:1rem;"><strong style="color:#fff;">Long Prairie Office</strong></p>
+        <p>110 Lake St. S<br/>Long Prairie, MN 56347</p>
+        <p><a href="tel:3205333331">(320) 533-3331</a></p>
+      </div>
+      <div class="footer__col">
+        <h4>Contact</h4>
+        <p><a href="mailto:lennesbros@earthlink.net">lennesbros@earthlink.net</a></p>
+        <p style="margin-top:1rem; font-size:0.85rem; color:rgba(255,255,255,0.5);">Same day emergency service available</p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; 2026 Lennes Bros. Electric Inc. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.querySelector('.nav');
+    window.addEventListener('scroll', () => nav?.classList.toggle('nav--scrolled', window.scrollY > 20));
+    document.querySelector('.nav__hamburger')?.addEventListener('click', () => document.querySelector('.nav__links')?.classList.toggle('nav__links--open'));
+  </script>
+
+<style is:global>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #463939;
+    --accent: #c8a84e;
+    --text: #1a1a1a;
+    --text-mid: #555;
+    --text-light: #888;
+    --bg: #fff;
+    --bg-warm: #f8f7f5;
+    --border: #e5e7eb;
+  }
+
+  body { font-family: 'Inter', -apple-system, sans-serif; color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* NAV */
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--primary); transition: box-shadow 0.2s; }
+  .nav--scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.15); }
+  .nav__inner { max-width: 1320px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; gap: 1.5rem; height: 64px; }
+  .nav__brand { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; flex-shrink: 0; }
+  .nav__logo { height: 36px; width: auto; }
+  .nav__name { color: #fff; font-weight: 700; font-size: 0.95rem; white-space: nowrap; }
+  .nav__links { display: flex; gap: 0.125rem; flex: 1; justify-content: center; }
+  .nav__link { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.8rem; font-weight: 500; padding: 0.375rem 0.55rem; border-radius: 6px; transition: color 0.15s, background 0.15s; white-space: nowrap; }
+  .nav__link:hover, .nav__link--active { color: #fff; background: rgba(255,255,255,0.1); }
+  .nav__cta { display: flex; align-items: center; gap: 0.4rem; background: var(--accent); color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 600; padding: 0.5rem 1rem; border-radius: 6px; transition: opacity 0.15s; white-space: nowrap; }
+  .nav__cta:hover { opacity: 0.9; }
+  .nav__hamburger { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 4px; }
+  .nav__hamburger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 1px; }
+  @media (max-width: 768px) {
+    .nav__links { display: none; position: absolute; top: 64px; left: 0; right: 0; background: var(--primary); flex-direction: column; padding: 1rem; box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+    .nav__links--open { display: flex; }
+    .nav__link { padding: 0.75rem 1rem; }
+    .nav__cta { display: none; }
+    .nav__hamburger { display: flex; }
+  }
+
+  /* HERO */
+  .hero { position: relative; min-height: 60vh; display: flex; align-items: center; padding: 8rem 1.5rem 4rem; }
+  .hero--short { min-height: 50vh; }
+  .hero__bg { position: absolute; inset: 0; }
+  .hero__bg-img { width: 100%; height: 100%; object-fit: cover; }
+  .hero__overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(70,57,57,0.92) 0%, rgba(70,57,57,0.72) 100%); }
+  .hero__content { position: relative; max-width: 720px; margin: 0 auto 0 0; padding-left: calc((100vw - 1140px) / 2); }
+  @media (max-width: 1172px) { .hero__content { padding-left: 1.5rem; } }
+  .hero__title { font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 900; line-height: 1.1; color: #fff; margin-bottom: 1.25rem; }
+  .hero__desc { font-size: 1.05rem; line-height: 1.7; color: rgba(255,255,255,0.85); max-width: 560px; }
+
+  @media (max-width: 480px) { .hero { min-height: auto; padding: 6rem 1.25rem 3rem; } }
+
+  /* BUTTONS */
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.92rem; font-weight: 600; text-decoration: none; padding: 0.7rem 1.5rem; border-radius: 6px; transition: all 0.15s; border: 2px solid transparent; cursor: pointer; }
+  .btn--primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .btn--primary:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn--outline { background: transparent; color: #fff; border-color: rgba(255,255,255,0.4); }
+  .btn--outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+  .btn--lg { padding: 0.85rem 2rem; font-size: 1rem; }
+
+  /* SECTIONS */
+  .section { padding: 5rem 0; }
+  .section--cta { background: linear-gradient(135deg, var(--primary) 0%, #2e2424 100%); text-align: center; padding: 4rem 0; }
+  .eyebrow { display: block; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+  .section__title { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800; margin-bottom: 2.5rem; line-height: 1.2; }
+
+  /* SERVICES GRID */
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 2rem; }
+  .service-card { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 1.75rem; transition: box-shadow 0.2s, transform 0.2s; border-top: 4px solid var(--accent); }
+  .service-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .service-card__icon { width: 48px; height: 48px; border-radius: 10px; background: rgba(200,168,78,0.1); color: var(--accent); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+  .service-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .service-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.6; }
+
+  @media (max-width: 768px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .services-grid { grid-template-columns: 1fr; } }
+
+  /* CTA */
+  .cta-content h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800; color: #fff; margin-bottom: 0.75rem; }
+  .cta-content p { font-size: 1.05rem; color: rgba(255,255,255,0.85); margin-bottom: 2rem; max-width: 680px; margin-left: auto; margin-right: auto; }
+  .cta-actions { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+  .cta-actions .btn--primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .cta-actions .btn--outline { color: #fff; border-color: rgba(255,255,255,0.5); }
+
+  /* FOOTER */
+  .footer { background: #2a2020; color: rgba(255,255,255,0.7); padding: 4rem 0 0; }
+  .footer__inner { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 2.5rem; }
+  .footer__col h4 { color: #fff; font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem; }
+  .footer__col p { font-size: 0.88rem; line-height: 1.65; }
+  .footer__col ul { list-style: none; }
+  .footer__col li { margin-bottom: 0.4rem; }
+  .footer__col a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.88rem; transition: color 0.15s; }
+  .footer__col a:hover { color: var(--accent); }
+  .footer__bottom { margin-top: 3rem; padding: 1.25rem 0; border-top: 1px solid rgba(255,255,255,0.08); text-align: center; }
+  .footer__bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+  @media (max-width: 768px) { .footer__inner { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .footer__inner { grid-template-columns: 1fr; gap: 2rem; } }
+</style>
+</body>
+</html>

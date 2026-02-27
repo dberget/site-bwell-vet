@@ -1,0 +1,394 @@
+---
+import Analytics from '../../components/Analytics.astro';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Hometown Auto Repair | Hugo, MN</title>
+  <meta name="description" content="Contact Hometown Auto Repair at 15409 Forest Blvd, Hugo, MN 55038. Call (651) 426-2186. Open Mon-Fri 8-5:30, Saturday by appointment." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <Analytics />
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="nav__inner">
+      <a href="/hometown-auto-hugo" class="nav__brand">
+        <svg class="nav__brand-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#cc3333" stroke-width="2" stroke-linecap="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+        <span class="nav__name">Hometown Auto Repair</span>
+      </a>
+      <nav class="nav__links">
+        <a href="/hometown-auto-hugo" class="nav__link">Home</a>
+        <a href="/hometown-auto-hugo/services" class="nav__link">Services</a>
+        <a href="/hometown-auto-hugo/contact" class="nav__link nav__link--active">Contact</a>
+      </nav>
+      <a href="tel:6514262186" class="nav__cta">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 013.12 4.18 2 2 0 015.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        (651) 426-2186
+      </a>
+      <button class="nav__hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- PAGE HEADER -->
+  <section class="page-header">
+    <div class="container">
+      <div class="page-header__breadcrumb">
+        <a href="/hometown-auto-hugo">Home</a> <span>/</span> <span>Contact</span>
+      </div>
+      <h1>Contact Us</h1>
+      <p>Give us a call, stop by the shop, or send us a message below.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+
+        <!-- LEFT: Info -->
+        <div class="contact-info">
+          <div class="contact-info__phone">
+            <a href="tel:6514262186">(651) 426-2186</a>
+          </div>
+
+          <div class="contact-info__block">
+            <div class="contact-info__icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <strong>Address</strong>
+              <p>15409 Forest Blvd<br/>Hugo, MN 55038</p>
+              <a href="https://maps.google.com/?q=15409+Forest+Blvd+Hugo+MN+55038" target="_blank" rel="noopener" class="contact-info__link">Get Directions</a>
+            </div>
+          </div>
+
+          <div class="contact-info__block">
+            <div class="contact-info__icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <strong>Hours</strong>
+              <table class="contact-hours">
+                <tr><td>Monday</td><td>8:00 AM - 5:30 PM</td></tr>
+                <tr><td>Tuesday</td><td>8:00 AM - 5:30 PM</td></tr>
+                <tr><td>Wednesday</td><td>8:00 AM - 5:30 PM</td></tr>
+                <tr><td>Thursday</td><td>8:00 AM - 5:30 PM</td></tr>
+                <tr><td>Friday</td><td>8:00 AM - 5:30 PM</td></tr>
+                <tr><td>Saturday</td><td>By Appointment</td></tr>
+                <tr class="contact-hours--closed"><td>Sunday</td><td>Closed</td></tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="contact-info__block">
+            <div class="contact-info__icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </div>
+            <div>
+              <strong>Follow Us</strong>
+              <p><a href="https://facebook.com/HometownAutoRepairHugo" target="_blank" rel="noopener">Facebook</a></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Form -->
+        <div class="contact-form-wrap">
+          <h2>Send Us a Message</h2>
+          <p class="contact-form-desc">Have a question or need to schedule service? Fill out the form below and we'll get back to you as soon as we can.</p>
+          <form class="contact-form" action="/api/contact" method="POST">
+            <input type="hidden" name="site" value="hometown-auto-hugo" />
+            <div style="display:none">
+              <input type="text" name="website" tabindex="-1" autocomplete="off" />
+            </div>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required placeholder="Your name" />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="you@example.com" />
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" placeholder="(651) 555-0000" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="vehicle">Vehicle Info</label>
+              <input type="text" id="vehicle" name="vehicle" placeholder="Year, make, model (e.g. 2018 Toyota Camry)" />
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" required placeholder="Tell us about the issue or service you need..."></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary btn--lg btn--full">Send Message</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- MAP -->
+  <section class="map-section">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2812.5!2d-93.0075!3d45.1719!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z15409+Forest+Blvd+Hugo+MN!5e0!3m2!1sen!2sus!4v1"
+      width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+      title="Hometown Auto Repair location"
+    ></iframe>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__col">
+        <h4>Hometown Auto Repair</h4>
+        <p>Your trusted local mechanic in Hugo, MN. Locally owned and operated, committed to honest service and fair prices.</p>
+        <div class="footer__social">
+          <a href="https://facebook.com/HometownAutoRepairHugo" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/hometown-auto-hugo">Home</a></li>
+          <li><a href="/hometown-auto-hugo/services">Services</a></li>
+          <li><a href="/hometown-auto-hugo/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Contact</h4>
+        <p>15409 Forest Blvd<br/>Hugo, MN 55038</p>
+        <p><a href="tel:6514262186">(651) 426-2186</a></p>
+      </div>
+      <div class="footer__col">
+        <h4>Hours</h4>
+        <table class="footer__hours">
+          <tr><td>Mon-Fri</td><td>8:00 AM - 5:30 PM</td></tr>
+          <tr><td>Saturday</td><td>By Appointment</td></tr>
+          <tr><td>Sunday</td><td>Closed</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; 2026 Hometown Auto Repair. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.querySelector('.nav');
+    window.addEventListener('scroll', () => {
+      nav?.classList.toggle('nav--scrolled', window.scrollY > 20);
+    });
+    document.querySelector('.nav__hamburger')?.addEventListener('click', () => {
+      document.querySelector('.nav__links')?.classList.toggle('nav__links--open');
+    });
+  </script>
+
+<style is:global>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #2c2c2c;
+    --accent: #cc3333;
+    --text: #1a1a1a;
+    --text-mid: #555;
+    --text-light: #888;
+    --bg: #fff;
+    --bg-warm: #f7f7f5;
+    --border: #e5e7eb;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* ===== NAV ===== */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--primary);
+    transition: box-shadow 0.2s;
+  }
+  .nav--scrolled { box-shadow: 0 2px 24px rgba(0,0,0,0.25); }
+  .nav__inner {
+    max-width: 1140px; margin: 0 auto; padding: 0 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .nav__brand {
+    display: flex; align-items: center; gap: 0.6rem; text-decoration: none;
+  }
+  .nav__brand-icon { flex-shrink: 0; }
+  .nav__name {
+    color: #fff; font-weight: 800; font-size: 1.15rem;
+    letter-spacing: -0.01em;
+  }
+  .nav__links { display: flex; gap: 0.25rem; }
+  .nav__link {
+    color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.88rem;
+    font-weight: 500; padding: 0.45rem 0.85rem; border-radius: 6px;
+    transition: color 0.15s, background 0.15s;
+  }
+  .nav__link:hover, .nav__link--active {
+    color: #fff; background: rgba(255,255,255,0.1);
+  }
+  .nav__cta {
+    display: flex; align-items: center; gap: 0.4rem;
+    background: var(--accent); color: #fff; text-decoration: none;
+    font-size: 0.85rem; font-weight: 700; padding: 0.5rem 1.1rem;
+    border-radius: 6px; transition: background 0.15s;
+  }
+  .nav__cta:hover { background: #b82d2d; }
+  .nav__hamburger {
+    display: none; background: none; border: none; cursor: pointer;
+    flex-direction: column; gap: 5px; padding: 4px;
+  }
+  .nav__hamburger span {
+    display: block; width: 24px; height: 2px; background: #fff;
+    border-radius: 1px; transition: 0.2s;
+  }
+
+  @media (max-width: 768px) {
+    .nav__links {
+      display: none; position: absolute; top: 68px; left: 0; right: 0;
+      background: var(--primary); flex-direction: column; padding: 1rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    .nav__links--open { display: flex; }
+    .nav__link { padding: 0.75rem 1rem; }
+    .nav__cta { display: none; }
+    .nav__hamburger { display: flex; }
+  }
+
+  /* ===== PAGE HEADER ===== */
+  .page-header { background: var(--primary); padding: 7.5rem 0 2.5rem; }
+  .page-header__breadcrumb { font-size: 0.82rem; color: rgba(255,255,255,0.4); margin-bottom: 0.75rem; }
+  .page-header__breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; }
+  .page-header__breadcrumb a:hover { color: var(--accent); }
+  .page-header__breadcrumb span { margin: 0 0.35rem; }
+  .page-header h1 { color: #fff; font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 800; margin-bottom: 0.5rem; }
+  .page-header p { color: rgba(255,255,255,0.65); font-size: 1.05rem; }
+
+  /* ===== SECTIONS ===== */
+  .section { padding: 4.5rem 0; }
+
+  /* ===== CONTACT GRID ===== */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 3.5rem; }
+
+  @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; gap: 3rem; } }
+
+  .contact-info__phone { margin-bottom: 2rem; }
+  .contact-info__phone a {
+    font-size: 2.25rem; font-weight: 800; color: var(--accent);
+    text-decoration: none; letter-spacing: -0.02em;
+  }
+  .contact-info__phone a:hover { opacity: 0.85; }
+
+  .contact-info__block {
+    display: flex; gap: 1rem; padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .contact-info__block:last-child { border-bottom: none; }
+  .contact-info__icon {
+    flex-shrink: 0; width: 42px; height: 42px; border-radius: 10px;
+    background: rgba(204,51,51,0.08); color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .contact-info__block strong { display: block; font-size: 0.92rem; margin-bottom: 0.25rem; }
+  .contact-info__block p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.6; }
+  .contact-info__block a { color: var(--text-mid); text-decoration: none; }
+  .contact-info__block a:hover { color: var(--accent); }
+  .contact-info__link {
+    display: inline-block; margin-top: 0.4rem;
+    color: var(--accent) !important; font-size: 0.85rem; font-weight: 600;
+  }
+
+  .contact-hours { border-collapse: collapse; font-size: 0.88rem; margin-top: 0.25rem; }
+  .contact-hours td { padding: 0.2rem 0; }
+  .contact-hours td:first-child { padding-right: 1.5rem; color: var(--text-mid); }
+  .contact-hours--closed td { color: var(--text-mid); opacity: 0.6; }
+
+  /* ===== FORM ===== */
+  .contact-form-wrap h2 { font-size: 1.35rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .contact-form-desc { font-size: 0.92rem; color: var(--text-mid); margin-bottom: 1.75rem; }
+
+  .form-group { margin-bottom: 1.25rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+
+  .form-group label {
+    display: block; font-size: 0.82rem; font-weight: 600;
+    margin-bottom: 0.35rem; color: var(--text);
+  }
+  .form-group input, .form-group textarea {
+    width: 100%; padding: 0.75rem 1rem; font-size: 0.92rem;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    font-family: inherit; transition: border-color 0.15s;
+    background: #fff;
+  }
+  .form-group input:focus, .form-group textarea:focus {
+    outline: none; border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(204,51,51,0.1);
+  }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+
+  /* ===== BUTTONS ===== */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    font-size: 0.92rem; font-weight: 600; text-decoration: none;
+    padding: 0.75rem 1.6rem; border-radius: 6px; transition: all 0.15s;
+    border: 2px solid transparent; cursor: pointer;
+    font-family: inherit;
+  }
+  .btn--primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .btn--primary:hover { background: #b82d2d; border-color: #b82d2d; }
+  .btn--lg { padding: 0.9rem 2rem; font-size: 1rem; }
+  .btn--full { width: 100%; }
+
+  /* ===== MAP ===== */
+  .map-section { line-height: 0; }
+  .map-section iframe { width: 100%; height: 400px; }
+
+  /* ===== FOOTER ===== */
+  .footer { background: #1c1c1c; color: rgba(255,255,255,0.65); padding: 4rem 0 0; }
+  .footer__inner { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 2.5rem; }
+  .footer__col h4 { color: #fff; font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem; }
+  .footer__col p { font-size: 0.88rem; line-height: 1.65; }
+  .footer__col ul { list-style: none; }
+  .footer__col li { margin-bottom: 0.5rem; }
+  .footer__col a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.88rem; transition: color 0.15s; }
+  .footer__col a:hover { color: var(--accent); }
+  .footer__social { display: flex; gap: 0.75rem; margin-top: 1.25rem; }
+  .footer__social a { color: rgba(255,255,255,0.45); transition: color 0.15s; }
+  .footer__social a:hover { color: var(--accent); }
+  .footer__hours { font-size: 0.85rem; border-collapse: collapse; }
+  .footer__hours td { padding: 0.25rem 0; }
+  .footer__hours td:first-child { padding-right: 1.25rem; font-weight: 500; color: rgba(255,255,255,0.45); }
+  .footer__bottom {
+    margin-top: 3rem; padding: 1.25rem 0;
+    border-top: 1px solid rgba(255,255,255,0.08); text-align: center;
+  }
+  .footer__bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+
+  @media (max-width: 768px) {
+    .footer__inner { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .footer__inner { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>
+</body>
+</html>

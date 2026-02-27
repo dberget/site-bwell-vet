@@ -1,0 +1,594 @@
+---
+import Analytics from '../../components/Analytics.astro';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fine Line Irrigation LLC — Professional Irrigation Services | Scandia, MN</title>
+  <meta name="description" content="Fine Line Irrigation LLC provides professional sprinkler system design, installation, repair, spring startups, and fall blowouts in Scandia, MN and the Twin Cities North Metro." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <Analytics />
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="fl-nav">
+    <div class="fl-nav__inner">
+      <a href="/fine-line-irrigation" class="fl-nav__brand">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>
+        <span class="fl-nav__name">Fine Line Irrigation</span>
+      </a>
+      <nav class="fl-nav__links">
+        <a href="/fine-line-irrigation" class="fl-nav__link fl-nav__link--active">Home</a>
+        <a href="/fine-line-irrigation/services" class="fl-nav__link">Services</a>
+        <a href="/fine-line-irrigation/contact" class="fl-nav__link">Contact</a>
+      </nav>
+      <a href="/fine-line-irrigation/contact" class="fl-nav__cta">Free Estimate</a>
+      <button class="fl-nav__hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="fl-hero">
+    <div class="fl-hero__bg">
+      <img src="/images/fine-line-irrigation/lawn.jpg" alt="Lush green lawn with sprinkler system" class="fl-hero__bg-img" />
+      <div class="fl-hero__overlay"></div>
+    </div>
+    <div class="fl-hero__content">
+
+      <h1 class="fl-hero__title">Professional<br/>Irrigation Services</h1>
+      <p class="fl-hero__desc">Custom sprinkler system design, installation, and maintenance. Serving the Twin Cities North Metro with water-efficient irrigation solutions.</p>
+      <div class="fl-hero__actions">
+        <a href="/fine-line-irrigation/contact" class="fl-btn fl-btn--primary">Get a Free Estimate</a>
+        <a href="/fine-line-irrigation/services" class="fl-btn fl-btn--white">Our Services</a>
+      </div>
+    </div>
+    <div class="fl-hero__wave">
+      <svg viewBox="0 0 1440 100" fill="none" preserveAspectRatio="none"><path d="M0 40C360 80 720 0 1080 40C1260 60 1380 80 1440 80V100H0V40Z" fill="#ffffff"/></svg>
+    </div>
+  </section>
+
+  <!-- TRUST BADGES -->
+  <section class="fl-trust">
+    <div class="fl-container">
+      <div class="fl-trust__grid">
+        <div class="fl-trust__item">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <div>
+            <strong>North Metro</strong>
+            <span>Scandia &amp; surrounding</span>
+          </div>
+        </div>
+        <div class="fl-trust__item">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>
+          <div>
+            <strong>Water Conservation</strong>
+            <span>Efficient system design</span>
+          </div>
+        </div>
+        <div class="fl-trust__item">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="16 12 12 8 8 12"/><line x1="12" y1="16" x2="12" y2="8"/></svg>
+          <div>
+            <strong>Years of Experience</strong>
+            <span>Industry professionals</span>
+          </div>
+        </div>
+        <div class="fl-trust__item">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <div>
+            <strong>Licensed &amp; Insured</strong>
+            <span>Full liability coverage</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES OVERVIEW -->
+  <section class="fl-section" id="services">
+    <div class="fl-container">
+      <div class="fl-section__header fl-section__header--center">
+        <span class="fl-eyebrow">What We Do</span>
+        <h2 class="fl-section__title">Irrigation Solutions for Every Need</h2>
+        <p class="fl-section__subtitle">From brand-new installations to seasonal maintenance, we keep your lawn green and your water bill low.</p>
+      </div>
+      <div class="fl-services-grid">
+        <div class="fl-service-card fl-service-card--featured">
+          <div class="fl-service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <h3>Design &amp; Installation</h3>
+          <p>Custom sprinkler systems designed for your property. We consider soil conditions, shade, slope, and plant types to deliver even coverage with matched precipitation rates.</p>
+          <a href="/fine-line-irrigation/services" class="fl-service-card__link">Learn more &rarr;</a>
+        </div>
+        <div class="fl-service-card">
+          <div class="fl-service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <h3>Diagnosis &amp; Repair</h3>
+          <p>Broken heads, leaks, wiring issues, valve problems — we diagnose and fix it. Fast, reliable repair to keep your system running right.</p>
+          <a href="/fine-line-irrigation/services" class="fl-service-card__link">Learn more &rarr;</a>
+        </div>
+        <div class="fl-service-card">
+          <div class="fl-service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          </div>
+          <h3>Spring Startups</h3>
+          <p>We'll get your system up and running for the season. Full zone check, head adjustment, timer programming, and leak inspection.</p>
+          <a href="/fine-line-irrigation/services" class="fl-service-card__link">Learn more &rarr;</a>
+        </div>
+        <div class="fl-service-card">
+          <div class="fl-service-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <h3>System Additions</h3>
+          <p>Expanding your landscape? We add zones, heads, and lines to your existing system to cover new areas seamlessly.</p>
+          <a href="/fine-line-irrigation/services" class="fl-service-card__link">Learn more &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEASONAL CALLOUT -->
+  <section class="fl-seasonal">
+    <div class="fl-container">
+      <div class="fl-seasonal__grid">
+        <div class="fl-seasonal__card fl-seasonal__card--spring">
+          <div class="fl-seasonal__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2d5f3f" stroke-width="2" stroke-linecap="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          </div>
+          <h3>Spring Startup</h3>
+          <p>Get your system running before the dry season hits. We check every zone, adjust heads, reprogram timers, and verify there are no winter damage leaks.</p>
+          <span class="fl-seasonal__tag">Book Now for Spring</span>
+        </div>
+        <div class="fl-seasonal__card fl-seasonal__card--fall">
+          <div class="fl-seasonal__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#3a8fd4" stroke-width="2" stroke-linecap="round"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>
+          </div>
+          <h3>Fall Blowout</h3>
+          <p>Winterize your system before the freeze. Compressed air blowout ensures no water remains in lines, preventing costly freeze damage to pipes and heads.</p>
+          <span class="fl-seasonal__tag fl-seasonal__tag--blue">Schedule for Fall</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="fl-section fl-section--green" id="why">
+    <div class="fl-container">
+      <div class="fl-why-grid">
+        <div class="fl-why__content">
+          <span class="fl-eyebrow fl-eyebrow--light">Why Fine Line</span>
+          <h2 class="fl-why__title">Designed for Your Land,<br/>Not a Template</h2>
+          <p>Every property is different. We don't use cookie-cutter designs. Every system we install is tailored to your specific soil conditions, sun exposure, shade patterns, slopes, and plant types.</p>
+          <p>Our matched precipitation rate approach means every zone delivers water uniformly — no dry spots, no puddles, no wasted water.</p>
+          <ul class="fl-why__list">
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Site-specific design for each installation
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Matched precipitation rates across zones
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Water conservation built into every system
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Full seasonal maintenance and support
+            </li>
+          </ul>
+        </div>
+        <div class="fl-why__image">
+          <img src="/images/fine-line-irrigation/lawn.jpg" alt="Well-maintained lawn with irrigation" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE AREA -->
+  <section class="fl-section">
+    <div class="fl-container">
+      <div class="fl-section__header fl-section__header--center">
+        <span class="fl-eyebrow">Service Area</span>
+        <h2 class="fl-section__title">Serving the Twin Cities North Metro</h2>
+        <p class="fl-section__subtitle">Based in Scandia, we serve homeowners across the north metro and surrounding communities.</p>
+      </div>
+      <div class="fl-area-grid">
+        <div class="fl-area-tag">Scandia</div>
+        <div class="fl-area-tag">Forest Lake</div>
+        <div class="fl-area-tag">Hugo</div>
+        <div class="fl-area-tag">Marine on St. Croix</div>
+        <div class="fl-area-tag">Stillwater</div>
+        <div class="fl-area-tag">Wyoming</div>
+        <div class="fl-area-tag">Chisago City</div>
+        <div class="fl-area-tag">Lindstrom</div>
+        <div class="fl-area-tag">North Branch</div>
+        <div class="fl-area-tag">White Bear Lake</div>
+        <div class="fl-area-tag">Mahtomedi</div>
+        <div class="fl-area-tag">And surrounding areas</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="fl-cta">
+    <div class="fl-container fl-cta__inner">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>
+      <h2>Ready for a Greener Lawn?</h2>
+      <p>Get a free estimate on a custom irrigation system designed for your property. We'll walk the site, assess your needs, and give you an honest quote.</p>
+      <a href="/fine-line-irrigation/contact" class="fl-btn fl-btn--white fl-btn--lg">Get Your Free Estimate</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="fl-footer">
+    <div class="fl-container fl-footer__inner">
+      <div class="fl-footer__col fl-footer__col--brand">
+        <div class="fl-footer__brand">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>
+          <h4>Fine Line Irrigation LLC</h4>
+        </div>
+        <p>Professional irrigation services in Scandia, MN. Custom sprinkler system design, installation, repair, and seasonal maintenance for the Twin Cities North Metro.</p>
+      </div>
+      <div class="fl-footer__col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/fine-line-irrigation">Home</a></li>
+          <li><a href="/fine-line-irrigation/services">Services</a></li>
+          <li><a href="/fine-line-irrigation/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="fl-footer__col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="/fine-line-irrigation/services">System Design &amp; Install</a></li>
+          <li><a href="/fine-line-irrigation/services">Repair &amp; Diagnosis</a></li>
+          <li><a href="/fine-line-irrigation/services">Spring Startups</a></li>
+          <li><a href="/fine-line-irrigation/services">Fall Blowouts</a></li>
+        </ul>
+      </div>
+      <div class="fl-footer__col">
+        <h4>Contact</h4>
+        <p>Scandia, MN</p>
+        <p style="margin-top:0.25rem;">Serving the Twin Cities North Metro</p>
+        <a href="/fine-line-irrigation/contact" class="fl-footer__cta-link">Call for a Free Estimate &rarr;</a>
+      </div>
+    </div>
+    <div class="fl-footer__bottom">
+      <p>&copy; 2026 Fine Line Irrigation LLC. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.querySelector('.fl-nav');
+    window.addEventListener('scroll', () => nav?.classList.toggle('fl-nav--scrolled', window.scrollY > 20));
+    document.querySelector('.fl-nav__hamburger')?.addEventListener('click', () => {
+      document.querySelector('.fl-nav__links')?.classList.toggle('fl-nav__links--open');
+    });
+  </script>
+
+<style is:global>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #2d5f3f;
+    --primary-dark: #1e4a2e;
+    --accent: #3a8fd4;
+    --accent-light: #e8f4fd;
+    --text: #1f2937;
+    --text-mid: #6b7280;
+    --text-light: #9ca3af;
+    --bg: #ffffff;
+    --bg-warm: #f9fafb;
+    --bg-green: #f0f7f2;
+    --border: #e5e7eb;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .fl-container { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* NAV */
+  .fl-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    transition: box-shadow 0.2s;
+  }
+  .fl-nav--scrolled { box-shadow: 0 1px 12px rgba(0,0,0,0.08); }
+  .fl-nav__inner {
+    max-width: 1120px; margin: 0 auto; padding: 0 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .fl-nav__brand { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+  .fl-nav__name {
+    color: var(--primary); font-weight: 800; font-size: 1rem;
+  }
+  .fl-nav__links { display: flex; gap: 0.25rem; }
+  .fl-nav__link {
+    color: var(--text-mid); text-decoration: none; font-size: 0.88rem;
+    font-weight: 500; padding: 0.4rem 0.75rem; border-radius: 6px;
+    transition: color 0.15s, background 0.15s;
+  }
+  .fl-nav__link:hover, .fl-nav__link--active { color: var(--primary); background: var(--bg-green); }
+  .fl-nav__cta {
+    background: var(--primary); color: #fff; text-decoration: none;
+    font-size: 0.85rem; font-weight: 600; padding: 0.5rem 1.15rem;
+    border-radius: 6px; transition: background 0.15s;
+  }
+  .fl-nav__cta:hover { background: var(--primary-dark); }
+  .fl-nav__hamburger {
+    display: none; background: none; border: none; cursor: pointer;
+    flex-direction: column; gap: 5px; padding: 4px;
+  }
+  .fl-nav__hamburger span {
+    display: block; width: 22px; height: 2px; background: var(--primary);
+    border-radius: 1px; transition: 0.2s;
+  }
+
+  @media (max-width: 768px) {
+    .fl-nav__links {
+      display: none; position: absolute; top: 64px; left: 0; right: 0;
+      background: #fff; flex-direction: column; padding: 1rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      border-bottom: 1px solid var(--border);
+    }
+    .fl-nav__links--open { display: flex; }
+    .fl-nav__link { padding: 0.75rem 1rem; }
+    .fl-nav__cta { display: none; }
+    .fl-nav__hamburger { display: flex; }
+  }
+
+  /* HERO */
+  .fl-hero {
+    position: relative; min-height: 88vh; display: flex; align-items: center;
+    padding: 3rem 1.5rem 6rem; overflow: hidden;
+  }
+  .fl-hero__bg { position: absolute; inset: 0; }
+  .fl-hero__bg-img { width: 100%; height: 100%; object-fit: cover; }
+  .fl-hero__overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(45,95,63,0.88) 0%, rgba(30,74,46,0.7) 50%, rgba(58,143,212,0.5) 100%);
+  }
+  .fl-hero__content {
+    position: relative; max-width: 640px;
+    margin-left: calc((100vw - 1120px) / 2);
+  }
+  @media (max-width: 1152px) { .fl-hero__content { margin-left: 1.5rem; } }
+  .fl-hero__badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: rgba(255,255,255,0.12); color: #fff;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em;
+    padding: 0.4rem 0.9rem; border-radius: 20px; margin-bottom: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .fl-hero__title {
+    font-size: clamp(2.25rem, 5vw, 3.5rem); font-weight: 900;
+    line-height: 1.08; color: #fff; margin-bottom: 1.25rem;
+  }
+  .fl-hero__desc {
+    font-size: 1.05rem; line-height: 1.7; color: rgba(255,255,255,0.85);
+    margin-bottom: 2rem; max-width: 520px;
+  }
+  .fl-hero__actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .fl-hero__wave {
+    position: absolute; bottom: -1px; left: 0; right: 0; line-height: 0;
+  }
+  .fl-hero__wave svg { width: 100%; height: 80px; }
+
+  @media (max-width: 480px) {
+    .fl-hero { min-height: 75vh; padding: 6rem 1.25rem 4rem; }
+    .fl-hero__actions { flex-direction: column; }
+    .fl-hero__wave svg { height: 40px; }
+  }
+
+  /* BUTTONS */
+  .fl-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.92rem; font-weight: 600; text-decoration: none;
+    padding: 0.7rem 1.5rem; border-radius: 8px; transition: all 0.15s;
+    border: 2px solid transparent; cursor: pointer; font-family: inherit;
+  }
+  .fl-btn--primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .fl-btn--primary:hover { background: #2e7dc0; border-color: #2e7dc0; }
+  .fl-btn--white { background: #fff; color: var(--primary); border-color: #fff; }
+  .fl-btn--white:hover { background: rgba(255,255,255,0.9); }
+  .fl-btn--outline { background: transparent; color: var(--primary); border-color: var(--border); }
+  .fl-btn--outline:hover { border-color: var(--primary); background: var(--bg-green); }
+  .fl-btn--green { background: var(--primary); color: #fff; border-color: var(--primary); }
+  .fl-btn--green:hover { background: var(--primary-dark); border-color: var(--primary-dark); }
+  .fl-btn--lg { padding: 0.85rem 2rem; font-size: 0.95rem; }
+  .fl-btn--full { width: 100%; justify-content: center; }
+
+  /* TRUST BADGES */
+  .fl-trust { padding: 2.5rem 0; border-bottom: 1px solid var(--border); }
+  .fl-trust__grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
+  }
+  .fl-trust__item {
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .fl-trust__item strong {
+    display: block; font-size: 0.85rem; font-weight: 700; color: var(--text);
+  }
+  .fl-trust__item span { font-size: 0.78rem; color: var(--text-mid); }
+
+  @media (max-width: 1024px) { .fl-trust__grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; } }
+  @media (max-width: 480px) { .fl-trust__grid { grid-template-columns: 1fr; } }
+
+  /* SECTIONS */
+  .fl-section { padding: 5rem 0; }
+  .fl-section--green { background: var(--bg-green); }
+  .fl-section__header { margin-bottom: 2.5rem; }
+  .fl-section__header--center { text-align: center; }
+  .fl-eyebrow {
+    display: block; font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 0.5rem;
+  }
+  .fl-eyebrow--light { color: rgba(255,255,255,0.7); }
+  .fl-section__title {
+    font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800;
+    line-height: 1.15; color: var(--text);
+  }
+  .fl-section__subtitle {
+    font-size: 1rem; color: var(--text-mid); margin-top: 0.75rem;
+    max-width: 560px;
+  }
+  .fl-section__header--center .fl-section__subtitle { margin-left: auto; margin-right: auto; }
+
+  /* SERVICE CARDS */
+  .fl-services-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem;
+  }
+  .fl-service-card {
+    background: #fff; border: 1px solid var(--border); border-radius: 12px;
+    padding: 2rem; transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .fl-service-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.06); transform: translateY(-2px); }
+  .fl-service-card--featured {
+    grid-column: 1 / -1; border-left: 4px solid var(--primary);
+    background: var(--bg-green);
+  }
+  .fl-service-card__icon {
+    width: 48px; height: 48px; border-radius: 10px;
+    background: var(--bg-green); color: var(--primary);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .fl-service-card--featured .fl-service-card__icon { background: rgba(45,95,63,0.12); }
+  .fl-service-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .fl-service-card p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.65; }
+  .fl-service-card__link {
+    display: inline-block; margin-top: 0.75rem; font-size: 0.85rem;
+    font-weight: 600; color: var(--accent); text-decoration: none;
+  }
+  .fl-service-card__link:hover { color: var(--primary); }
+
+  @media (max-width: 768px) {
+    .fl-services-grid { grid-template-columns: 1fr; }
+    .fl-service-card--featured { grid-column: auto; }
+  }
+
+  /* SEASONAL */
+  .fl-seasonal { padding: 4rem 0; background: var(--bg-warm); }
+  .fl-seasonal__grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+  }
+  .fl-seasonal__card {
+    padding: 2.5rem; border-radius: 12px; background: #fff;
+    border: 1px solid var(--border);
+  }
+  .fl-seasonal__card--spring { border-top: 4px solid var(--primary); }
+  .fl-seasonal__card--fall { border-top: 4px solid var(--accent); }
+  .fl-seasonal__icon { margin-bottom: 1.25rem; }
+  .fl-seasonal__card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .fl-seasonal__card p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 1rem; }
+  .fl-seasonal__tag {
+    display: inline-block; font-size: 0.78rem; font-weight: 700;
+    color: var(--primary); background: var(--bg-green);
+    padding: 0.3rem 0.75rem; border-radius: 4px;
+    letter-spacing: 0.04em;
+  }
+  .fl-seasonal__tag--blue { color: var(--accent); background: var(--accent-light); }
+
+  @media (max-width: 768px) { .fl-seasonal__grid { grid-template-columns: 1fr; } }
+
+  /* WHY US */
+  .fl-why-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center;
+  }
+  .fl-why__title {
+    font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800;
+    line-height: 1.15; color: var(--text); margin-bottom: 1.25rem;
+  }
+  .fl-why__content p {
+    font-size: 0.95rem; color: var(--text-mid); line-height: 1.7;
+    margin-bottom: 0.75rem;
+  }
+  .fl-why__list {
+    list-style: none; margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;
+  }
+  .fl-why__list li {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-size: 0.9rem; font-weight: 500; color: var(--text);
+  }
+  .fl-why__list svg { color: var(--primary); flex-shrink: 0; }
+  .fl-why__image { border-radius: 12px; overflow: hidden; }
+  .fl-why__image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  @media (max-width: 768px) {
+    .fl-why-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .fl-why__image { order: -1; max-height: 300px; }
+  }
+
+  /* SERVICE AREA TAGS */
+  .fl-area-grid {
+    display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center;
+  }
+  .fl-area-tag {
+    background: var(--bg-green); color: var(--primary); font-size: 0.85rem;
+    font-weight: 600; padding: 0.5rem 1rem; border-radius: 20px;
+    border: 1px solid rgba(45,95,63,0.12);
+  }
+
+  /* CTA */
+  .fl-cta {
+    padding: 5rem 0; text-align: center;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  }
+  .fl-cta__inner h2 {
+    font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 800;
+    color: #fff; margin: 1rem 0 0.75rem;
+  }
+  .fl-cta__inner p {
+    font-size: 1.05rem; color: rgba(255,255,255,0.8); margin-bottom: 2rem;
+    max-width: 520px; margin-left: auto; margin-right: auto;
+  }
+
+  /* FOOTER */
+  .fl-footer { background: #1a2e22; color: rgba(255,255,255,0.7); padding: 4rem 0 0; }
+  .fl-footer__inner {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 2.5rem;
+  }
+  .fl-footer__brand {
+    display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;
+  }
+  .fl-footer__brand h4 { color: #fff; font-size: 1rem; font-weight: 700; margin: 0; }
+  .fl-footer__col h4 { color: #fff; font-size: 0.92rem; font-weight: 700; margin-bottom: 1rem; }
+  .fl-footer__col p { font-size: 0.88rem; line-height: 1.65; }
+  .fl-footer__col ul { list-style: none; }
+  .fl-footer__col li { margin-bottom: 0.4rem; }
+  .fl-footer__col a {
+    color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.88rem;
+    transition: color 0.15s;
+  }
+  .fl-footer__col a:hover { color: var(--accent); }
+  .fl-footer__cta-link {
+    display: inline-block; margin-top: 0.75rem; font-size: 0.85rem;
+    font-weight: 600; color: var(--accent) !important;
+  }
+  .fl-footer__bottom {
+    margin-top: 3rem; padding: 1.25rem 0;
+    border-top: 1px solid rgba(255,255,255,0.06); text-align: center;
+  }
+  .fl-footer__bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+
+  @media (max-width: 768px) { .fl-footer__inner { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .fl-footer__inner { grid-template-columns: 1fr; gap: 2rem; } }
+</style>
+</body>
+</html>

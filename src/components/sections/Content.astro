@@ -1,0 +1,131 @@
+---
+import type { SiteContent, UIStrings } from '../../schema/content';
+
+interface Props {
+  site: SiteContent;
+  base: string;
+  ui?: UIStrings;
+  content: string;
+  layout?: 'narrow' | 'wide' | 'full';
+}
+
+const { content, layout = 'wide' } = Astro.props;
+
+const widthClass = {
+  narrow: 'content-section--narrow',
+  wide: 'content-section--wide',
+  full: 'content-section--full',
+}[layout];
+---
+
+<section class={`content-section ${widthClass}`}>
+  <div class="container">
+    <div class="content-section__body" set:html={content} />
+  </div>
+</section>
+
+<style is:global>
+  .content-section {
+    padding: 4rem 0;
+  }
+
+  .content-section--narrow .content-section__body {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .content-section--wide .content-section__body {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .content-section--full .content-section__body {
+    max-width: 100%;
+  }
+
+  /* Typography inside content */
+  .content-section__body h2 {
+    font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--text, #2c2c2c);
+    margin: 2.5rem 0 1rem;
+  }
+
+  .content-section__body h2:first-child {
+    margin-top: 0;
+  }
+
+  .content-section__body h3 {
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--text, #2c2c2c);
+    margin: 2rem 0 0.75rem;
+  }
+
+  .content-section__body h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text, #2c2c2c);
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  .content-section__body p {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text-mid, #555);
+    margin-bottom: 1.25rem;
+  }
+
+  .content-section__body ul,
+  .content-section__body ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1.25rem;
+    color: var(--text-mid, #555);
+  }
+
+  .content-section__body li {
+    line-height: 1.75;
+    margin-bottom: 0.35rem;
+  }
+
+  .content-section__body ul li {
+    list-style: disc;
+  }
+
+  .content-section__body ol li {
+    list-style: decimal;
+  }
+
+  .content-section__body img {
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    width: 100%;
+    height: auto;
+  }
+
+  .content-section__body blockquote {
+    border-left: 4px solid var(--primary, var(--maroon, #6b1d2a));
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: var(--bg-warm, #faf8f5);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: var(--text-mid, #555);
+  }
+
+  .content-section__body .two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .content-section { padding: 3rem 0; }
+    .content-section__body .two-column {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+</style>

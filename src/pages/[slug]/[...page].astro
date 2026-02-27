@@ -1,0 +1,75 @@
+---
+import type { SiteContent, PageDef } from '../../schema/content';
+import SiteLayout from '../../components/SiteLayout.astro';
+
+export async function getStaticPaths() {
+  const dataModules = import.meta.glob('../../data/*.ts', { eager: true });
+  const paths: any[] = [];
+
+  for (const [filePath, mod] of Object.entries(dataModules)) {
+    const match = filePath.match(/\/([^/]+)\.ts$/);
+    if (!match) continue;
+    const slug = match[1];
+    const { site, sections, theme, pages } = mod as {
+      site: SiteContent;
+      sections?: { type: string; props?: Record<string, any> }[];
+      theme?: string;
+      pages?: Record<string, PageDef>;
+    };
+
+    const resolvedTheme = theme || 'default';
+
+    if (pages && Object.keys(pages).length > 0) {
+      // Multi-page site: generate a path for each page
+      for (const [pageKey, pageDef] of Object.entries(pages)) {
+        paths.push({
+          params: {
+            slug,
+            page: pageKey === 'home' ? undefined : pageKey,
+          },
+          props: {
+            site,
+            theme: resolvedTheme,
+            pages,
+            currentPage: pageKey,
+            pageSections: pageDef.sections,
+            pageTitle: pageDef.title,
+            slug,
+          },
+        });
+      }
+    } else {
+      // Backward compat: single-page site with sections array
+      const syntheticPages: Record<string, PageDef> = {
+        home: { title: 'Home', sections: sections || [] },
+      };
+      paths.push({
+        params: { slug, page: undefined },
+        props: {
+          site,
+          theme: resolvedTheme,
+          pages: syntheticPages,
+          currentPage: 'home',
+          pageSections: sections || [],
+          pageTitle: 'Home',
+          slug,
+        },
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { site, theme, pages, currentPage, pageSections, pageTitle, slug } = Astro.props;
+---
+
+<SiteLayout
+  site={site}
+  theme={theme}
+  pages={pages}
+  currentPage={currentPage}
+  pageSections={pageSections}
+  pageTitle={pageTitle}
+  slug={slug}
+/>

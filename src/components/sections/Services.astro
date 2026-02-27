@@ -1,0 +1,507 @@
+---
+import type { SiteContent, UIStrings } from '../../schema/content';
+
+interface Props {
+  site: SiteContent;
+  base: string;
+  ui?: UIStrings;
+}
+
+const { site, base, ui } = Astro.props;
+const { services } = site;
+
+const featured = services.filter((s) => s.featured);
+const remaining = services.filter((s) => !s.featured);
+---
+
+{services && services.length > 0 && (
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__eyebrow">What We Do</span>
+        <h2 class="section__title">{ui?.sections?.services || 'Our Services'}</h2>
+      </div>
+
+      <!-- Featured Service Cards -->
+      {featured.length > 0 && (
+        <div class="service-cards">
+          {featured.map((svc) => (
+            <div class="svc-card">
+              <div class="svc-card__body">
+                {svc.icon && <span class="svc-card__icon">{svc.icon}</span>}
+                <h3 class="svc-card__name">{svc.name}</h3>
+                <p class="svc-card__desc">{svc.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <!-- Additional Services -->
+      {remaining.length > 0 && (
+        <div class="extra-services">
+          <h3 class="extra-services__title">We also provide:</h3>
+          <div class="extra-services__list">
+            {remaining.map((s) => (
+              <div class="extra-svc">
+                <span class="extra-svc__icon">{s.icon}</span>
+                <div>
+                  <strong>{s.name}</strong>
+                  <p>{s.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+)}
+
+<style is:global>
+  /* --- Service Cards --- */
+  .service-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .svc-card {
+    border-radius: 6px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--border);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+
+  .svc-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+
+  .svc-card__body { padding: 1.5rem; }
+
+  .svc-card__icon {
+    font-size: 1.75rem;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .svc-card__name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+
+  .svc-card__desc {
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+  }
+
+  /* --- Extra Services --- */
+  .extra-services {
+    margin-top: 2.5rem;
+    padding: 1.75rem 2rem;
+    background: var(--bg-warm);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+
+  .extra-services__title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    color: var(--text);
+  }
+
+  .extra-services__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .extra-svc {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .extra-svc__icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+  }
+
+  .extra-svc strong {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .extra-svc p {
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    line-height: 1.55;
+  }
+
+  @media (max-width: 480px) {
+    .service-cards { grid-template-columns: 1fr; }
+    .extra-services { padding: 1.25rem; }
+    .extra-services__list { grid-template-columns: 1fr; }
+  }
+</style>
+
+<style is:global>
+  /* =============================================
+     THEME: Suspended — Clean & Airy
+     ============================================= */
+
+  /* Section padding */
+  .theme-suspended #services {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+
+  /* Card grid gap */
+  .theme-suspended .service-cards {
+    gap: 1.75rem;
+  }
+
+  /* Cards: rounded, no border, shadow only */
+  .theme-suspended .svc-card {
+    border: none;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .theme-suspended .svc-card:hover {
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+  }
+
+  /* More generous card padding */
+  .theme-suspended .svc-card__body {
+    padding: 2rem;
+  }
+
+  /* Icon in a soft colored circle */
+  .theme-suspended .svc-card__icon {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--primary, #3b82f6) 10%, transparent);
+    margin-bottom: 1rem;
+  }
+
+  /* Extra services: match rounded, no-border style */
+  .theme-suspended .extra-services {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    background: var(--bg-warm, #fafafa);
+    padding: 2rem;
+  }
+
+  .theme-suspended .extra-svc__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--primary, #3b82f6) 10%, transparent);
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 0;
+  }
+
+  @media (max-width: 480px) {
+    .theme-suspended #services {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+
+    .theme-suspended .svc-card__body {
+      padding: 1.5rem;
+    }
+
+    .theme-suspended .extra-services {
+      padding: 1.25rem;
+    }
+  }
+
+  /* =============================================
+     THEME: Editorial — Bold & Editorial
+     ============================================= */
+
+  /* Section padding: tighter vertical rhythm */
+  .theme-editorial #services {
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+  }
+
+  /* Section header: left-aligned with thick accent underline */
+  .theme-editorial .section__header {
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .theme-editorial #services .section__title {
+    font-size: 2rem;
+    font-weight: 800;
+    position: relative;
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .theme-editorial #services .section__title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: var(--primary, #3b82f6);
+    border-radius: 2px;
+  }
+
+  /* Alternating rows layout instead of grid */
+  .theme-editorial .service-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* Each card becomes a full-width row with generous vertical space */
+  .theme-editorial .svc-card {
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    border-bottom: 1px solid var(--border, #e5e7eb);
+    transition: none;
+  }
+
+  .theme-editorial .svc-card:hover {
+    box-shadow: none;
+    transform: none;
+  }
+
+  .theme-editorial .svc-card:last-child {
+    border-bottom: none;
+  }
+
+  .theme-editorial .svc-card__body {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    padding: 2.5rem 0;
+  }
+
+  /* Odd cards: icon left, text right (default) */
+  .theme-editorial .svc-card:nth-child(odd) .svc-card__body {
+    flex-direction: row;
+  }
+
+  /* Even cards: reversed — text left, icon right */
+  .theme-editorial .svc-card:nth-child(even) .svc-card__body {
+    flex-direction: row-reverse;
+  }
+
+  /* Service icon larger */
+  .theme-editorial .svc-card__icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+    margin-bottom: 0;
+    line-height: 1;
+  }
+
+  /* Service name larger and bolder */
+  .theme-editorial .svc-card__name {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+  }
+
+  .theme-editorial .svc-card__desc {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    max-width: 60ch;
+  }
+
+  /* Extra services: editorial style */
+  .theme-editorial .extra-services {
+    border: none;
+    border-top: 1px solid var(--border, #e5e7eb);
+    border-radius: 0;
+    background: transparent;
+    padding: 2.5rem 0 0;
+    margin-top: 1rem;
+  }
+
+  .theme-editorial .extra-services__title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .theme-editorial .extra-services__list {
+    gap: 1.5rem;
+  }
+
+  .theme-editorial .extra-svc__icon {
+    font-size: 1.5rem;
+  }
+
+  .theme-editorial .extra-svc strong {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .theme-editorial .extra-svc p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 480px) {
+    .theme-editorial #services {
+      padding-top: 2.5rem;
+      padding-bottom: 2.5rem;
+    }
+
+    .theme-editorial .svc-card__body {
+      flex-direction: column !important;
+      gap: 1rem;
+      padding: 1.75rem 0;
+    }
+
+    .theme-editorial .svc-card__desc {
+      max-width: 100%;
+    }
+
+    .theme-editorial .extra-services {
+      padding: 1.5rem 0 0;
+    }
+  }
+
+  /* =============================================
+     THEME: Bold — Energetic & Punchy
+     ============================================= */
+
+  /* Section padding */
+  .theme-bold #services {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  /* 2-3 column grid */
+  .theme-bold .service-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  /* Cards with colored top bar, thicker border */
+  .theme-bold .svc-card {
+    border: 1.5px solid var(--border, #e5e7eb);
+    border-top: 6px solid var(--primary, var(--maroon, #800000));
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: box-shadow 0.25s ease, transform 0.25s ease, border-left 0.25s ease;
+    position: relative;
+  }
+
+  /* Stronger shadow on hover + primary-colored left border */
+  .theme-bold .svc-card:hover {
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);
+    transform: translateY(-3px);
+    border-left: 4px solid var(--primary, var(--maroon, #800000));
+  }
+
+  .theme-bold .svc-card__body {
+    padding: 1.75rem;
+  }
+
+  /* Icon larger and more prominent */
+  .theme-bold .svc-card__icon {
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+    line-height: 1;
+  }
+
+  .theme-bold .svc-card__name {
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+  }
+
+  .theme-bold .svc-card__desc {
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  /* Extra services: bold style */
+  .theme-bold .extra-services {
+    border: 1.5px solid var(--border, #e5e7eb);
+    border-top: 6px solid var(--primary, var(--maroon, #800000));
+    border-radius: 6px;
+    padding: 2rem;
+    background: var(--bg-warm, #fafafa);
+  }
+
+  .theme-bold .extra-services__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  .theme-bold .extra-svc__icon {
+    font-size: 1.5rem;
+  }
+
+  .theme-bold .extra-svc strong {
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  @media (max-width: 768px) {
+    .theme-bold .service-cards {
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+  }
+
+  @media (max-width: 480px) {
+    .theme-bold #services {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+
+    .theme-bold .service-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .theme-bold .svc-card__body {
+      padding: 1.25rem;
+    }
+
+    .theme-bold .extra-services {
+      padding: 1.25rem;
+    }
+
+    .theme-bold .extra-services__list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,432 @@
+---
+import type { SiteContent, UIStrings } from '../../schema/content';
+
+interface Props {
+  site: SiteContent;
+  base: string;
+  ui?: UIStrings;
+}
+
+const { site, ui } = Astro.props;
+const { team, business } = site;
+const aboutImage = business.aboutImage;
+const hasContent = (team && team.length > 0) || aboutImage;
+---
+
+{hasContent && (
+  <section class="section section--warm" id="about">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__eyebrow">About Us</span>
+        <h2 class="section__title">{ui?.sections?.about || 'Meet Our Team'}</h2>
+      </div>
+      {aboutImage && (
+        <div class="about-split">
+          <div class="about-split__text">
+            {business?.description && <p class="about-split__description">{business.description}</p>}
+          </div>
+          <div class="about-split__image-wrap">
+            <img src={aboutImage} alt={`${business.name} facility`} class="about-split__image" loading="lazy" />
+          </div>
+        </div>
+      )}
+      {team && team.length > 0 && (
+        <div class="team">
+          {team.map((member) => (
+            <div class="team__member">
+              <div class="team__avatar">
+                {member.name.split(' ').map((n) => n[0]).join('')}
+              </div>
+              <h3 class="team__name">{member.name}</h3>
+              <p class="team__role">{member.role}</p>
+              {member.bio && <p class="team__bio">{member.bio}</p>}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+)}
+
+<style is:global>
+  /* --- About split layout --- */
+  .about-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .about-split__description {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--text-mid, #555);
+  }
+
+  .about-split__image-wrap {
+    display: flex;
+    justify-content: center;
+  }
+
+  .about-split__image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  }
+
+  @media (max-width: 768px) {
+    .about-split {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .about-split__image {
+      max-height: 300px;
+    }
+  }
+
+  /* --- Team --- */
+  .team {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 700px;
+  }
+
+  .team__member {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .team__avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: var(--yellow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.03em;
+    margin: 0 auto 1rem;
+  }
+
+  .team__name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+
+  .team__role {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--maroon);
+    margin-bottom: 0.75rem;
+  }
+
+  .team__bio {
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+  }
+
+  @media (max-width: 768px) {
+    .team { grid-template-columns: 1fr; }
+  }
+</style>
+
+<style is:global>
+  /* ============================================================
+     THEME: Suspended — Clean & Airy
+     ============================================================ */
+
+  /* Section padding */
+  .theme-suspended #about {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+
+  /* --- About split --- */
+  .theme-suspended .about-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .theme-suspended .about-split__image {
+    border-radius: 16px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .theme-suspended .about-split__description {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text-mid, #555);
+  }
+
+  /* --- Team --- */
+  .theme-suspended .team {
+    max-width: 900px;
+    gap: 2rem;
+  }
+
+  .theme-suspended .team__member {
+    background: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 2.25rem 2rem;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.2s ease;
+  }
+
+  .theme-suspended .team__member:hover {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  .theme-suspended .team__avatar {
+    width: 80px;
+    height: 80px;
+    font-size: 1.25rem;
+    margin: 0 auto 1.25rem;
+  }
+
+  /* --- Responsive --- */
+  @media (max-width: 768px) {
+    .theme-suspended .about-split {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .theme-suspended .team {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ============================================================
+     THEME: Editorial — Bold & Editorial
+     ============================================================ */
+
+  /* Section padding */
+  .theme-editorial #about {
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+  }
+
+  /* --- About split: full-width banner image --- */
+  .theme-editorial .about-split {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .theme-editorial .about-split__image-wrap {
+    width: 100%;
+  }
+
+  .theme-editorial .about-split__image {
+    width: 100%;
+    height: 400px;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .theme-editorial .about-split__text {
+    max-width: 700px;
+  }
+
+  .theme-editorial .about-split__description {
+    font-size: 1.15rem;
+    font-style: italic;
+    line-height: 1.8;
+    color: var(--text-mid, #555);
+    max-width: 700px;
+  }
+
+  /* --- Team: horizontal cards --- */
+  .theme-editorial .team {
+    max-width: 700px;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .theme-editorial .team__member {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+    text-align: left;
+    padding: 1.5rem 2rem;
+    border: none;
+    border-left: 4px solid var(--primary, var(--maroon));
+    border-radius: 0;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  }
+
+  .theme-editorial .team__avatar {
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .theme-editorial .team__name {
+    margin-bottom: 0.15rem;
+  }
+
+  .theme-editorial .team__role {
+    margin-bottom: 0.5rem;
+  }
+
+  .theme-editorial .team__bio {
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+
+  /* --- Responsive --- */
+  @media (max-width: 768px) {
+    .theme-editorial .about-split__image {
+      height: 260px;
+      max-height: 260px;
+    }
+
+    .theme-editorial .team__member {
+      flex-direction: column;
+      text-align: center;
+      gap: 0.75rem;
+    }
+
+    .theme-editorial .team__avatar {
+      margin: 0 auto;
+    }
+
+    .theme-editorial .team {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ============================================================
+     THEME: Bold — Energetic & Punchy
+     ============================================================ */
+
+  /* Section padding */
+  .theme-bold #about {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  /* --- About split: accent background panel --- */
+  .theme-bold .about-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    align-items: stretch;
+    margin-bottom: 3rem;
+  }
+
+  .theme-bold .about-split__text {
+    background: color-mix(in srgb, var(--primary, var(--maroon)) 8%, transparent);
+    padding: 2.5rem;
+    display: flex;
+    align-items: center;
+    border-radius: 12px 0 0 12px;
+  }
+
+  .theme-bold .about-split__description {
+    font-size: 1.1rem;
+    line-height: 1.75;
+    color: var(--text, #333);
+  }
+
+  .theme-bold .about-split__image-wrap {
+    padding: 0;
+  }
+
+  .theme-bold .about-split__image {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    object-fit: cover;
+    border-radius: 0 12px 12px 0;
+    border: 3px solid var(--primary, var(--maroon));
+    box-shadow: 0 6px 28px rgba(0, 0, 0, 0.15);
+  }
+
+  /* --- Team --- */
+  .theme-bold .team {
+    max-width: 700px;
+    gap: 2rem;
+  }
+
+  .theme-bold .team__member {
+    background: #fff;
+    border: 1px solid var(--border, #e0e0e0);
+    border-bottom: 4px solid var(--primary, var(--maroon));
+    border-radius: 8px;
+    padding: 2.25rem 2rem;
+    text-align: center;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .theme-bold .team__member:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.14);
+  }
+
+  .theme-bold .team__avatar {
+    width: 96px;
+    height: 96px;
+    font-size: 1.5rem;
+    margin: 0 auto 1.25rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .theme-bold .team__name {
+    font-size: 1.2rem;
+    font-weight: 800;
+  }
+
+  .theme-bold .team__role {
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .theme-bold .team__bio {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  /* --- Responsive --- */
+  @media (max-width: 768px) {
+    .theme-bold .about-split {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .theme-bold .about-split__text {
+      border-radius: 12px 12px 0 0;
+      padding: 2rem 1.5rem;
+    }
+
+    .theme-bold .about-split__image {
+      border-radius: 0 0 12px 12px;
+      max-height: 300px;
+    }
+
+    .theme-bold .team {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

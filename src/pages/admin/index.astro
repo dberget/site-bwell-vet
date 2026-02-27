@@ -1,0 +1,2804 @@
+---
+export const prerender = false;
+
+import { listSites, listSitePages } from '../../lib/github';
+import { checkAuth } from '../../lib/auth';
+
+// Auth check
+const adminSecret = import.meta.env.ADMIN_SECRET || 'siteengine2026';
+const ghToken = import.meta.env.GITHUB_TOKEN || '';
+const auth = await checkAuth(Astro.cookies.get('se_auth')?.value, adminSecret, ghToken);
+if (!auth.authenticated) {
+  return Astro.redirect('/admin/login');
+}
+
+// Get list of sites from GitHub API
+let sites: string[] = [];
+if (ghToken) {
+  try {
+    sites = await listSites(ghToken);
+  } catch (e) {
+    console.error('Failed to list sites:', e);
+  }
+}
+
+// Scope sites for client logins
+if (auth.role === 'client' && auth.site) {
+  sites = sites.filter(s => s === auth.site);
+}
+
+const singleSiteMode = sites.length <= 1;
+
+const DISPLAY_NAMES: Record<string, string> = {
+  'becker-auto': 'Becker Auto Repair',
+  'boyd-lawn': 'Boyd Lawn Co.',
+  'bwell-vet': 'B Well Veterinary',
+  'centrasota-electric': 'CentraSota Electric',
+  'lennes-bros-electric': 'Lennes Bros Electric',
+  'mill-lake-resort': 'Mill Lake Resort',
+  'northside-collision': 'Northside Collision',
+  'now-and-then-antiques': 'Now & Then Antiques',
+  'quality-printing': 'Quality Printing Co.',
+  'rosengren-lawn': 'Rosengren Lawn Care',
+};
+
+const AVATAR_COLORS: string[] = [
+  '#2563eb', '#7c3aed', '#db2777', '#ea580c', '#0891b2',
+  '#059669', '#d97706', '#4f46e5', '#be185d', '#0d9488',
+];
+
+const selectedSite = Astro.url.searchParams.get('site') || sites[0] || '';
+const selectedName = DISPLAY_NAMES[selectedSite] || selectedSite;
+const selectedLetter = selectedName ? selectedName.charAt(0).toUpperCase() : '?';
+const selectedColorIdx = sites.indexOf(selectedSite);
+const selectedColor = AVATAR_COLORS[selectedColorIdx >= 0 ? selectedColorIdx % AVATAR_COLORS.length : 0];
+
+// Get pages for selected site
+let pages: string[] = [];
+if (ghToken && selectedSite) {
+  try {
+    pages = await listSitePages(selectedSite, ghToken);
+  } catch (e) {
+    console.error('Failed to list pages:', e);
+  }
+}
+const selectedPage = Astro.url.searchParams.get('page') || 'index';
+const vercelBypassSecret = import.meta.env.VERCEL_AUTOMATION_BYPASS_SECRET || '';
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Site Engine — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style is:global>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f1f5f9;
+      height: 100vh;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    * { scrollbar-width: thin; scrollbar-color: #cbd5e1 transparent; }
+
+    /* ===== Layout ===== */
+    .layout {
+      display: flex;
+      height: 100vh;
+    }
+
+    .mobile-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(2px);
+      z-index: 199;
+    }
+    .mobile-overlay.visible { display: block; }
+
+    /* ===== Rail ===== */
+    .rail {
+      width: 60px;
+      background: #0f172a;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      transition: width 0.2s ease;
+      overflow: hidden;
+      z-index: 200;
+    }
+    .rail.expanded { width: 220px; }
+
+    .rail-header {
+      display: flex;
+      align-items: center;
+      padding: 0.875rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      min-height: 56px;
+      gap: 0.5rem;
+    }
+    .rail-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+      overflow: hidden;
+      cursor: pointer;
+      flex: 1;
+      min-width: 0;
+    }
+    .rail-brand-icon {
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.875rem;
+    }
+    .rail-brand-text {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #f8fafc;
+      letter-spacing: -0.02em;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+    .rail.expanded .rail-brand-text { opacity: 1; }
+
+    .rail-toggle {
+      background: none;
+      border: none;
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.15s;
+      opacity: 0;
+      pointer-events: none;
+      flex-shrink: 0;
+    }
+    .rail.expanded .rail-toggle { opacity: 1; pointer-events: auto; }
+    .rail-toggle:hover { background: rgba(255,255,255,0.06); color: #94a3b8; }
+    .rail-toggle svg { transition: transform 0.2s ease; }
+
+    /* ===== Rail Site Selector ===== */
+    .rail-site-wrap {
+      padding: 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+    }
+    .rail-site-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 0.5rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+      overflow: hidden;
+      font-family: inherit;
+    }
+    .rail-site-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.1); }
+    .rail-site-avatar {
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: white;
+    }
+    .rail-site-name {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: #e2e8f0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      flex: 1;
+      text-align: left;
+    }
+    .rail.expanded .rail-site-name { opacity: 1; }
+    .rail-site-chevron {
+      color: #64748b;
+      flex-shrink: 0;
+      opacity: 0;
+      transition: opacity 0.15s, transform 0.2s;
+    }
+    .rail.expanded .rail-site-chevron { opacity: 1; }
+    .rail-site-dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0.5rem;
+      right: 0.5rem;
+      background: #1e293b;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 0.25rem;
+      z-index: 300;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      min-width: 200px;
+    }
+    .rail-site-dropdown.visible { display: block; }
+    .rail-site-option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.15s;
+      color: #cbd5e1;
+    }
+    .rail-site-option:hover { background: rgba(255,255,255,0.06); }
+    .rail-site-option.active { background: rgba(37,99,235,0.15); color: #93c5fd; }
+    .rail-site-option-avatar {
+      width: 24px;
+      height: 24px;
+      min-width: 24px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      color: white;
+    }
+    .rail-site-option-name {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ===== Rail Navigation ===== */
+    .rail-nav {
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .rail-nav-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      width: 100%;
+      padding: 0.625rem;
+      border: none;
+      background: none;
+      color: #64748b;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.15s;
+      font-family: inherit;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .rail-nav-item:hover { background: rgba(255,255,255,0.06); color: #94a3b8; }
+    .rail-nav-item.active { background: rgba(37,99,235,0.12); color: #60a5fa; }
+    .rail-nav-item.active::before {
+      content: '';
+      position: absolute;
+      left: -0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 20px;
+      background: #2563eb;
+      border-radius: 0 3px 3px 0;
+    }
+    .rail-nav-icon { width: 20px; height: 20px; min-width: 20px; }
+    .rail-nav-label {
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+    .rail.expanded .rail-nav-label { opacity: 1; }
+
+    /* ===== Rail Bottom ===== */
+    .rail-bottom {
+      padding: 0.5rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .rail-logout:hover { color: #f87171 !important; background: rgba(239,68,68,0.1) !important; }
+    .rail-version {
+      font-size: 0.625rem;
+      color: #334155;
+      text-align: center;
+      padding: 0.375rem;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+    .rail.expanded .rail-version { opacity: 1; }
+
+    /* ===== Main Area ===== */
+    .main {
+      flex: 1;
+      display: flex;
+      min-width: 0;
+    }
+
+    /* ===== Panel ===== */
+    .panel {
+      width: 420px;
+      background: white;
+      border-right: 1px solid #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+    .panel-header {
+      padding: 1rem 1.25rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .panel-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #2563eb, #7c3aed, #06b6d4);
+      opacity: 0.15;
+    }
+    .panel-header-text { flex: 1; min-width: 0; }
+    .panel-header-text h2 {
+      font-size: 0.9375rem;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.025em;
+    }
+    .panel-subtitle {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      font-weight: 400;
+      margin-top: 0.125rem;
+      letter-spacing: -0.01em;
+    }
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+    .mobile-menu-btn:hover { background: #f1f5f9; color: #0f172a; }
+
+    /* ===== Escalation Button ===== */
+    .escalate-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      background: none;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 0.375rem 0.75rem;
+      font-size: 0.6875rem;
+      font-weight: 500;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: inherit;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .escalate-btn:hover { border-color: #f59e0b; color: #d97706; background: #fffbeb; }
+    .escalate-btn svg { flex-shrink: 0; }
+
+    /* ===== Preview ===== */
+    .preview {
+      flex: 1;
+      padding: 1rem;
+      min-width: 0;
+    }
+    .preview-frame {
+      height: 100%;
+      background: white;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.04);
+    }
+    .preview-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 1rem;
+      height: 48px;
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      flex-shrink: 0;
+    }
+    .preview-dots { display: flex; gap: 7px; flex-shrink: 0; }
+    .preview-dots span {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      transition: opacity 0.15s;
+    }
+    .preview-dots span:hover { opacity: 0.8; }
+    .dot-red { background: #ff5f57; }
+    .dot-yellow { background: #febc2e; }
+    .dot-green { background: #28c840; }
+    .preview-url-bar {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 0 0.75rem;
+      height: 30px;
+      gap: 6px;
+    }
+    .preview-url-lock {
+      color: #22c55e;
+      font-size: 0.6875rem;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .preview-url {
+      font-size: 0.75rem;
+      color: #64748b;
+      font-family: 'Inter', sans-serif;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .preview-actions { display: flex; align-items: center; gap: 2px; flex-shrink: 0; }
+    .preview-action-btn {
+      background: none;
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .preview-action-btn:hover { background: #f1f5f9; color: #475569; }
+    .preview-action-btn svg { width: 14px; height: 14px; }
+    .preview-iframe-wrap {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+    .preview-iframe-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.04), inset 0 0 0 1px rgba(0,0,0,0.02);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .preview-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* ===== Quick Actions ===== */
+    .shortcuts {
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .shortcuts-label {
+      font-size: 0.625rem;
+      font-weight: 500;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+    .shortcuts-row {
+      display: flex;
+      gap: 0.375rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .shortcuts-row::-webkit-scrollbar { display: none; }
+    .shortcut-btn {
+      flex-shrink: 0;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 0.375rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+    }
+    .shortcut-btn:hover {
+      background: #f8fafc;
+      border-color: #93c5fd;
+      color: #2563eb;
+      box-shadow: 0 2px 8px rgba(37,99,235,0.1);
+      transform: translateY(-1px);
+    }
+    .shortcut-btn:active { transform: translateY(0); box-shadow: none; }
+    .shortcut-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.625rem;
+      flex-shrink: 0;
+    }
+
+    /* ===== Deploy Bar ===== */
+    .deploy-bar {
+      display: none;
+      align-items: center;
+      gap: 0.625rem;
+      padding: 0.625rem 1.25rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .deploy-bar.visible {
+      display: flex;
+      animation: slideDown 0.3s ease-out;
+    }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-100%); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Pending (committed, waiting for deploy to start) */
+    .deploy-bar.deploy-pending {
+      background: linear-gradient(135deg, #fffbeb, #fef3c7);
+      border-bottom: 1px solid #fde68a;
+    }
+    .deploy-bar.deploy-pending .deploy-dot { background: #f59e0b; }
+    .deploy-bar.deploy-pending .deploy-dot::after { background: rgba(245,158,11,0.3); }
+    .deploy-bar.deploy-pending .deploy-text { color: #92400e; }
+
+    /* Building */
+    .deploy-bar.deploy-building {
+      background: linear-gradient(135deg, #eff6ff, #dbeafe);
+      border-bottom: 1px solid #93c5fd;
+    }
+    .deploy-bar.deploy-building .deploy-dot { background: #3b82f6; }
+    .deploy-bar.deploy-building .deploy-dot::after { background: rgba(59,130,246,0.3); }
+    .deploy-bar.deploy-building .deploy-text { color: #1e40af; }
+
+    /* Success (live) */
+    .deploy-bar.deploy-success {
+      background: linear-gradient(135deg, #f0fdf4, #ecfdf5);
+      border-bottom: 1px solid #bbf7d0;
+    }
+    .deploy-bar.deploy-success .deploy-dot { background: #22c55e; }
+    .deploy-bar.deploy-success .deploy-dot::after { background: rgba(34,197,94,0.3); animation: none; }
+    .deploy-bar.deploy-success .deploy-text { color: #15803d; }
+
+    /* Error */
+    .deploy-bar.deploy-error {
+      background: linear-gradient(135deg, #fef2f2, #fee2e2);
+      border-bottom: 1px solid #fecaca;
+    }
+    .deploy-bar.deploy-error .deploy-dot { background: #ef4444; }
+    .deploy-bar.deploy-error .deploy-dot::after { background: rgba(239,68,68,0.3); animation: none; }
+    .deploy-bar.deploy-error .deploy-text { color: #991b1b; }
+
+    .deploy-bar::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      animation: deploy-shimmer 2s ease-in-out infinite;
+    }
+    .deploy-bar.deploy-success::before,
+    .deploy-bar.deploy-error::before { animation: none; }
+    @keyframes deploy-shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    .deploy-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .deploy-dot::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      animation: deploy-pulse 2s ease-in-out infinite;
+    }
+    @keyframes deploy-pulse {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0; transform: scale(1.8); }
+    }
+    .deploy-text {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== Publish Bar ===== */
+    .publish-bar {
+      display: none;
+      align-items: center;
+      gap: 0.625rem;
+      padding: 0.625rem 1.25rem;
+      background: linear-gradient(135deg, #fefce8, #fef9c3);
+      border-bottom: 1px solid #fde047;
+    }
+    .publish-bar.visible { display: flex; }
+    .publish-bar-text {
+      flex: 1;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: #854d0e;
+    }
+    .publish-bar-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #eab308;
+      flex-shrink: 0;
+    }
+    .publish-btn {
+      background: #16a34a;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 0.375rem 0.875rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .publish-btn:hover { background: #15803d; }
+    .publish-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .discard-btn {
+      background: none;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+      border-radius: 6px;
+      padding: 0.375rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .discard-btn:hover { background: #fef2f2; border-color: #f87171; }
+    .discard-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* ===== Messages ===== */
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      background: #f8fafc;
+    }
+    .messages::before { content: ''; flex: 1; }
+    .msg-group {
+      display: flex;
+      flex-direction: column;
+      animation: msg-in 0.3s ease-out;
+    }
+    .msg-group-user { align-items: flex-end; }
+    .msg-group-assistant { align-items: flex-start; }
+    @keyframes msg-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .msg-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      max-width: 85%;
+    }
+    .msg-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+      box-shadow: 0 1px 3px rgba(37,99,235,0.3);
+    }
+    .msg {
+      padding: 0.75rem 1rem;
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      word-wrap: break-word;
+      letter-spacing: -0.01em;
+    }
+    .msg-user {
+      max-width: 78%;
+      background-color: #2563eb !important;
+      color: #ffffff !important;
+      border-radius: 18px 18px 4px 18px;
+      box-shadow: 0 2px 4px rgba(37,99,235,0.2);
+    }
+    .msg-row .msg { max-width: none; }
+    .msg-assistant {
+      background-color: #ffffff !important;
+      color: #334155 !important;
+      border-radius: 4px 18px 18px 18px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      max-width: 90%;
+    }
+    .msg-time {
+      font-size: 0.6875rem;
+      color: #94a3b8;
+      margin-top: 0.5rem;
+      padding: 0 0.25rem;
+      letter-spacing: 0.01em;
+      font-weight: 400;
+    }
+    .msg-group-assistant .msg-time { padding-left: calc(28px + 0.5rem + 0.25rem); }
+    .msg-group-user .msg-time { text-align: right; }
+
+    /* ===== Welcome Message ===== */
+    .msg-welcome-heading {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: #0f172a;
+      letter-spacing: -0.015em;
+      margin-bottom: 0.25rem;
+    }
+    .msg-welcome-body {
+      font-size: 0.875rem;
+      color: #64748b;
+      line-height: 1.6;
+    }
+    .msg-welcome-example {
+      display: block;
+      margin-top: 0.625rem;
+      padding: 0.5rem 0.75rem;
+      background: #f8fafc;
+      border-left: 2px solid #cbd5e1;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.8125rem;
+      color: #475569;
+      font-style: italic;
+      letter-spacing: -0.005em;
+    }
+
+    /* ===== Typing Indicator ===== */
+    .msg-typing-dots {
+      background: #f0f4ff;
+      padding: 0.75rem 1rem;
+      border-radius: 4px 18px 18px 18px;
+      border: 1px solid #dbe4ff;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .msg-typing-label {
+      font-size: 0.8125rem;
+      color: #64748b;
+      margin-right: 4px;
+    }
+    .msg-typing-dot {
+      width: 7px;
+      height: 7px;
+      background: #6366f1;
+      border-radius: 50%;
+      animation: bounce 1.4s infinite;
+    }
+    .msg-typing-dot:nth-child(2) { animation-delay: 0s; }
+    .msg-typing-dot:nth-child(3) { animation-delay: 0.15s; }
+    .msg-typing-dot:nth-child(4) { animation-delay: 0.3s; }
+    @keyframes bounce {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-5px); }
+    }
+
+    /* ===== Chat Input ===== */
+    .chat-input {
+      padding: 0.875rem 1.25rem;
+      border-top: 1px solid #e2e8f0;
+      background: #f8fafc;
+    }
+    .chat-input-container {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.5rem;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 0.375rem 0.375rem 0.375rem 1rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .chat-input-container:focus-within {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.08);
+    }
+    .chat-input textarea {
+      flex: 1;
+      resize: none;
+      border: none;
+      background: transparent;
+      padding: 0.375rem 0;
+      font-size: 0.8125rem;
+      font-family: inherit;
+      outline: none;
+      line-height: 1.5;
+      max-height: 5.5rem;
+      color: #0f172a;
+    }
+    .chat-input textarea::placeholder { color: #c0c9d6; font-style: italic; }
+    .input-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      flex-shrink: 0;
+    }
+    .upload-btn {
+      background: none;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+      transition: all 0.15s ease;
+    }
+    .upload-btn:hover { background: #f1f5f9; color: #475569; }
+    .upload-btn svg { width: 18px; height: 18px; }
+    .send-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #2563eb;
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .send-btn:hover {
+      background: #1d4ed8;
+      transform: scale(1.08);
+      box-shadow: 0 2px 8px rgba(37,99,235,0.3);
+    }
+    .send-btn:active { transform: scale(0.95); }
+    .send-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; box-shadow: none; }
+    .send-btn svg { width: 16px; height: 16px; }
+    .input-hint {
+      font-size: 0.625rem;
+      color: #d4dae3;
+      text-align: right;
+      margin-top: 0.375rem;
+      padding-right: 0.25rem;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .chat-input-container:focus-within + .input-hint { opacity: 1; }
+
+    /* Drag-and-drop */
+    .chat-input.drag-over .chat-input-container {
+      border-color: #2563eb;
+      background: #eff6ff;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+    }
+    .drop-preview {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.5rem 0 0;
+      flex-wrap: wrap;
+    }
+    .drop-preview:empty { display: none; }
+    .drop-preview-item {
+      position: relative;
+      width: 56px;
+      height: 56px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+    }
+    .drop-preview-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .drop-preview-item .remove-img {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.55);
+      color: white;
+      border: none;
+      font-size: 11px;
+      line-height: 18px;
+      text-align: center;
+      cursor: pointer;
+      padding: 0;
+      display: none;
+    }
+    .drop-preview-item:hover .remove-img { display: block; }
+
+    /* ===== History Panel ===== */
+    .history-panel {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem;
+      display: none;
+      flex-direction: column;
+      background: #f8fafc;
+    }
+    .history-panel.visible { display: flex; }
+    .history-timeline {
+      position: relative;
+      padding-left: 1.5rem;
+    }
+    .history-timeline::before {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 8px;
+      bottom: 8px;
+      width: 1.5px;
+      background: #e2e8f0;
+      border-radius: 1px;
+    }
+    .history-entry {
+      position: relative;
+      padding: 0.625rem 0 1rem;
+    }
+    .history-entry:last-child { padding-bottom: 0; }
+    .history-entry::before {
+      content: '';
+      position: absolute;
+      left: -1.5rem;
+      top: 0.75rem;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: white;
+      border: 2px solid #2563eb;
+      transform: translateX(-0.5px);
+    }
+    .history-entry:first-child::before { background: #2563eb; }
+    .history-date {
+      font-size: 0.6875rem;
+      color: #94a3b8;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+    .history-message {
+      font-size: 0.8125rem;
+      color: #1e293b;
+      line-height: 1.5;
+    }
+    .history-author {
+      font-size: 0.6875rem;
+      color: #94a3b8;
+      margin-top: 0.25rem;
+    }
+    .history-empty {
+      text-align: center;
+      color: #94a3b8;
+      font-size: 0.8125rem;
+      padding: 3rem 1rem;
+    }
+
+    /* ===== Leads Panel ===== */
+    .leads-panel {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem;
+      display: none;
+      flex-direction: column;
+      gap: 0.75rem;
+      background: #f8fafc;
+    }
+    .leads-panel.visible { display: flex; }
+    .lead-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1rem;
+      transition: border-color 0.15s;
+    }
+    .lead-card:hover { border-color: #cbd5e1; }
+    .lead-card__name { font-size: 0.875rem; font-weight: 600; color: #0f172a; }
+    .lead-card__phone a {
+      font-size: 0.8125rem;
+      color: #2563eb;
+      text-decoration: none;
+      margin-top: 0.25rem;
+      display: inline-block;
+    }
+    .lead-card__phone a:hover { text-decoration: underline; }
+    .lead-card__email { font-size: 0.8125rem; color: #64748b; margin-top: 0.125rem; }
+    .lead-card__message { font-size: 0.8125rem; color: #475569; margin-top: 0.5rem; line-height: 1.5; }
+    .lead-card__date { font-size: 0.6875rem; color: #94a3b8; margin-top: 0.5rem; }
+
+    /* ===== Assets Panel ===== */
+    .assets-panel {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem;
+      display: none;
+      flex-direction: column;
+      gap: 1rem;
+      background: #f8fafc;
+    }
+    .assets-panel.visible { display: flex; }
+    .assets-header h3 { font-size: 1rem; font-weight: 600; color: #0f172a; margin-bottom: 0.25rem; }
+    .assets-subtitle { font-size: 0.8125rem; color: #64748b; }
+    .assets-section {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 1rem;
+    }
+    .assets-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #64748b;
+      margin-bottom: 0.75rem;
+    }
+    .slots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.75rem;
+    }
+    .slot-card {
+      aspect-ratio: 4/3;
+      border: 2px dashed #e2e8f0;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s;
+      position: relative;
+      overflow: hidden;
+      background: #f8fafc;
+    }
+    .slot-card:hover { border-color: #94a3b8; background: #f1f5f9; }
+    .slot-card.selected {
+      border-color: #2563eb;
+      border-style: solid;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+    }
+    .slot-card.has-image { border-style: solid; border-color: #e2e8f0; }
+    .slot-card img { width: 100%; height: 100%; object-fit: cover; }
+    .slot-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      color: white;
+      font-size: 0.6875rem;
+      font-weight: 500;
+      padding: 1.5rem 0.5rem 0.5rem;
+      text-align: center;
+    }
+    .slot-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: #94a3b8;
+    }
+    .slot-empty svg { width: 24px; height: 24px; }
+    .slot-empty-label { font-size: 0.6875rem; font-weight: 500; }
+    .slot-remove {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+    .slot-card:hover .slot-remove { opacity: 1; }
+    .unassigned-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .unassigned-img {
+      width: 80px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.15s;
+    }
+    .unassigned-img:hover { border-color: #94a3b8; }
+    .unassigned-img.selected {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 2px rgba(37,99,235,0.15);
+    }
+    .assets-empty {
+      text-align: center;
+      padding: 2rem;
+      color: #94a3b8;
+      font-size: 0.875rem;
+    }
+
+    /* ===== Escalation Modal ===== */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,0.6);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.visible { display: flex; }
+    .modal {
+      background: white;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 480px;
+      margin: 1rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+    .modal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 1.5rem 1.5rem 0.75rem;
+    }
+    .modal-header h3 {
+      font-size: 1.0625rem;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.02em;
+    }
+    .modal-header .modal-subtitle {
+      font-size: 0.8125rem;
+      color: #64748b;
+      margin-top: 0.25rem;
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.125rem;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .modal-close:hover { background: #f1f5f9; color: #475569; }
+    .modal-body { padding: 0 1.5rem; }
+    .modal-body textarea {
+      width: 100%;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      font-family: inherit;
+      font-size: 0.875rem;
+      resize: vertical;
+      outline: none;
+      line-height: 1.5;
+      color: #0f172a;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .modal-body textarea:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.08);
+    }
+    .modal-body textarea::placeholder { color: #c0c9d6; }
+    .modal-context {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      font-size: 0.75rem;
+      color: #94a3b8;
+    }
+    .modal-context svg { flex-shrink: 0; }
+    .modal-result { padding: 0 1.5rem; }
+    .modal-success {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 1rem;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      margin-top: 0.75rem;
+    }
+    .modal-success strong { font-size: 0.875rem; color: #15803d; }
+    .modal-success a {
+      color: #2563eb;
+      text-decoration: none;
+      font-size: 0.8125rem;
+      font-weight: 500;
+    }
+    .modal-success a:hover { text-decoration: underline; }
+    .modal-error {
+      padding: 0.75rem 1rem;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 10px;
+      color: #dc2626;
+      font-size: 0.8125rem;
+      margin-top: 0.75rem;
+    }
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      padding: 1.25rem 1.5rem;
+    }
+    .modal-cancel {
+      background: none;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: #64748b;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .modal-cancel:hover { background: #f8fafc; border-color: #cbd5e1; color: #475569; }
+    .modal-submit {
+      background: #2563eb;
+      border: none;
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .modal-submit:hover { background: #1d4ed8; }
+    .modal-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* ===== Page Tabs ===== */
+    .page-tabs {
+      display: flex;
+      gap: 2px;
+      padding: 0.5rem 1.25rem;
+      border-bottom: 1px solid #e2e8f0;
+      background: white;
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex-shrink: 0;
+    }
+    .page-tabs::-webkit-scrollbar { display: none; }
+    .page-tab {
+      flex-shrink: 0;
+      background: none;
+      border: none;
+      border-radius: 6px;
+      padding: 0.375rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+    .page-tab:hover { background: #f1f5f9; color: #334155; }
+    .page-tab.active {
+      background: #eff6ff;
+      color: #2563eb;
+      font-weight: 600;
+    }
+
+    /* ===== Mobile Responsive ===== */
+    @media (max-width: 768px) {
+      .rail {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 220px !important;
+        transform: translateX(-100%);
+        transition: transform 0.2s ease;
+      }
+      .rail.mobile-open { transform: translateX(0); }
+      .rail .rail-nav-label,
+      .rail .rail-brand-text,
+      .rail .rail-site-name,
+      .rail .rail-site-chevron,
+      .rail .rail-version { opacity: 1; }
+      .rail .rail-toggle { opacity: 1; pointer-events: auto; }
+      .preview { display: none; }
+      .panel { width: 100% !important; border-right: none; }
+      .mobile-menu-btn { display: flex; }
+      .escalate-btn span { display: none; }
+    }
+    @media (max-width: 1200px) and (min-width: 769px) {
+      .panel { width: 360px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <!-- Mobile overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <!-- Left Rail -->
+    <aside class="rail" id="rail">
+      <div class="rail-header">
+        <div class="rail-brand" id="railBrand">
+          <span class="rail-brand-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+          <span class="rail-brand-text">Site Engine</span>
+        </div>
+        <button class="rail-toggle" id="railToggle" title="Collapse sidebar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="11 17 6 12 11 7"/></svg>
+        </button>
+      </div>
+
+      {!singleSiteMode && (
+        <div class="rail-site-wrap">
+          <button class="rail-site-btn" id="siteSelectorBtn">
+            <span class="rail-site-avatar" style={`background:${selectedColor}`}>{selectedLetter}</span>
+            <span class="rail-site-name">{selectedName}</span>
+            <svg class="rail-site-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="rail-site-dropdown" id="siteDropdown">
+            {sites.map((slug, i) => {
+              const name = DISPLAY_NAMES[slug] || slug;
+              const letter = name.charAt(0).toUpperCase();
+              const color = AVATAR_COLORS[i % AVATAR_COLORS.length];
+              return (
+                <a href={`/admin?site=${slug}`} class={`rail-site-option ${slug === selectedSite ? 'active' : ''}`}>
+                  <span class="rail-site-option-avatar" style={`background:${color}`}>{letter}</span>
+                  <span class="rail-site-option-name">{name}</span>
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      <nav class="rail-nav">
+        <button class="rail-nav-item active" id="tabChat" onclick="switchTab('chat')" title="Chat">
+          <svg class="rail-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          <span class="rail-nav-label">Chat</span>
+        </button>
+        <button class="rail-nav-item" id="tabHistory" onclick="switchTab('history')" title="History">
+          <svg class="rail-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <span class="rail-nav-label">History</span>
+        </button>
+        <button class="rail-nav-item" id="tabLeads" onclick="switchTab('leads')" title="Leads">
+          <svg class="rail-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          <span class="rail-nav-label">Leads</span>
+        </button>
+        <button class="rail-nav-item" id="tabAssets" onclick="switchTab('assets')" title="Assets">
+          <svg class="rail-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span class="rail-nav-label">Assets</span>
+        </button>
+      </nav>
+
+      <div style="flex:1"></div>
+
+      <div class="rail-bottom">
+        <button class="rail-nav-item rail-logout" onclick="document.cookie='se_auth=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT';window.location.href='/admin/login'" title="Logout">
+          <svg class="rail-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <span class="rail-nav-label">Logout</span>
+        </button>
+        <div class="rail-version">Site Engine v0.1</div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="main">
+      <!-- Panel (Chat / History / Leads / Assets) -->
+      <div class="panel">
+        <div class="panel-header">
+          <button class="mobile-menu-btn" id="mobileMenuBtn" title="Menu">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <div class="panel-header-text">
+            <h2 id="panelTitle">Edit Content</h2>
+            <p class="panel-subtitle" id="panelSubtitle">Chat with AI to update your website</p>
+          </div>
+          <button class="escalate-btn" id="escalateBtn" title="Get developer help for complex changes">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span>Get Developer Help</span>
+          </button>
+        </div>
+
+        {pages.length > 1 && (
+          <div class="page-tabs" id="pageTabs">
+            {pages.map((page) => (
+              <button
+                class={`page-tab ${page === selectedPage ? 'active' : ''}`}
+                data-page={page}
+                onclick={`switchPage('${page}')`}
+              >
+                {page === 'index' ? 'Home' : page.charAt(0).toUpperCase() + page.slice(1)}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <div class="shortcuts" id="shortcuts" style="display:none"></div>
+
+        <div class="deploy-bar" id="deployBar">
+          <span class="deploy-dot"></span>
+          <span class="deploy-text" id="deployText">Changes committed...</span>
+        </div>
+
+        <div class="publish-bar" id="publishBar">
+          <span class="publish-bar-dot"></span>
+          <span class="publish-bar-text">Unpublished changes</span>
+          <button class="publish-btn" id="publishBtn" onclick="handlePublish()">Publish</button>
+          <button class="discard-btn" id="discardBtn" onclick="handleDiscard()">Discard</button>
+        </div>
+
+        <div class="messages" id="messages"></div>
+
+        <div class="history-panel" id="historyPanel">
+          <div class="history-empty" id="historyLoading">Loading history...</div>
+        </div>
+
+        <div class="leads-panel" id="leadsPanel">
+          <div class="history-empty">Loading leads...</div>
+        </div>
+
+        <div class="assets-panel" id="assetsPanel">
+          <div class="assets-header">
+            <h3>Page Images</h3>
+            <p class="assets-subtitle">Click an image slot, then select an image to assign</p>
+          </div>
+          <div class="assets-section">
+            <div class="assets-label">Image Slots</div>
+            <div class="slots-grid" id="slotsGrid"></div>
+          </div>
+          <div class="assets-section">
+            <div class="assets-label">Unassigned Images</div>
+            <div class="unassigned-grid" id="unassignedGrid"></div>
+          </div>
+          <input type="file" id="assetUpload" accept="image/*" style="display:none" />
+        </div>
+
+        <div class="chat-input" id="chatInputArea">
+          <div class="chat-input-container">
+            <textarea
+              id="chatInput"
+              rows="1"
+              placeholder="Tell me what you'd like to change..."
+            ></textarea>
+            <div class="input-actions">
+              <button class="upload-btn" id="uploadBtn" title="Upload image">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg>
+              </button>
+              <input type="file" id="fileInput" accept="image/*" multiple style="display:none" />
+              <button class="send-btn" id="sendBtn" onclick="handleSend()">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8h9M8.5 4L12.5 8l-4 4"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="drop-preview" id="dropPreview"></div>
+          <div class="input-hint">Press Enter to send</div>
+        </div>
+      </div>
+
+      <!-- Preview -->
+      <div class="preview">
+        <div class="preview-frame">
+          <div class="preview-bar">
+            <div class="preview-dots">
+              <span class="dot-red"></span>
+              <span class="dot-yellow"></span>
+              <span class="dot-green"></span>
+            </div>
+            <div class="preview-url-bar">
+              <span class="preview-url-lock">
+                <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="7" width="9" height="7" rx="1.5"/><path d="M5.5 7V4.5a2.5 2.5 0 015 0V7"/></svg>
+              </span>
+              <span class="preview-url" id="previewUrl">{singleSiteMode ? `/${selectedPage === 'index' ? '' : selectedPage}` : `/${selectedSite}/${selectedPage === 'index' ? '' : selectedPage}`}</span>
+            </div>
+            <div class="preview-actions">
+              <button class="preview-action-btn" id="refreshBtn" title="Refresh preview">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 8A5.5 5.5 0 113 5.5"/><path d="M3 2v3.5h3.5"/></svg>
+              </button>
+              <a href={singleSiteMode ? `/${selectedPage === 'index' ? '' : selectedPage}` : `/${selectedSite}/${selectedPage === 'index' ? '' : selectedPage}`} target="_blank" class="preview-action-btn" id="previewLink" title="Open in new tab">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4v4"/><path d="M14 2L7 9"/><path d="M13 9v4a1 1 0 01-1 1H3a1 1 0 01-1-1V4a1 1 0 011-1h4"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="preview-iframe-wrap">
+            <iframe id="previewFrame" src={singleSiteMode ? `/${selectedPage === 'index' ? '' : selectedPage}` : `/${selectedSite}/${selectedPage === 'index' ? '' : selectedPage}`}></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Escalation Modal -->
+  <div class="modal-overlay" id="escalateModal">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <h3>Get Developer Help</h3>
+          <p class="modal-subtitle">Describe the changes you need a developer to make</p>
+        </div>
+        <button class="modal-close" id="escalateClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <textarea id="escalateNote" rows="4" placeholder="e.g., I need a custom booking form with calendar integration..."></textarea>
+        <div class="modal-context">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span>Your recent chat messages will be included for context</span>
+        </div>
+      </div>
+      <div class="modal-result" id="escalateResult"></div>
+      <div class="modal-footer">
+        <button class="modal-cancel" id="escalateCancel">Cancel</button>
+        <button class="modal-submit" id="escalateSubmit">Submit Request</button>
+      </div>
+    </div>
+  </div>
+
+  <script define:vars={{ selectedSite, singleSiteMode, pages, selectedPage, vercelBypassSecret }}>
+    const siteSlug = selectedSite;
+    let currentPage = selectedPage;
+    let messages = [];
+    let loading = false;
+    let historyLoaded = false;
+    let leadsLoaded = false;
+
+    // Preview branch state
+    let previewMode = false;
+    let previewBranch = '';
+    let previewDeployUrl = null;
+
+    const PAGE_NAMES = {
+      index: 'Home',
+      services: 'Services',
+      about: 'About',
+      contact: 'Contact',
+      cabins: 'Cabins',
+      activities: 'Activities',
+    };
+    const messagesEl = document.getElementById('messages');
+    const inputEl = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const deployBar = document.getElementById('deployBar');
+    const historyPanel = document.getElementById('historyPanel');
+    const shortcutsEl = document.getElementById('shortcuts');
+    const chatInputArea = document.getElementById('chatInputArea');
+    const fileInput = document.getElementById('fileInput');
+
+    // ===== Rail toggle =====
+    document.getElementById('railBrand')?.addEventListener('click', () => {
+      const rail = document.getElementById('rail');
+      if (!rail.classList.contains('expanded')) {
+        rail.classList.add('expanded');
+      }
+    });
+    document.getElementById('railToggle')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      document.getElementById('rail').classList.remove('expanded');
+    });
+
+    // ===== Site selector dropdown =====
+    document.getElementById('siteSelectorBtn')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const dropdown = document.getElementById('siteDropdown');
+      dropdown.classList.toggle('visible');
+      // Expand rail to show dropdown properly
+      document.getElementById('rail').classList.add('expanded');
+    });
+    document.addEventListener('click', () => {
+      document.getElementById('siteDropdown')?.classList.remove('visible');
+    });
+
+    // ===== Mobile menu =====
+    document.getElementById('mobileMenuBtn')?.addEventListener('click', () => {
+      document.getElementById('rail').classList.add('mobile-open');
+      document.getElementById('mobileOverlay').classList.add('visible');
+    });
+    document.getElementById('mobileOverlay')?.addEventListener('click', () => {
+      document.getElementById('rail').classList.remove('mobile-open');
+      document.getElementById('mobileOverlay').classList.remove('visible');
+    });
+
+    // ===== Auto-grow textarea =====
+    inputEl.addEventListener('input', () => {
+      inputEl.style.height = 'auto';
+      inputEl.style.height = Math.min(inputEl.scrollHeight, 88) + 'px';
+    });
+
+    // ===== Refresh preview =====
+    function getPreviewUrl() {
+      const pagePart = currentPage === 'index' ? '' : currentPage;
+      if (previewMode && previewDeployUrl) {
+        const base = `${previewDeployUrl}/${singleSiteMode ? '' : siteSlug + '/'}${pagePart}`;
+        if (vercelBypassSecret) {
+          return base + (base.includes('?') ? '&' : '?') + `x-vercel-protection-bypass=${vercelBypassSecret}&x-vercel-set-bypass-cookie=samesitenone`;
+        }
+        return base;
+      }
+      if (singleSiteMode) return '/' + pagePart;
+      return `/${siteSlug}/${pagePart}`;
+    }
+    function refreshPreview() {
+      const url = getPreviewUrl();
+      const frame = document.getElementById('previewFrame');
+      frame.src = url + (url.includes('?') ? '&' : '?') + '_=' + Date.now();
+      const urlEl = document.getElementById('previewUrl');
+      if (urlEl) urlEl.textContent = url || '/';
+      const previewLink = document.getElementById('previewLink');
+      if (previewLink) previewLink.href = url;
+    }
+    document.getElementById('refreshBtn').addEventListener('click', refreshPreview);
+    window.refreshPreview = refreshPreview;
+
+    // ===== Page switching =====
+    function switchPage(page) {
+      currentPage = page;
+      // Clear conversation when switching pages
+      messages = [];
+      // Update active tab styling
+      document.querySelectorAll('.page-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.page === page);
+      });
+      // Refresh preview to new page
+      refreshPreview();
+      // Update open-in-new-tab link
+      const previewLink = document.getElementById('previewLink');
+      if (previewLink) previewLink.href = getPreviewUrl();
+      // Re-add welcome message
+      messagesEl.innerHTML = '';
+      addWelcome();
+    }
+    window.switchPage = switchPage;
+
+    // ===== Welcome message =====
+    addWelcome();
+
+    inputEl.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        window.handleSend();
+      }
+    });
+
+    // ===== Quick edit shortcuts =====
+    function prefill(text) {
+      inputEl.value = text;
+      inputEl.focus();
+    }
+
+    // ===== Tab switching =====
+    const leadsPanel = document.getElementById('leadsPanel');
+    const assetsPanel = document.getElementById('assetsPanel');
+    let assetsLoaded = false;
+    let selectedSlot = null;
+
+    function switchTab(tab) {
+      const tabChat = document.getElementById('tabChat');
+      const tabHistory = document.getElementById('tabHistory');
+      const tabLeads = document.getElementById('tabLeads');
+      const tabAssets = document.getElementById('tabAssets');
+      const panelTitle = document.getElementById('panelTitle');
+      const panelSubtitle = document.getElementById('panelSubtitle');
+      const escalateBtn = document.getElementById('escalateBtn');
+
+      tabChat.classList.remove('active');
+      tabHistory.classList.remove('active');
+      tabLeads.classList.remove('active');
+      tabAssets.classList.remove('active');
+
+      messagesEl.style.display = 'none';
+      historyPanel.classList.remove('visible');
+      leadsPanel.classList.remove('visible');
+      assetsPanel.classList.remove('visible');
+      chatInputArea.style.display = 'none';
+      if (escalateBtn) escalateBtn.style.display = 'none';
+
+      if (tab === 'chat') {
+        tabChat.classList.add('active');
+        messagesEl.style.display = 'flex';
+        chatInputArea.style.display = 'block';
+        if (panelTitle) panelTitle.textContent = 'Edit Content';
+        if (panelSubtitle) panelSubtitle.textContent = 'Chat with AI to update your website';
+        if (escalateBtn) escalateBtn.style.display = 'flex';
+      } else if (tab === 'history') {
+        tabHistory.classList.add('active');
+        historyPanel.classList.add('visible');
+        if (panelTitle) panelTitle.textContent = 'Edit History';
+        if (panelSubtitle) panelSubtitle.textContent = 'Recent changes to your site';
+        if (!historyLoaded) loadHistory();
+      } else if (tab === 'leads') {
+        tabLeads.classList.add('active');
+        leadsPanel.classList.add('visible');
+        if (panelTitle) panelTitle.textContent = 'Contact Leads';
+        if (panelSubtitle) panelSubtitle.textContent = 'Form submissions from your site';
+        if (!leadsLoaded) loadLeads();
+      } else if (tab === 'assets') {
+        tabAssets.classList.add('active');
+        assetsPanel.classList.add('visible');
+        if (panelTitle) panelTitle.textContent = 'Page Images';
+        if (panelSubtitle) panelSubtitle.textContent = 'Manage your site images';
+        loadAssets();
+      }
+
+      // Close mobile menu on tab switch
+      document.getElementById('rail')?.classList.remove('mobile-open');
+      document.getElementById('mobileOverlay')?.classList.remove('visible');
+    }
+
+    // ===== Assets management =====
+    async function loadAssets() {
+      const slotsGrid = document.getElementById('slotsGrid');
+      const unassignedGrid = document.getElementById('unassignedGrid');
+
+      slotsGrid.innerHTML = '<div class="assets-empty">Loading...</div>';
+      unassignedGrid.innerHTML = '';
+
+      try {
+        const branchParam = previewMode && previewBranch ? `&branch=${previewBranch}` : '';
+        const res = await fetch(`/api/assets?slug=${siteSlug}${branchParam}`);
+        const data = await res.json();
+
+        if (data.error) {
+          slotsGrid.innerHTML = `<div class="assets-empty">Error: ${data.error}</div>`;
+          return;
+        }
+
+        slotsGrid.innerHTML = data.slots.map(slot => `
+          <div class="slot-card ${slot.currentImage ? 'has-image' : ''}" data-slot="${slot.id}" onclick="selectSlot('${slot.id}')">
+            ${slot.currentImage
+              ? `<img src="${slot.currentImage}" alt="${slot.label}" />
+                 <button class="slot-remove" onclick="event.stopPropagation(); unassignSlot('${slot.id}')">&times;</button>
+                 <div class="slot-label">${slot.label}</div>`
+              : `<div class="slot-empty">
+                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                   <span class="slot-empty-label">${slot.label}</span>
+                 </div>`
+            }
+          </div>
+        `).join('');
+
+        if (data.unassigned.length > 0) {
+          unassignedGrid.innerHTML = data.unassigned.map(img => `
+            <img src="${img}" class="unassigned-img" onclick="selectImage('${img}')" alt="Unassigned" />
+          `).join('');
+        } else {
+          unassignedGrid.innerHTML = '<div class="assets-empty">No unassigned images</div>';
+        }
+
+        assetsLoaded = true;
+      } catch (err) {
+        slotsGrid.innerHTML = `<div class="assets-empty">Failed to load assets</div>`;
+      }
+    }
+
+    window.selectSlot = function(slotId) {
+      selectedSlot = slotId;
+      document.querySelectorAll('.slot-card').forEach(el => el.classList.remove('selected'));
+      document.querySelector(`[data-slot="${slotId}"]`)?.classList.add('selected');
+    };
+
+    window.selectImage = async function(imageUrl) {
+      if (!selectedSlot) {
+        alert('First click on a slot to select where you want to place this image');
+        return;
+      }
+
+      try {
+        const assignBody = { action: 'assign', slug: siteSlug, slotId: selectedSlot, imageUrl };
+        if (previewMode && previewBranch) assignBody.branch = previewBranch;
+        const res = await fetch('/api/assets', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(assignBody)
+        });
+        const data = await res.json();
+
+        if (data.ok) {
+          selectedSlot = null;
+          loadAssets();
+          if (data.commitSha) {
+            startDeployPolling(data.commitSha);
+          } else {
+            startDeployFallback();
+          }
+        } else {
+          alert('Error: ' + data.error);
+        }
+      } catch (err) {
+        alert('Failed to assign image');
+      }
+    };
+
+    window.unassignSlot = async function(slotId) {
+      try {
+        const unassignBody = { action: 'unassign', slug: siteSlug, slotId };
+        if (previewMode && previewBranch) unassignBody.branch = previewBranch;
+        const res = await fetch('/api/assets', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(unassignBody)
+        });
+        const data = await res.json();
+
+        if (data.ok) {
+          loadAssets();
+          if (data.commitSha) {
+            startDeployPolling(data.commitSha);
+          } else {
+            startDeployFallback();
+          }
+        } else {
+          alert('Error: ' + data.error);
+        }
+      } catch (err) {
+        alert('Failed to unassign image');
+      }
+    };
+
+    // ===== Time formatting =====
+    function timeAgo(date) {
+      const now = new Date();
+      const seconds = Math.floor((now - date) / 1000);
+      if (seconds < 60) return 'just now';
+      const minutes = Math.floor(seconds / 60);
+      if (minutes < 60) return minutes === 1 ? '1 minute ago' : `${minutes} minutes ago`;
+      const hours = Math.floor(minutes / 60);
+      if (hours < 24) return hours === 1 ? '1 hour ago' : `${hours} hours ago`;
+      const days = Math.floor(hours / 24);
+      if (days < 7) return days === 1 ? 'yesterday' : `${days} days ago`;
+      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: date.getFullYear() !== now.getFullYear() ? 'numeric' : undefined });
+    }
+
+    // ===== History =====
+    async function loadHistory() {
+      historyLoaded = true;
+      historyPanel.innerHTML = '<div class="history-empty">Loading history...</div>';
+
+      try {
+        const res = await fetch(`/api/history?slug=${encodeURIComponent(siteSlug)}`);
+        const commits = await res.json();
+
+        if (commits.error) {
+          historyPanel.innerHTML = `<div class="history-empty">Error: ${commits.error}</div>`;
+          historyLoaded = false;
+          return;
+        }
+
+        if (!commits.length) {
+          historyPanel.innerHTML = '<div class="history-empty">No edit history found.</div>';
+          return;
+        }
+
+        historyPanel.innerHTML = '';
+        const timeline = document.createElement('div');
+        timeline.className = 'history-timeline';
+        commits.forEach((c) => {
+          const entry = document.createElement('div');
+          entry.className = 'history-entry';
+          const d = new Date(c.date);
+          entry.innerHTML = `
+            <div class="history-date">${timeAgo(d)}</div>
+            <div class="history-message">${escapeHtml(c.message)}</div>
+            <div class="history-author">${escapeHtml(c.author)}</div>
+          `;
+          timeline.appendChild(entry);
+        });
+        historyPanel.appendChild(timeline);
+      } catch {
+        historyPanel.innerHTML = '<div class="history-empty">Failed to load history.</div>';
+        historyLoaded = false;
+      }
+    }
+
+    // ===== Leads =====
+    async function loadLeads() {
+      leadsLoaded = true;
+      leadsPanel.innerHTML = '<div class="history-empty">Loading leads...</div>';
+
+      try {
+        const res = await fetch(`/api/leads?slug=${encodeURIComponent(siteSlug)}`);
+        const leads = await res.json();
+
+        if (leads.error) {
+          leadsPanel.innerHTML = `<div class="history-empty">Error: ${leads.error}</div>`;
+          leadsLoaded = false;
+          return;
+        }
+
+        if (!leads.length) {
+          leadsPanel.innerHTML = '<div class="history-empty">No leads yet.</div>';
+          return;
+        }
+
+        leadsPanel.innerHTML = '';
+        leads.forEach((lead) => {
+          const card = document.createElement('div');
+          card.className = 'lead-card';
+          const date = lead.submittedAt ? new Date(lead.submittedAt) : null;
+          card.innerHTML =
+            `<div class="lead-card__name">${escapeHtml(lead.name)}</div>` +
+            `<div class="lead-card__phone"><a href="tel:${escapeHtml(lead.phone)}">${escapeHtml(lead.phone)}</a></div>` +
+            (lead.email ? `<div class="lead-card__email">${escapeHtml(lead.email)}</div>` : '') +
+            (lead.message ? `<div class="lead-card__message">${escapeHtml(lead.message)}</div>` : '') +
+            (date ? `<div class="lead-card__date">${timeAgo(date)}</div>` : '');
+          leadsPanel.appendChild(card);
+        });
+      } catch {
+        leadsPanel.innerHTML = '<div class="history-empty">Failed to load leads.</div>';
+        leadsLoaded = false;
+      }
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    // ===== Image upload =====
+    const pendingFiles = [];
+    const chatInputArea = document.getElementById('chatInputArea');
+    const dropPreview = document.getElementById('dropPreview');
+
+    document.getElementById('uploadBtn').addEventListener('click', () => {
+      fileInput.click();
+    });
+
+    fileInput.addEventListener('change', () => {
+      if (!fileInput.files.length) return;
+      for (const f of fileInput.files) addPendingFile(f);
+      fileInput.value = '';
+    });
+
+    // Drag-and-drop on chat input area
+    let dragCounter = 0;
+    chatInputArea.addEventListener('dragenter', (e) => {
+      e.preventDefault();
+      dragCounter++;
+      chatInputArea.classList.add('drag-over');
+    });
+    chatInputArea.addEventListener('dragleave', (e) => {
+      e.preventDefault();
+      dragCounter--;
+      if (dragCounter <= 0) {
+        dragCounter = 0;
+        chatInputArea.classList.remove('drag-over');
+      }
+    });
+    chatInputArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+    });
+    chatInputArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dragCounter = 0;
+      chatInputArea.classList.remove('drag-over');
+      const files = [...e.dataTransfer.files].filter(f => f.type.startsWith('image/'));
+      if (!files.length) return;
+      for (const f of files) addPendingFile(f);
+    });
+
+    function addPendingFile(file) {
+      if (!file.type.startsWith('image/')) return;
+      pendingFiles.push(file);
+      renderDropPreview();
+    }
+
+    function renderDropPreview() {
+      dropPreview.innerHTML = '';
+      pendingFiles.forEach((file, i) => {
+        const item = document.createElement('div');
+        item.className = 'drop-preview-item';
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+        img.alt = file.name;
+        const btn = document.createElement('button');
+        btn.className = 'remove-img';
+        btn.textContent = '\u00d7';
+        btn.onclick = () => {
+          URL.revokeObjectURL(img.src);
+          pendingFiles.splice(i, 1);
+          renderDropPreview();
+        };
+        item.appendChild(img);
+        item.appendChild(btn);
+        dropPreview.appendChild(item);
+      });
+    }
+
+    async function uploadFile(file) {
+      const form = new FormData();
+      form.append('file', file);
+      form.append('siteSlug', siteSlug);
+      if (previewMode && previewBranch) form.append('branch', previewBranch);
+      const res = await fetch('/api/upload', { method: 'POST', body: form });
+      return res.json();
+    }
+
+    // ===== Message rendering =====
+    function formatTime(date) {
+      return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+    }
+
+    function addWelcome() {
+      const group = document.createElement('div');
+      group.className = 'msg-group msg-group-assistant';
+
+      const row = document.createElement('div');
+      row.className = 'msg-row';
+
+      const avatar = document.createElement('div');
+      avatar.className = 'msg-avatar';
+      avatar.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+
+      const bubble = document.createElement('div');
+      bubble.className = 'msg msg-assistant';
+      bubble.innerHTML = '<div class="msg-welcome-heading">Hey! I\'m your website editor.</div>' +
+        '<div class="msg-welcome-body">Just tell me what to change and I\'ll update your live site automatically.<br><br>' +
+        'Try the Quick Actions above, or type something like:</div>' +
+        '<span class="msg-welcome-example">&ldquo;Update our hours to 8am\u20136pm&rdquo;</span>';
+
+      row.appendChild(avatar);
+      row.appendChild(bubble);
+      group.appendChild(row);
+
+      const time = document.createElement('div');
+      time.className = 'msg-time';
+      time.textContent = formatTime(new Date());
+      group.appendChild(time);
+
+      messagesEl.appendChild(group);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function formatDisplay(content) {
+      return content
+        .replace(/```astro-page\n[\s\S]*?```/g, 'Page updated')
+        .replace(/```site-data\n[\s\S]*?```/g, 'Site data updated');
+    }
+
+    function addMessage(role, content) {
+      const display = formatDisplay(content);
+
+      const group = document.createElement('div');
+      group.className = `msg-group msg-group-${role}`;
+
+      if (role === 'assistant') {
+        const row = document.createElement('div');
+        row.className = 'msg-row';
+
+        const avatar = document.createElement('div');
+        avatar.className = 'msg-avatar';
+        avatar.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+
+        const bubble = document.createElement('div');
+        bubble.className = 'msg msg-assistant';
+        bubble.innerHTML = escapeHtml(display).replace(/\n/g, '<br>');
+
+        row.appendChild(avatar);
+        row.appendChild(bubble);
+        group.appendChild(row);
+      } else {
+        const bubble = document.createElement('div');
+        bubble.className = 'msg msg-user';
+        bubble.innerHTML = escapeHtml(display).replace(/\n/g, '<br>');
+        group.appendChild(bubble);
+      }
+
+      const time = document.createElement('div');
+      time.className = 'msg-time';
+      time.textContent = formatTime(new Date());
+
+      group.appendChild(time);
+      messagesEl.appendChild(group);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    // Create an empty assistant bubble for streaming and return a function to append text
+    function createStreamingBubble() {
+      const group = document.createElement('div');
+      group.className = 'msg-group msg-group-assistant';
+
+      const row = document.createElement('div');
+      row.className = 'msg-row';
+
+      const avatar = document.createElement('div');
+      avatar.className = 'msg-avatar';
+      avatar.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+
+      const bubble = document.createElement('div');
+      bubble.className = 'msg msg-assistant';
+
+      row.appendChild(avatar);
+      row.appendChild(bubble);
+      group.appendChild(row);
+
+      const time = document.createElement('div');
+      time.className = 'msg-time';
+      time.textContent = formatTime(new Date());
+      group.appendChild(time);
+
+      messagesEl.appendChild(group);
+
+      let rawText = '';
+      let deployed = false;
+
+      function computeDisplay() {
+        let text = rawText;
+        let inCodeBlock = false;
+
+        // Remove complete code blocks (opening + content + closing ```)
+        text = text.replace(/```(?:astro-page|site-data)\n[\s\S]*?```\n?/g, () => {
+          deployed = true;
+          return '';
+        });
+
+        // Handle incomplete (still-streaming) code block
+        text = text.replace(/```(?:astro-page|site-data)[\s\S]*$/, () => {
+          deployed = true;
+          inCodeBlock = true;
+          return '';
+        });
+
+        // Trim trailing whitespace before status line
+        if (inCodeBlock) {
+          text = text.trimEnd() + '\n✦ Updating your site...';
+        }
+
+        return text;
+      }
+
+      return {
+        append(text) {
+          rawText += text;
+          bubble.innerHTML = escapeHtml(computeDisplay()).replace(/\n/g, '<br>');
+          messagesEl.scrollTop = messagesEl.scrollHeight;
+        },
+        getText() { return rawText; },
+        wasDeployed() { return deployed; },
+        finalize() {
+          if (deployed) {
+            const suffix = previewMode
+              ? '\nDone \u2014 your changes are saved. Preview will be ready shortly.'
+              : '\nDone \u2014 your site has been updated. Changes will be live in about a minute.';
+            bubble.innerHTML = escapeHtml(computeDisplay() + suffix).replace(/\n/g, '<br>');
+            messagesEl.scrollTop = messagesEl.scrollHeight;
+          }
+        },
+      };
+    }
+
+    function showTyping() {
+      const group = document.createElement('div');
+      group.className = 'msg-group msg-group-assistant';
+      group.id = 'typing';
+
+      const row = document.createElement('div');
+      row.className = 'msg-row';
+
+      const avatar = document.createElement('div');
+      avatar.className = 'msg-avatar';
+      avatar.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+
+      const dots = document.createElement('div');
+      dots.className = 'msg-typing-dots';
+      dots.innerHTML = '<span class="msg-typing-label">Updating</span><span class="msg-typing-dot"></span><span class="msg-typing-dot"></span><span class="msg-typing-dot"></span>';
+
+      row.appendChild(avatar);
+      row.appendChild(dots);
+      group.appendChild(row);
+      messagesEl.appendChild(group);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function hideTyping() {
+      document.getElementById('typing')?.remove();
+    }
+
+    // ===== Deploy status polling =====
+    let deployPollTimer = null;
+    let deployTimeoutTimer = null;
+
+    function setDeployState(state, message) {
+      const bar = document.getElementById('deployBar');
+      const text = document.getElementById('deployText');
+      // Remove old state classes
+      bar.classList.remove('deploy-pending', 'deploy-building', 'deploy-success', 'deploy-error');
+      bar.classList.add('visible', `deploy-${state}`);
+      text.textContent = message;
+    }
+
+    function clearDeployTimers() {
+      if (deployPollTimer) { clearInterval(deployPollTimer); deployPollTimer = null; }
+      if (deployTimeoutTimer) { clearTimeout(deployTimeoutTimer); deployTimeoutTimer = null; }
+    }
+
+    function startDeployPolling(sha, isPublish = false) {
+      clearDeployTimers();
+      if (isPublish) {
+        setDeployState('pending', 'Publishing — waiting for deploy...');
+      } else if (previewMode) {
+        setDeployState('pending', 'Changes saved — building preview...');
+      } else {
+        setDeployState('pending', 'Changes committed — waiting for deploy...');
+      }
+
+      deployPollTimer = setInterval(async () => {
+        try {
+          const res = await fetch(`/api/deploy-status?sha=${sha}`);
+          const data = await res.json();
+
+          if (data.error) return; // silently retry on transient errors
+
+          if (data.status === 'building') {
+            setDeployState('building', isPublish ? 'Publishing...' : previewMode ? 'Building preview...' : 'Building your site...');
+          } else if (data.status === 'success') {
+            clearDeployTimers();
+            if (isPublish) {
+              setDeployState('success', 'Live!');
+              previewMode = false;
+              previewBranch = '';
+              previewDeployUrl = null;
+              updatePublishBar();
+            } else if (previewMode) {
+              setDeployState('success', 'Preview ready!');
+              if (data.deploymentUrl) previewDeployUrl = data.deploymentUrl;
+            } else {
+              setDeployState('success', 'Live!');
+            }
+            refreshPreview();
+            setTimeout(() => {
+              document.getElementById('deployBar').classList.remove('visible');
+            }, 4000);
+          } else if (data.status === 'error') {
+            clearDeployTimers();
+            setDeployState('error', data.message || 'Deploy failed');
+            setTimeout(() => {
+              document.getElementById('deployBar').classList.remove('visible');
+            }, 8000);
+          }
+          // 'pending' — keep polling
+        } catch {
+          // Network error — keep polling
+        }
+      }, 5000);
+
+      // Max timeout: 120s — refresh iframe regardless and hide bar
+      deployTimeoutTimer = setTimeout(() => {
+        clearDeployTimers();
+        const bar = document.getElementById('deployBar');
+        if (bar.classList.contains('visible') && !bar.classList.contains('deploy-success')) {
+          setDeployState('success', previewMode ? 'Preview ready' : 'Site updated');
+          refreshPreview();
+          setTimeout(() => {
+            bar.classList.remove('visible');
+          }, 3000);
+        }
+      }, 120000);
+    }
+
+    // Fallback for when no commitSha is available (legacy path)
+    function startDeployFallback() {
+      clearDeployTimers();
+      setDeployState('pending', 'Changes saved — site updating...');
+      setTimeout(() => refreshPreview(), 45000);
+      setTimeout(() => {
+        document.getElementById('deployBar').classList.remove('visible');
+        refreshPreview();
+      }, 90000);
+    }
+
+    // ===== Send handler =====
+    async function handleSend() {
+      const text = inputEl.value.trim();
+      if (!text || loading) return;
+
+      inputEl.value = '';
+      inputEl.style.height = 'auto';
+      addMessage('user', text);
+      messages.push({ role: 'user', content: text });
+
+      loading = true;
+      sendBtn.disabled = true;
+      showTyping();
+
+      try {
+        const chatBody = { messages, siteSlug, pageName: currentPage };
+        if (previewMode && previewBranch) chatBody.branch = previewBranch;
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(chatBody),
+        });
+
+        // Non-SSE error responses (auth failures, etc.)
+        if (res.headers.get('Content-Type')?.includes('application/json')) {
+          const data = await res.json();
+          hideTyping();
+          addMessage('assistant', `Error: ${data.error}`);
+          loading = false;
+          sendBtn.disabled = false;
+          inputEl.focus();
+          return;
+        }
+
+        hideTyping();
+        const bubble = createStreamingBubble();
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n\n');
+          buffer = lines.pop() || '';
+
+          for (const line of lines) {
+            if (!line.startsWith('data: ')) continue;
+            const data = JSON.parse(line.slice(6));
+
+            if (data.text) {
+              bubble.append(data.text);
+            }
+
+            if (data.error) {
+              bubble.append(`\nError: ${data.error}`);
+            }
+
+            if (data.done) {
+              const fullText = bubble.getText();
+              messages.push({ role: 'assistant', content: fullText });
+              bubble.finalize();
+
+              // Enter preview mode on first edit
+              if (data.previewed && data.branch) {
+                previewMode = true;
+                previewBranch = data.branch;
+                updatePublishBar();
+              }
+
+              if (data.dataUpdated || data.previewed) {
+                if (data.commitSha) {
+                  startDeployPolling(data.commitSha);
+                } else {
+                  startDeployFallback();
+                }
+              }
+            }
+          }
+        }
+      } catch (err) {
+        hideTyping();
+        addMessage('assistant', 'Sorry, something went wrong. Please try again.');
+      }
+
+      loading = false;
+      sendBtn.disabled = false;
+      inputEl.focus();
+    }
+
+    // ===== Escalation modal =====
+    document.getElementById('escalateBtn')?.addEventListener('click', () => {
+      document.getElementById('escalateModal').classList.add('visible');
+      const noteEl = document.getElementById('escalateNote');
+      const submitBtn = document.getElementById('escalateSubmit');
+      noteEl.value = '';
+      noteEl.style.display = '';
+      submitBtn.style.display = '';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit Request';
+      document.getElementById('escalateCancel').textContent = 'Cancel';
+      document.getElementById('escalateResult').innerHTML = '';
+      noteEl.focus();
+    });
+
+    document.getElementById('escalateClose')?.addEventListener('click', () => {
+      document.getElementById('escalateModal').classList.remove('visible');
+    });
+
+    document.getElementById('escalateCancel')?.addEventListener('click', () => {
+      document.getElementById('escalateModal').classList.remove('visible');
+    });
+
+    document.getElementById('escalateSubmit')?.addEventListener('click', async () => {
+      const note = document.getElementById('escalateNote').value.trim();
+      if (!note) return;
+
+      const btn = document.getElementById('escalateSubmit');
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+
+      try {
+        const res = await fetch('/api/escalate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ siteSlug, note, messages })
+        });
+        const data = await res.json();
+
+        if (data.error) {
+          document.getElementById('escalateResult').innerHTML =
+            `<div class="modal-error">Error: ${escapeHtml(data.error)}</div>`;
+          btn.disabled = false;
+          btn.textContent = 'Submit Request';
+        } else {
+          document.getElementById('escalateResult').innerHTML =
+            `<div class="modal-success">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <div>
+                <strong>Request submitted!</strong><br>
+                <a href="${data.issueUrl}" target="_blank" rel="noopener">View on GitHub &rarr;</a>
+              </div>
+            </div>`;
+          document.getElementById('escalateNote').style.display = 'none';
+          btn.style.display = 'none';
+          document.getElementById('escalateCancel').textContent = 'Close';
+        }
+      } catch (err) {
+        document.getElementById('escalateResult').innerHTML =
+          `<div class="modal-error">Failed to submit request. Please try again.</div>`;
+        btn.disabled = false;
+        btn.textContent = 'Submit Request';
+      }
+    });
+
+    // Close modal on overlay click
+    document.getElementById('escalateModal')?.addEventListener('click', (e) => {
+      if (e.target === document.getElementById('escalateModal')) {
+        document.getElementById('escalateModal').classList.remove('visible');
+      }
+    });
+
+    // ===== Publish bar =====
+    function updatePublishBar() {
+      const bar = document.getElementById('publishBar');
+      if (previewMode) {
+        bar.classList.add('visible');
+      } else {
+        bar.classList.remove('visible');
+      }
+    }
+
+    async function handlePublish() {
+      const publishBtn = document.getElementById('publishBtn');
+      const discardBtn = document.getElementById('discardBtn');
+      publishBtn.disabled = true;
+      discardBtn.disabled = true;
+      publishBtn.textContent = 'Publishing...';
+
+      try {
+        const res = await fetch('/api/publish', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ siteSlug }),
+        });
+        const data = await res.json();
+
+        if (data.error) {
+          alert('Publish failed: ' + data.error);
+          publishBtn.disabled = false;
+          discardBtn.disabled = false;
+          publishBtn.textContent = 'Publish';
+          return;
+        }
+
+        // Start polling for the production deploy
+        if (data.commitSha) {
+          startDeployPolling(data.commitSha, true);
+        } else {
+          // Fallback: just exit preview mode
+          previewMode = false;
+          previewBranch = '';
+          previewDeployUrl = null;
+          updatePublishBar();
+          refreshPreview();
+        }
+      } catch {
+        alert('Publish failed. Please try again.');
+      }
+
+      publishBtn.disabled = false;
+      discardBtn.disabled = false;
+      publishBtn.textContent = 'Publish';
+    }
+
+    async function handleDiscard() {
+      if (!confirm('Discard all unpublished changes? This cannot be undone.')) return;
+
+      const publishBtn = document.getElementById('publishBtn');
+      const discardBtn = document.getElementById('discardBtn');
+      publishBtn.disabled = true;
+      discardBtn.disabled = true;
+      discardBtn.textContent = 'Discarding...';
+
+      try {
+        const res = await fetch('/api/publish', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ siteSlug }),
+        });
+        const data = await res.json();
+
+        if (data.error) {
+          alert('Discard failed: ' + data.error);
+        } else {
+          previewMode = false;
+          previewBranch = '';
+          previewDeployUrl = null;
+          updatePublishBar();
+          refreshPreview();
+        }
+      } catch {
+        alert('Discard failed. Please try again.');
+      }
+
+      publishBtn.disabled = false;
+      discardBtn.disabled = false;
+      discardBtn.textContent = 'Discard';
+    }
+
+    // ===== On-load: check for existing preview branch =====
+    (async function checkPreviewBranch() {
+      if (!siteSlug) return;
+      try {
+        const res = await fetch(`/api/deploy-status?ref=preview-${siteSlug}`);
+        const data = await res.json();
+        if (data.error) return;
+        // Branch exists (either has deployments or branchExists flag)
+        if (data.branchExists || (data.status !== 'not_found')) {
+          previewMode = true;
+          previewBranch = `preview-${siteSlug}`;
+          if (data.deploymentUrl) {
+            previewDeployUrl = data.deploymentUrl;
+            refreshPreview();
+          }
+          updatePublishBar();
+        }
+      } catch {
+        // No preview branch — that's fine
+      }
+    })();
+
+    // ===== Expose functions to inline handlers =====
+    // Wrap handleSend to support pending image uploads with vision
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(',')[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    const origHandleSend = handleSend;
+    async function handleSendWithImages() {
+      if (pendingFiles.length === 0) {
+        return origHandleSend();
+      }
+
+      const files = [...pendingFiles];
+      pendingFiles.length = 0;
+      renderDropPreview();
+
+      const text = inputEl.value.trim();
+      inputEl.value = '';
+      inputEl.style.height = 'auto';
+
+      const names = files.map(f => f.name).join(', ');
+      addMessage('user', text || `[Attached ${names}]`);
+      loading = true;
+      sendBtn.disabled = true;
+      showTyping();
+
+      // Upload files to GitHub and read base64 in parallel
+      const results = await Promise.all(files.map(async (file) => {
+        try {
+          const [uploadData, base64] = await Promise.all([uploadFile(file), fileToBase64(file)]);
+          if (uploadData.error) return { error: `Upload failed for ${file.name}: ${uploadData.error}` };
+          return { name: file.name, path: uploadData.path, base64, mediaType: file.type };
+        } catch {
+          return { error: `Upload failed for ${file.name}` };
+        }
+      }));
+
+      const errors = results.filter(r => r.error);
+      const uploaded = results.filter(r => !r.error);
+
+      if (errors.length > 0) {
+        hideTyping();
+        for (const e of errors) addMessage('assistant', e.error);
+      }
+
+      if (uploaded.length === 0) {
+        loading = false;
+        sendBtn.disabled = false;
+        return;
+      }
+
+      // Build multimodal content blocks: images + text
+      const contentBlocks = [];
+      for (const img of uploaded) {
+        contentBlocks.push({
+          type: 'image',
+          source: { type: 'base64', media_type: img.mediaType, data: img.base64 },
+        });
+      }
+      const paths = uploaded.map(u => u.path).join(', ');
+      const instruction = text
+        ? `${text}\n\nI uploaded these images to: ${paths}. Use those paths when referencing them in the page.`
+        : `I uploaded ${uploaded.length > 1 ? 'these images' : 'this image'} to: ${paths}. Here ${uploaded.length > 1 ? 'they are' : 'it is'} so you can see what ${uploaded.length > 1 ? 'they look' : 'it looks'} like. Use ${uploaded.length > 1 ? 'these paths' : 'this path'} when referencing ${uploaded.length > 1 ? 'them' : 'it'} in the page.`;
+      contentBlocks.push({ type: 'text', text: instruction });
+
+      // Push multimodal message into conversation
+      messages.push({ role: 'user', content: contentBlocks });
+
+      // Send to chat API (same flow as origHandleSend but messages already pushed)
+      try {
+        const chatBody = { messages, siteSlug, pageName: currentPage };
+        if (previewMode && previewBranch) chatBody.branch = previewBranch;
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(chatBody),
+        });
+
+        if (res.headers.get('Content-Type')?.includes('application/json')) {
+          const data = await res.json();
+          hideTyping();
+          addMessage('assistant', `Error: ${data.error}`);
+          loading = false;
+          sendBtn.disabled = false;
+          return;
+        }
+
+        hideTyping();
+        const bubble = createStreamingBubble();
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n\n');
+          buffer = lines.pop() || '';
+          for (const line of lines) {
+            if (!line.startsWith('data: ')) continue;
+            const data = JSON.parse(line.slice(6));
+            if (data.text) bubble.append(data.text);
+            if (data.error) bubble.append(`\nError: ${data.error}`);
+            if (data.done) {
+              const fullText = bubble.getText();
+              messages.push({ role: 'assistant', content: fullText });
+              bubble.finalize();
+              if (data.previewed && data.branch) {
+                previewMode = true;
+                previewBranch = data.branch;
+                updatePublishBar();
+              }
+              if (data.dataUpdated || data.previewed) {
+                if (data.commitSha) startDeployPolling(data.commitSha);
+                else startDeployFallback();
+              }
+            }
+          }
+        }
+      } catch {
+        hideTyping();
+        addMessage('assistant', 'Sorry, something went wrong. Please try again.');
+      }
+
+      loading = false;
+      sendBtn.disabled = false;
+      inputEl.focus();
+    }
+    window.handleSend = handleSendWithImages;
+    window.prefill = prefill;
+    window.switchTab = switchTab;
+    window.handlePublish = handlePublish;
+    window.handleDiscard = handleDiscard;
+  </script>
+</body>
+</html>
